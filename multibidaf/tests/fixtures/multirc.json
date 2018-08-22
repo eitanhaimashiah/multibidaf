@@ -1,0 +1,216 @@
+{
+    "data": [
+        {
+            "paragraph": {
+                "text": "<b>Sent 1: </b>Animated history of the US.<br><b>Sent 2: </b>Of course the cartoon is highly oversimplified, and most critics consider it one of the weakest parts of the film.<br><b>Sent 3: </b>But it makes a valid claim which you ignore entirely: That the strategy to promote \"gun rights\" for white people and to outlaw gun possession by black people was a way to uphold racism without letting an openly terrorist organization like the KKK flourish.<br><b>Sent 4: </b>Did the 19th century NRA in the southern states promote gun rights for black people?<br><b>Sent 5: </b>I highly doubt it.<br><b>Sent 6: </b>But if they didn't, one of their functions was to continue the racism of the KKK.<br><b>Sent 7: </b>This is the key message of this part of the animation, which is again being ignored by its critics.<br><b>Sent 8: </b>Buell shooting in Flint.<br><b>Sent 9: </b>You write: \"Fact: The little boy was the class thug, already suspended from school for stabbing another kid with a pencil, and had fought with Kayla the day before\".<br><b>Sent 10: </b>This characterization of a six-year-old as a pencil-stabbing thug is exactly the kind of hysteria that Moore's film warns against.<br><b>Sent 11: </b>It is the typical right-wing reaction which looks for simple answers that do not contradict the Republican mindset.<br><b>Sent 12: </b>The kid was a little bastard, and the parents were involved in drugs -- case closed.<br><b>Sent 13: </b>But why do people deal with drugs?<br><b>Sent 14: </b>Because it's so much fun to do so?<br><b>Sent 15: </b>It is by now well documented that the CIA tolerated crack sales in US cities to fund the operation of South American \"contras\" It is equally well known that the so-called \"war on drugs\" begun under the Nixon administration is a failure which has cost hundreds of billions and made America the world leader in prison population (both in relative and absolute numbers).<br>",
+                "questions": [
+                    {
+                        "question": "Does the author claim the animated films message is that the NRA upholds racism?",
+                        "sentences_used": [1,2,3,5],
+                        "answers": [
+                            {
+                                "text": "Yes",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Uphold, and continue",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "No",
+                                "isAnswer": false,
+                                "scores": {}
+                            }
+                        ],
+                        "idx": "0",
+                        "multisent": true
+                    },
+                    {
+                        "question": "Which key message(s) do(es) this passage say the critics ignored?",
+                        "sentences_used": [2,6],
+                        "answers": [
+                            {
+                                "text":"The strategy to promote \"gun rights\" for white people while outlawing it for black people allowed racisim to continue without allowing to KKK to flourish",
+                                "isAnswer": true,
+                                "scores":{}
+                            },
+                            {
+                                "text":"That it antagonized the KKK",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text":"That the KKK was a terrorist organization",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "The strategy to promote the KKK",
+                                "isAnswer": false,
+                                "scores": {}
+                            }
+                        ],
+                        "idx": "1",
+                        "multisent": true
+                    }
+                ]
+            },
+            "id": "Society_Law_and_Justice/masc-A_defense_of_Michael_Moore-8.txt"
+        },
+        {
+            "paragraph": {
+                "text": "<b>Sent 1: </b>Before the mysterious disappearance of one of its passenger jets this month, Malaysia wasn't a country used to finding itself dominating headlines around the world.<br><b>Sent 2: </b>Some of its Southeast Asian neighbors, including Indonesia and the Philippines, have suffered devastating natural disasters in recent years and are all too familiar with the media frenzy that accompanies a major crisis.<br><b>Sent 3: </b>But Malaysia has largely managed to stay out of the international spotlight since its independence from British colonial rule more than half a century ago.<br><b>Sent 4: </b>\"It is one of these countries, because of its geography, that doesn't have earthquakes,\" said Ernest Bower, senior adviser for Southeast Asia studies at the Center for Strategic and International Studies.<br><b>Sent 5: </b>\"It doesn't have tsunamis.<br><b>Sent 6: </b>It hasn't been tested with a disaster like this.\"<br><b>Sent 7: </b>The disappearance of Malaysia Airlines Flight 370 has thrust the government into the dazzling glare of worldwide attention.<br><b>Sent 8: </b>And it hasn't emerged with very good grades.<br><b>Sent 9: </b>\"I think on a stress test, they're failing,\" Bower told CNN's Jake Tapper, pointing to the government's coordination of different agencies and communication with other countries.<br><b>Sent 10: </b>China among critics Criticism and complaints have come from other countries involved in the search for the missing plane, including China and Vietnam, and from the relatives of passengers.<br><b>Sent 11: </b>Malaysian officials have created confusion by issuing contradictory statements on key aspects of the investigation.<br><b>Sent 12: </b>The majority of the people on board the plane were Chinese, and Beijing has increasingly voiced its displeasure with the search, especially after Malaysia announced over the weekend that evidence suggested the plane had been deliberately flown west into the Indian Ocean, away from its last confirmed location over the South China Sea.<br><b>Sent 13: </b>\"The new information means the intensive search in the South China Sea for the whole past week was worthless and would never bear fruit,\" said a commentary published by China's state-run news agency Xinhua.<br><b>Sent 14: </b>\"Even worse, the golden time for saving possible survivors, if any, was generously wasted.\"<br>",
+                "questions": [
+                    {
+                        "question": "What are two example of natural disasters that Malaysia does not experience?",
+                        "sentences_used": [2,3,4],
+                        "answers": [
+                            {
+                                "text": "Tornadoes",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Avalanches",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Earthquakes and tsunamis",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Earthquakes",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Ice storms and flooding",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Tsunamis",
+                                "isAnswer": true,
+                                "scores": {}
+                            }
+                        ],
+                        "idx": "0",
+                        "multisent": true
+                    },
+                    {
+                        "question": "Why are Chinese and Vietnamese officials critical of the Malaysian response?",
+                        "sentences_used": [9,10,11,13],
+                        "answers": [
+                            {
+                                "text": "Because Malaysia stated that the plane may have been flown into the Indian Ocean",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Ineffective rescue efforts",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Contradictory statements by Malaysian officials",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "They've issued contradictory statements, mishandled key evidence, and wasted time that could have been spent looking for survivors",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Malaysian government refused to work with Chinese government",
+                                "isAnswer": false,
+                              "scores": {}
+                            },
+                            {
+                                "text": "Because Malaysia has stated that the aircraft may have been flown into either China or Vietnam",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Plane crash caused earthquake that affected both China and Vietnam",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Because Malaysian officials have said there were no passengers aboard from either China or Vietnam",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Because many passengers aboard the aircraft were from Chine and Vietnam",
+                                "isAnswer": true,
+                                "scores": {}
+                            }
+                        ],
+                        "idx": "1",
+                        "multisent": true
+                    },
+                    {
+                        "question": "What has the new information from Malaysia potentially wasted time for?",
+                        "sentences_used": [12,13],
+                        "answers": [
+                            {
+                                "text": "The time for finding the terrorists involved has been wasted",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+
+                                "text": "\"Saving possible survivors\"",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "The new information may have meant that survivors were not found",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Time has been wasted for discovering who was responsible for the missing flight",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Evaluating evidence",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Time has been wasted for saving passengers",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Locating the flight plan",
+                                "isAnswer": false,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Successful rescue of survivors",
+                                "isAnswer": true,
+                                "scores": {}
+                            },
+                            {
+                                "text": "Locating survivors",
+                                "isAnswer": true,
+                                "scores": {}
+                            }
+                        ],
+                        "idx": "2",
+                        "multisent": true
+                    }
+                ]
+            },
+            "id": "News/CNN/cnn-3b372dbbdea7cabac969352b8b3169a0e55b1033.txt"
+        }
+    ]
+}
