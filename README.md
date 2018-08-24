@@ -1,5 +1,5 @@
 # Multi-BiDAF: Multiple Sentences Bi-directional Attention Flow
-Multi Sentences Bi-directional Attention Flow (Multi-BiDAF) network is a model designed to fit the [BiDAF](https://github.com/allenai/bi-att-flow.git) model of Seo et al. (2016) for the [Multi-RC](https://github.com/CogComp/multirc.git) dataset. This implementation is built on the [AllenNLP](https://github.com/allenai/allennlp.git) library.
+Multi Sentences Bi-directional Attention Flow (Multi-BiDAF) network is a model designed to fit the [BiDAF](https://github.com/allenai/bi-att-flow.git) model of Seo et al. (2017) for the [Multi-RC](https://github.com/CogComp/multirc.git) dataset. This implementation is built on the [AllenNLP](https://github.com/allenai/allennlp.git) library.
 
 ## Installation
 
