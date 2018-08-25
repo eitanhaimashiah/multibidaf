@@ -74,19 +74,20 @@ class MultiRCDatasetReader(DatasetReader):
             sentences = re.split(r"<b>Sent \d+: </b>",
                                  original_paragraph.replace("<br>", ""))[1:]
             tokenized_sentences = self._tokenizer.batch_tokenize(sentences)
-            sentence_indices = util.compute_sentence_indices(tokenized_sentences)
+            sentence_start_list = util.compute_sentence_start_list(tokenized_sentences)
 
             for question_answer in paragraph_json["questions"]:
                 question_text = question_answer["question"].strip().replace("\n", "")
                 answer_texts = [answer["text"] for answer in question_answer["answers"]]
                 answer_labels = [int(answer["isAnswer"]) for answer in question_answer["answers"]]
-                token_spans = [sentence_indices[sentence_num-1]
-                               for sentence_num in question_answer["sentences_used"]]
+                span_start_list = [sentence_start_list[sentence_num-1]
+                                   for sentence_num in question_answer["sentences_used"]]
                 qid = question_answer["idx"]
 
                 instance = self.text_to_instance(question_text,
                                                  paragraph,
-                                                 token_spans,
+                                                 span_start_list,
+                                                 sentence_start_list,
                                                  answer_texts,
                                                  answer_labels,
                                                  pid,
@@ -98,7 +99,8 @@ class MultiRCDatasetReader(DatasetReader):
     def text_to_instance(self,  # type: ignore
                          question_text: str,
                          passage_text: str,
-                         token_spans: List[Tuple[int, int]] = None,
+                         span_start_list: List[int] = None,
+                         sentence_start_list: List[int] = None,
                          answer_texts: List[str] = None,
                          answer_labels: List[int] = None,
                          pid: str = None,
@@ -108,14 +110,15 @@ class MultiRCDatasetReader(DatasetReader):
         if not passage_tokens:
             passage_tokens = self._tokenizer.tokenize(passage_text)
 
-        return util.make_multirc_instance(self._tokenizer.tokenize(question_text),
-                                          passage_tokens,
-                                          self._token_indexers,
-                                          passage_text,
-                                          token_spans,
-                                          answer_texts,
-                                          answer_labels,
-                                          {'pid': pid, 'qid': qid})
+        return util.make_reading_comprehension_instance_multirc(self._tokenizer.tokenize(question_text),
+                                                                passage_tokens,
+                                                                self._token_indexers,
+                                                                passage_text,
+                                                                span_start_list,
+                                                                sentence_start_list,
+                                                                answer_texts,
+                                                                answer_labels,
+                                                                {'pid': pid, 'qid': qid})
 
     @classmethod
     def from_params(cls, params: Params) -> 'MultiRCDatasetReader':

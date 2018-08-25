@@ -13,10 +13,9 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
         instances = ensure_list(reader.read('../fixtures/multirc.json'))
 
         # The start and end indices of the first sentences in each paragraph
-        spans = [
-            [(0, 5), (6, 27), (28, 75), (76, 91), (92, 96), (97, 115)],
-            [(0, 27), (28, 63), (64, 89), (90, 128), (129, 135), (136, 147), (148, 166),
-             (167, 176), (177, 211), (212, 243), (244, 259), (260, 316), (317, 357)]
+        sentence_start_lists = [
+            [0, 6, 28, 76, 92, 97],
+            [0, 28, 64, 90, 129, 136, 148, 167, 177, 212, 244, 260, 317]
         ]
 
         expected_instances = [
@@ -24,7 +23,9 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "passage_start": ["Animated", "history", "of"],
                 "passage_end": ["numbers", ")", "."],
                 "question": ["Does", "the", "author"],
-                "spans": [spans[0][0], spans[0][1], spans[0][2], spans[0][4]],
+                "span_start": [sentence_start_lists[0][0], sentence_start_lists[0][1],
+                               sentence_start_lists[0][2], sentence_start_lists[0][4]],
+                "sentence_start_list": sentence_start_lists[0],
                 "first_answer_text": "Yes",
                 "last_answer_text": "No",
                 "answer_labels": [1, 1, 0]
@@ -33,7 +34,8 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "passage_start": ["Animated", "history", "of"],
                 "passage_end": ["numbers", ")", "."],
                 "question": ["Which", "key", "message(s"],
-                "spans": [spans[0][1], spans[0][5]],
+                "span_start": [sentence_start_lists[0][1], sentence_start_lists[0][5]],
+                "sentence_start_list": sentence_start_lists[0],
                 "first_answer_text": "The strategy to promote \"gun rights\" for white "
                                      "people while outlawing it for black people allowed "
                                      "racisim to continue without allowing to KKK to flourish",
@@ -44,7 +46,9 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "passage_start": ["Before", "the", "mysterious"],
                 "passage_end": ["wasted", ".", "\""],
                 "question": ["What", "are", "two"],
-                "spans": [spans[1][1], spans[1][2], spans[1][3]],
+                "span_start": [sentence_start_lists[1][1], sentence_start_lists[1][2],
+                               sentence_start_lists[1][3]],
+                "sentence_start_list": sentence_start_lists[1][:6],
                 "first_answer_text": "Tornadoes",
                 "last_answer_text": "Tsunamis",
                 "answer_labels": [0, 0, 1, 1, 0, 1]
@@ -53,7 +57,9 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "passage_start": ["Before", "the", "mysterious"],
                 "passage_end": ["wasted", ".", "\""],
                 "question": ["Why", "are", "Chinese"],
-                "spans": [spans[1][8], spans[1][9], spans[1][10], spans[1][12]],
+                "span_start": [sentence_start_lists[1][8], sentence_start_lists[1][9],
+                               sentence_start_lists[1][10], sentence_start_lists[1][12]],
+                "sentence_start_list": sentence_start_lists[1][:6],
                 "first_answer_text": "Because Malaysia stated that the plane may have been flown into the Indian Ocean",
                 "last_answer_text": "Because many passengers aboard the aircraft were from Chine and Vietnam",
                 "answer_labels": [1, 1, 1, 1, 0, 0, 0, 0, 1]
@@ -62,7 +68,8 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "passage_start": ["Before", "the", "mysterious"],
                 "passage_end": ["wasted", ".", "\""],
                 "question": ["What", "has", "the"],
-                "spans": [spans[1][11], spans[1][12]],
+                "span_start": [sentence_start_lists[1][11], sentence_start_lists[1][12]],
+                "sentence_start_list": sentence_start_lists[1][:6],
                 "first_answer_text": "The time for finding the terrorists involved has been wasted",
                 "last_answer_text": "Locating survivors",
                 "answer_labels": [0, 1, 0, 0, 0, 1, 0, 1, 1]
@@ -81,8 +88,8 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
         assert [t.text for t in fields["passage"].tokens[:3]] == expected_instance["passage_start"]
         assert [t.text for t in fields["passage"].tokens[-3:]] == expected_instance["passage_end"]
         assert [t.text for t in fields["question"].tokens[:3]] == expected_instance["question"]
-        assert [(s.span_start, s.span_end) for s in fields["spans"].field_list] == \
-               expected_instance["spans"]
+        assert [s.sequence_index for s in fields["span_start"].field_list] == expected_instance["span_start"]
+        assert metadata["sentence_start_list"][:6] == expected_instance["sentence_start_list"]
         assert metadata["answer_texts"][0] == expected_instance["first_answer_text"]
         assert metadata["answer_texts"][-1] == expected_instance["last_answer_text"]
         assert metadata["answer_labels"] == expected_instance["answer_labels"]
