@@ -1,16 +1,19 @@
 # pylint: disable=no-self-use
 import pytest
+
 from allennlp.common import Params
 from allennlp.common.testing import AllenNlpTestCase
 from allennlp.common.util import ensure_list
+
 from multibidaf.dataset_readers import MultiRCDatasetReader
+from multibidaf.tests.paths import Paths
 
 
 class TestMultiRCDatasetReader(AllenNlpTestCase):
     @pytest.mark.parametrize("lazy", (True, False))
     def test_read_from_file(self, lazy=False):
         reader = MultiRCDatasetReader(lazy=lazy)
-        instances = ensure_list(reader.read('../fixtures/multirc.json'))
+        instances = ensure_list(reader.read(Paths.FIXTURES_ROOT / "multirc.json"))
 
         # The start and end indices of the first sentences in each paragraph
         sentence_start_lists = [

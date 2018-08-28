@@ -2,37 +2,40 @@ import logging
 from typing import Any, Dict, List, Optional
 
 import torch
-from torch.nn.functional import nll_loss
 
 from allennlp.common.checks import check_dimensions_match
 from allennlp.data import Vocabulary
-from allennlp.models import BidirectionalAttentionFlow, Model
+from allennlp.models import Model
 from allennlp.modules import Highway
 from allennlp.modules import Seq2SeqEncoder, SimilarityFunction, TimeDistributed, TextFieldEmbedder
 from allennlp.modules.matrix_attention.legacy_matrix_attention import LegacyMatrixAttention
 from allennlp.nn import util, InitializerApplicator, RegularizerApplicator
 from allennlp.training.metrics import BooleanAccuracy, CategoricalAccuracy, SquadEmAndF1
 
+from multibidaf.models.util import multi_nll_loss
+
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 @Model.register("multibidaf")
-class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
+class MultipleBidirectionalAttentionFlow(Model):
     """
     This class implements our `Multiple Sentences Bidirectional Attention Flow model
-    <https://github.com/eitanhaimashiah/multibidaf.git>`_   # TODO: Replace this link with a link to our paper
+    <https://github.com/eitanhaimashiah/multibidaf.git>`_
     which extends the `Bidirectional Attention Flow model
     <https://www.semanticscholar.org/paper/Bidirectional-Attention-Flow-for-Machine-Seo-Kembhavi/7586b7cca1deba124af80609327395e613a20e9d>`_
     of Seo et al. (2017) so that it can be used for the `Multi-RC dataset <http://cogcomp.org/multirc/>`_.
 
     The adjustment we offer requires a modification to the output layer of the BiDAF network only.
     The original output layer in BiDAF is intended for the QA task, in which the model is required
-    to find a sub-phrase of the paragraph to answer the query. The phrase is derived by predicting
-    the start and the end indices of the phrase in the paragraph. However, the MultiRC dataset
-    suggests a reading comprehension challenge in which answering each of the questions requires
-    reasoning over multiple sentences. Therefore, instead of the model outputting only a single
-    phrase, it will output up to four phrases (the number of sentences required to answer each
-    question in MultiRC is between 2 and 4).
+    to find a sub-phrase of a paragraph to answer a query. The phrase is derived by predicting the
+    start and the end indices of the phrase in the paragraph. However, the MultiRC dataset
+    suggests a reading comprehension challenge in which answering each question requires reasoning
+    over multiple sentences. Therefore, instead of the model outputting only a single phrase, it
+    will output up to four phrases (the number of sentences required to answer each question in
+    MultiRC is between 2 and 4). In addition, we notice that each such phrase in MultiRC's
+    paragraph may only be a sentence, and thus we only need to predict the start indices; the
+    predictions for the end indices are omitted from the loss function.
 
     Parameters
     ----------
@@ -50,10 +53,7 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         representations.
     modeling_layer : ``Seq2SeqEncoder``
         The encoder (with its own internal stacking) that we will use in between the bidirectional
-        attention and predicting span start and end.
-    span_end_encoder : ``Seq2SeqEncoder``
-        The encoder that we will use to incorporate span start predictions into the passage state
-        before predicting span end.
+        attention and predicting span start.
     dropout : ``float``, optional (default=0.2)
         If greater than 0, we will apply dropout with this probability after all encoders (pytorch
         LSTMs do not apply dropout to their last layer).
@@ -74,33 +74,23 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                  phrase_layer: Seq2SeqEncoder,
                  similarity_function: SimilarityFunction,
                  modeling_layer: Seq2SeqEncoder,
-                 span_end_encoder: Seq2SeqEncoder,
                  dropout: float = 0.2,
                  mask_lstms: bool = True,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None) -> None:
-        super(MultipleBidirectionalAttentionFlow, self).__init__(vocab,
-                                                                 text_field_embedder,
-                                                                 num_highway_layers,
-                                                                 phrase_layer,
-                                                                 similarity_function,
-                                                                 modeling_layer,
-                                                                 span_end_encoder,
-                                                                 dropout,
-                                                                 mask_lstms,
-                                                                 initializer,
-                                                                 regularizer)
-        # TODO: Consider extending this encoder
-        # self._span_end_encoder = span_end_encoder
+        super(MultipleBidirectionalAttentionFlow, self).__init__(vocab, regularizer)
+
+        self._text_field_embedder = text_field_embedder
+        self._highway_layer = TimeDistributed(Highway(text_field_embedder.get_output_dim(),
+                                                      num_highway_layers))
+        self._phrase_layer = phrase_layer
+        self._matrix_attention = LegacyMatrixAttention(similarity_function)
+        self._modeling_layer = modeling_layer
 
         encoding_dim = phrase_layer.get_output_dim()
         modeling_dim = modeling_layer.get_output_dim()
         span_start_input_dim = encoding_dim * 4 + modeling_dim
         self._span_start_predictor = TimeDistributed(torch.nn.Linear(span_start_input_dim, 1))
-
-        span_end_encoding_dim = span_end_encoder.get_output_dim()
-        span_end_input_dim = encoding_dim * 4 + span_end_encoding_dim
-        self._span_end_predictor = TimeDistributed(torch.nn.Linear(span_end_input_dim, 1))
 
         # Bidaf has lots of layer dimensions which need to match up - these aren't necessarily
         # obvious from the configuration files, so we check here.
@@ -108,13 +98,10 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                                "modeling layer input dim", "4 * encoding dim")
         check_dimensions_match(text_field_embedder.get_output_dim(), phrase_layer.get_input_dim(),
                                "text field embedder output dim", "phrase layer input dim")
-        check_dimensions_match(span_end_encoder.get_input_dim(), 4 * encoding_dim + 3 * modeling_dim,
-                               "span end encoder input dim", "4 * encoding dim + 3 * modeling dim")
 
-        self._span_start_accuracy = CategoricalAccuracy()
-        self._span_end_accuracy = CategoricalAccuracy()
-        self._span_accuracy = BooleanAccuracy()
-        self._squad_metrics = SquadEmAndF1()
+        self._span_start_accuracy = CategoricalAccuracy()  # TODO: Check the accuracy computation
+        # self._span_accuracy = BooleanAccuracy()  # TODO: Check if needed
+        # self._squad_metrics = SquadEmAndF1()
         if dropout > 0:
             self._dropout = torch.nn.Dropout(p=dropout)
         else:
@@ -127,7 +114,6 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                 question: Dict[str, torch.LongTensor],
                 passage: Dict[str, torch.LongTensor],
                 span_start: torch.IntTensor = None,
-                span_end: torch.IntTensor = None,
                 metadata: List[Dict[str, Any]] = None) -> Dict[str, torch.Tensor]:
         # pylint: disable=arguments-differ
         """
@@ -142,10 +128,6 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         span_start : ``torch.IntTensor``, optional
             From an ``IndexField``.  This is one of the things we are trying to predict - the
             beginning position of the answer with the passage.  This is an `inclusive` token index.
-            If this is given, we will compute a loss that gets included in the output dictionary.
-        span_end : ``torch.IntTensor``, optional
-            From an ``IndexField``.  This is one of the things we are trying to predict - the
-            ending position of the answer with the passage.  This is an `inclusive` token index.
             If this is given, we will compute a loss that gets included in the output dictionary.
         metadata : ``List[Dict[str, Any]]``, optional
             If present, this should contain the question ID, original passage text, and token
@@ -225,7 +207,6 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         modeled_passage = self._dropout(self._modeling_layer(final_merged_passage, passage_lstm_mask))
         modeling_dim = modeled_passage.size(-1)
 
-        # TODO: Change from here
         # Shape: (batch_size, passage_length, encoding_dim * 4 + modeling_dim))
         span_start_input = self._dropout(torch.cat([final_merged_passage, modeled_passage], dim=-1))
         # Shape: (batch_size, passage_length)
@@ -233,68 +214,43 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         # Shape: (batch_size, passage_length)
         span_start_probs = util.masked_softmax(span_start_logits, passage_mask)
 
-        # Shape: (batch_size, modeling_dim)
-        span_start_representation = util.weighted_sum(modeled_passage, span_start_probs)
-        # Shape: (batch_size, passage_length, modeling_dim)
-        tiled_start_representation = span_start_representation.unsqueeze(1).expand(batch_size,
-                                                                                   passage_length,
-                                                                                   modeling_dim)
-
-        # Shape: (batch_size, passage_length, encoding_dim * 4 + modeling_dim * 3)
-        span_end_representation = torch.cat([final_merged_passage,
-                                             modeled_passage,
-                                             tiled_start_representation,
-                                             modeled_passage * tiled_start_representation],
-                                            dim=-1)
-        # Shape: (batch_size, passage_length, encoding_dim)
-        encoded_span_end = self._dropout(self._span_end_encoder(span_end_representation,
-                                                                passage_lstm_mask))
-        # Shape: (batch_size, passage_length, encoding_dim * 4 + span_end_encoding_dim)
-        span_end_input = self._dropout(torch.cat([final_merged_passage, encoded_span_end], dim=-1))
-        span_end_logits = self._span_end_predictor(span_end_input).squeeze(-1)
-        span_end_probs = util.masked_softmax(span_end_logits, passage_mask)
         span_start_logits = util.replace_masked_values(span_start_logits, passage_mask, -1e7)
-        span_end_logits = util.replace_masked_values(span_end_logits, passage_mask, -1e7)
-        best_span = self.get_best_span(span_start_logits, span_end_logits)
+        best_span = self.get_best_span(span_start_logits)
 
         output_dict = {
                 "passage_question_attention": passage_question_attention,
                 "span_start_logits": span_start_logits,
                 "span_start_probs": span_start_probs,
-                "span_end_logits": span_end_logits,
-                "span_end_probs": span_end_probs,
                 "best_span": best_span,
                 }
 
         # Compute the loss for training.
         if span_start is not None:
-            loss = nll_loss(util.masked_log_softmax(span_start_logits, passage_mask), span_start.squeeze(-1))
-            self._span_start_accuracy(span_start_logits, span_start.squeeze(-1))
-            loss += nll_loss(util.masked_log_softmax(span_end_logits, passage_mask), span_end.squeeze(-1))
-            self._span_end_accuracy(span_end_logits, span_end.squeeze(-1))
-            self._span_accuracy(best_span, torch.stack([span_start, span_end], -1))
+            loss = multi_nll_loss(util.masked_log_softmax(span_start_logits, passage_mask), span_start.squeeze(-1))
+            # self._span_start_accuracy(span_start_logits, span_start.squeeze(-1))
+            # self._span_accuracy(best_span, torch.stack([span_start, span_end], -1))  # TODO: Check if needed
             output_dict["loss"] = loss
 
         # Compute the EM and F1 on SQuAD and add the tokenized input to the output.
-        if metadata is not None:
-            output_dict['best_span_str'] = []
-            question_tokens = []
-            passage_tokens = []
-            for i in range(batch_size):
-                question_tokens.append(metadata[i]['question_tokens'])
-                passage_tokens.append(metadata[i]['passage_tokens'])
-                passage_str = metadata[i]['original_passage']
-                offsets = metadata[i]['token_offsets']
-                predicted_span = tuple(best_span[i].detach().cpu().numpy())
-                start_offset = offsets[predicted_span[0]][0]
-                end_offset = offsets[predicted_span[1]][1]
-                best_span_string = passage_str[start_offset:end_offset]
-                output_dict['best_span_str'].append(best_span_string)
-                answer_texts = metadata[i].get('answer_texts', [])
-                if answer_texts:
-                    self._squad_metrics(best_span_string, answer_texts)
-            output_dict['question_tokens'] = question_tokens
-            output_dict['passage_tokens'] = passage_tokens
+        # if metadata is not None:
+        #     output_dict['best_span_str'] = []
+        #     question_tokens = []
+        #     passage_tokens = []
+        #     for i in range(batch_size):
+        #         question_tokens.append(metadata[i]['question_tokens'])
+        #         passage_tokens.append(metadata[i]['passage_tokens'])
+        #         passage_str = metadata[i]['original_passage']
+        #         offsets = metadata[i]['token_offsets']
+        #         predicted_span = tuple(best_span[i].detach().cpu().numpy())
+        #         start_offset = offsets[predicted_span[0]][0]
+        #         end_offset = offsets[predicted_span[1]][1]  # TODO: Compute the end offset
+        #         best_span_string = passage_str[start_offset:end_offset]
+        #         output_dict['best_span_str'].append(best_span_string)
+        #         answer_texts = metadata[i].get('answer_texts', [])
+        #         if answer_texts:
+        #             self._squad_metrics(best_span_string, answer_texts)
+        #     output_dict['question_tokens'] = question_tokens
+        #     output_dict['passage_tokens'] = passage_tokens
         return output_dict
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
@@ -307,29 +263,31 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                 'f1': f1_score,
                 }
 
+    # TODO: Update the implementation
     @staticmethod
-    def get_best_span(span_start_logits: torch.Tensor, span_end_logits: torch.Tensor) -> torch.Tensor:
-        if span_start_logits.dim() != 2 or span_end_logits.dim() != 2:
-            raise ValueError("Input shapes must be (batch_size, passage_length)")
-        batch_size, passage_length = span_start_logits.size()
-        max_span_log_prob = [-1e20] * batch_size
-        span_start_argmax = [0] * batch_size
-        best_word_span = span_start_logits.new_zeros((batch_size, 2), dtype=torch.long)
-
-        span_start_logits = span_start_logits.detach().cpu().numpy()
-        span_end_logits = span_end_logits.detach().cpu().numpy()
-
-        for b in range(batch_size):  # pylint: disable=invalid-name
-            for j in range(passage_length):
-                val1 = span_start_logits[b, span_start_argmax[b]]
-                if val1 < span_start_logits[b, j]:
-                    span_start_argmax[b] = j
-                    val1 = span_start_logits[b, j]
-
-                val2 = span_end_logits[b, j]
-
-                if val1 + val2 > max_span_log_prob[b]:
-                    best_word_span[b, 0] = span_start_argmax[b]
-                    best_word_span[b, 1] = j
-                    max_span_log_prob[b] = val1 + val2
-        return best_word_span
+    def get_best_span(span_start_logits: torch.Tensor) -> torch.Tensor:
+        # if span_start_logits.dim() != 2 or span_end_logits.dim() != 2:
+        #     raise ValueError("Input shapes must be (batch_size, passage_length)")
+        # batch_size, passage_length = span_start_logits.size()
+        # max_span_log_prob = [-1e20] * batch_size
+        # span_start_argmax = [0] * batch_size
+        # best_word_span = span_start_logits.new_zeros((batch_size, 2), dtype=torch.long)
+        #
+        # span_start_logits = span_start_logits.detach().cpu().numpy()
+        # span_end_logits = span_end_logits.detach().cpu().numpy()
+        #
+        # for b in range(batch_size):  # pylint: disable=invalid-name
+        #     for j in range(passage_length):
+        #         val1 = span_start_logits[b, span_start_argmax[b]]
+        #         if val1 < span_start_logits[b, j]:
+        #             span_start_argmax[b] = j
+        #             val1 = span_start_logits[b, j]
+        #
+        #         val2 = span_end_logits[b, j]
+        #
+        #         if val1 + val2 > max_span_log_prob[b]:
+        #             best_word_span[b, 0] = span_start_argmax[b]
+        #             best_word_span[b, 1] = j
+        #             max_span_log_prob[b] = val1 + val2
+        # return best_word_span
+        return torch.Tensor([])
