@@ -10,9 +10,11 @@ from allennlp.modules import Highway
 from allennlp.modules import Seq2SeqEncoder, SimilarityFunction, TimeDistributed, TextFieldEmbedder
 from allennlp.modules.matrix_attention.legacy_matrix_attention import LegacyMatrixAttention
 from allennlp.nn import util, InitializerApplicator, RegularizerApplicator
-from allennlp.training.metrics import BooleanAccuracy, CategoricalAccuracy, SquadEmAndF1
+from allennlp.training.metrics import BooleanAccuracy, SquadEmAndF1
 
-from multibidaf.models.util import multi_nll_loss
+from multibidaf.models.util import sentence_start_mask
+from multibidaf.training.functional import multi_nll_loss
+from multibidaf.training.metrics import MultiCategoricalAccuracy
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -99,8 +101,7 @@ class MultipleBidirectionalAttentionFlow(Model):
         check_dimensions_match(text_field_embedder.get_output_dim(), phrase_layer.get_input_dim(),
                                "text field embedder output dim", "phrase layer input dim")
 
-        self._span_start_accuracy = CategoricalAccuracy()  # TODO: Check the accuracy computation
-        # self._span_accuracy = BooleanAccuracy()  # TODO: Check if needed
+        self._span_start_accuracy = MultiCategoricalAccuracy()
         # self._squad_metrics = SquadEmAndF1()
         if dropout > 0:
             self._dropout = torch.nn.Dropout(p=dropout)
@@ -214,7 +215,11 @@ class MultipleBidirectionalAttentionFlow(Model):
         # Shape: (batch_size, passage_length)
         span_start_probs = util.masked_softmax(span_start_logits, passage_mask)
 
-        span_start_logits = util.replace_masked_values(span_start_logits, passage_mask, -1e7)
+        # span_start_logits = util.replace_masked_values(span_start_logits, passage_mask, -1e7)
+
+        # Reset the logits corresponding to non-start indices.
+        sent_start_mask = sentence_start_mask(metadata, passage_length)
+        span_start_logits = util.replace_masked_values(span_start_logits, passage_mask * sent_start_mask, -1e7)
         best_span = self.get_best_span(span_start_logits)
 
         output_dict = {
@@ -227,8 +232,7 @@ class MultipleBidirectionalAttentionFlow(Model):
         # Compute the loss for training.
         if span_start is not None:
             loss = multi_nll_loss(util.masked_log_softmax(span_start_logits, passage_mask), span_start.squeeze(-1))
-            # self._span_start_accuracy(span_start_logits, span_start.squeeze(-1))
-            # self._span_accuracy(best_span, torch.stack([span_start, span_end], -1))  # TODO: Check if needed
+            self._span_start_accuracy(span_start_logits, span_start.squeeze(-1))
             output_dict["loss"] = loss
 
         # Compute the EM and F1 on SQuAD and add the tokenized input to the output.
@@ -254,13 +258,11 @@ class MultipleBidirectionalAttentionFlow(Model):
         return output_dict
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
-        exact_match, f1_score = self._squad_metrics.get_metric(reset)
+        # exact_match, f1_score = self._squad_metrics.get_metric(reset)
         return {
                 'start_acc': self._span_start_accuracy.get_metric(reset),
-                'end_acc': self._span_end_accuracy.get_metric(reset),
-                'span_acc': self._span_accuracy.get_metric(reset),
-                'em': exact_match,
-                'f1': f1_score,
+                # 'em': exact_match,
+                # 'f1': f1_score,
                 }
 
     # TODO: Update the implementation

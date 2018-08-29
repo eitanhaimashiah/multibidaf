@@ -1,0 +1,1 @@
+from multibidaf.training.metrics.multi_categorical_accuracy import MultiCategoricalAccuracy

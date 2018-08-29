@@ -29,7 +29,7 @@ class MultipleBidirectionalAttentionFlowTest(ModelTestCase):
         training_tensors = batch.as_tensor_dict()
         output_dict = self.model(**training_tensors)
 
-        # metrics = self.model.get_metrics(reset=True)
+        metrics = self.model.get_metrics(reset=True)
 
         # TODO: Check whether we can do something similar:
         # We've set up the data such that there's a fake answer that consists of the whole
@@ -42,13 +42,6 @@ class MultipleBidirectionalAttentionFlowTest(ModelTestCase):
 
         span_start_probs = output_dict['span_start_probs'][0].data.numpy()
         assert_almost_equal(numpy.sum(span_start_probs, -1), 1, decimal=6)
-
-        # TODO: Check how I should adjust these assertions where `span_end` is missing
-        # span_start, span_end = tuple(output_dict['best_span'][0].data.numpy())
-        # assert span_start >= 0
-        # assert span_start <= span_end
-        # assert span_end < self.instances[0].fields['passage'].sequence_length()
-        # assert isinstance(output_dict['best_span_str'][0], str)
 
     # Some recent efficiency changes (using bmm for `weighted_sum`, the more efficient
     # `masked_softmax`...) have made this _very_ flaky...
