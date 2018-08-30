@@ -20,8 +20,11 @@ from multibidaf.models import MultipleBidirectionalAttentionFlow
 class MultipleBidirectionalAttentionFlowTest(ModelTestCase):
     def setUp(self):
         super(MultipleBidirectionalAttentionFlowTest, self).setUp()
-        self.set_up_model(Paths.FIXTURES_ROOT / "experiment.json",
-                          Paths.FIXTURES_ROOT / "multirc.json")
+        # self.set_up_model(Paths.FIXTURES_ROOT / "experiment.json",
+        #                   Paths.FIXTURES_ROOT / "multirc.json")
+        self.set_up_model(Paths.FIXTURES_ROOT / "experiment2.json",
+                          Paths.FIXTURES_ROOT / "squad.json")
+
 
     def test_forward_pass_runs_correctly(self):
         batch = Batch(self.instances)

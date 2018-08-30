@@ -115,6 +115,7 @@ class MultipleBidirectionalAttentionFlow(Model):
                 question: Dict[str, torch.LongTensor],
                 passage: Dict[str, torch.LongTensor],
                 span_start: torch.IntTensor = None,
+                span_end: torch.IntTensor = None,
                 metadata: List[Dict[str, Any]] = None) -> Dict[str, torch.Tensor]:
         # pylint: disable=arguments-differ
         """
@@ -130,6 +131,8 @@ class MultipleBidirectionalAttentionFlow(Model):
             From an ``IndexField``.  This is one of the things we are trying to predict - the
             beginning position of the answer with the passage.  This is an `inclusive` token index.
             If this is given, we will compute a loss that gets included in the output dictionary.
+        span_end : ``torch.IntTensor``, optional
+            Only for backward compatibility.
         metadata : ``List[Dict[str, Any]]``, optional
             If present, this should contain the question ID, original passage text, and token
             offsets into the passage for each instance in the batch.  We use this for computing
@@ -218,8 +221,12 @@ class MultipleBidirectionalAttentionFlow(Model):
         # span_start_logits = util.replace_masked_values(span_start_logits, passage_mask, -1e7)
 
         # Reset the logits corresponding to non-start indices.
-        sent_start_mask = sentence_start_mask(metadata, passage_length)
-        span_start_logits = util.replace_masked_values(span_start_logits, passage_mask * sent_start_mask, -1e7)
+        if "sentence_start_list" in metadata[0]:
+            sent_start_mask = sentence_start_mask(metadata, passage_length)
+            span_start_logits = util.replace_masked_values(span_start_logits, passage_mask * sent_start_mask, -1e7)
+        else:
+            span_start_logits = util.replace_masked_values(span_start_logits, passage_mask, -1e7)
+
         best_span = self.get_best_span(span_start_logits)
 
         output_dict = {
