@@ -2,6 +2,7 @@ import logging
 from typing import Any, Dict, List, Optional
 
 import torch
+from torch.nn.functional import nll_loss
 
 from allennlp.common.checks import check_dimensions_match
 from allennlp.data import Vocabulary
@@ -10,9 +11,9 @@ from allennlp.modules import Highway
 from allennlp.modules import Seq2SeqEncoder, SimilarityFunction, TimeDistributed, TextFieldEmbedder
 from allennlp.modules.matrix_attention.legacy_matrix_attention import LegacyMatrixAttention
 from allennlp.nn import util, InitializerApplicator, RegularizerApplicator
-from allennlp.training.metrics import BooleanAccuracy, SquadEmAndF1
+from allennlp.training.metrics import BooleanAccuracy, SquadEmAndF1, CategoricalAccuracy
 
-from multibidaf.models.util import sentence_start_mask
+from multibidaf.models.util import sentence_start_mask, is_multirc_instance
 from multibidaf.training.functional import multi_nll_loss
 from multibidaf.training.metrics import MultiCategoricalAccuracy
 
@@ -132,7 +133,7 @@ class MultipleBidirectionalAttentionFlow(Model):
             beginning position of the answer with the passage.  This is an `inclusive` token index.
             If this is given, we will compute a loss that gets included in the output dictionary.
         span_end : ``torch.IntTensor``, optional
-            Only for backward compatibility.
+            Only for backward compatibility. We ignore this parameter.
         metadata : ``List[Dict[str, Any]]``, optional
             If present, this should contain the question ID, original passage text, and token
             offsets into the passage for each instance in the batch.  We use this for computing
@@ -218,10 +219,8 @@ class MultipleBidirectionalAttentionFlow(Model):
         # Shape: (batch_size, passage_length)
         span_start_probs = util.masked_softmax(span_start_logits, passage_mask)
 
-        # span_start_logits = util.replace_masked_values(span_start_logits, passage_mask, -1e7)
-
         # Reset the logits corresponding to non-start indices.
-        if "sentence_start_list" in metadata[0]:
+        if is_multirc_instance(metadata):
             sent_start_mask = sentence_start_mask(metadata, passage_length)
             span_start_logits = util.replace_masked_values(span_start_logits, passage_mask * sent_start_mask, -1e7)
         else:
@@ -238,7 +237,11 @@ class MultipleBidirectionalAttentionFlow(Model):
 
         # Compute the loss for training.
         if span_start is not None:
-            loss = multi_nll_loss(util.masked_log_softmax(span_start_logits, passage_mask), span_start.squeeze(-1))
+            if is_multirc_instance(metadata):
+                loss = multi_nll_loss(util.masked_log_softmax(span_start_logits, passage_mask), span_start.squeeze(-1))
+            else:
+                loss = nll_loss(util.masked_log_softmax(span_start_logits, passage_mask), span_start.squeeze(-1))
+                self._span_start_accuracy = CategoricalAccuracy()
             self._span_start_accuracy(span_start_logits, span_start.squeeze(-1))
             output_dict["loss"] = loss
 
