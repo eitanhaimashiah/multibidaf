@@ -2,5 +2,5 @@
 
 allennlp train \
     training_config/pretrain_config.json \
-    -s bidaf_serialization2 \
+    -s pretrain_serialization \
     --include-package multibidaf

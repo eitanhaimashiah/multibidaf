@@ -1,7 +1,7 @@
 #!/bin/bash
 
 allennlp fine-tune \
-    -m bidaf_serialization/model.tar.gz \
+    -m pretrain_serialization/model.tar.gz \
     -c training_config/train_config.json \
-    -s multibidaf_serialization \
+    -s train_serialization \
     --include-package multibidaf
