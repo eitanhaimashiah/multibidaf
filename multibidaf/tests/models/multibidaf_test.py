@@ -16,17 +16,19 @@ from multibidaf.tests.paths import Paths
 from multibidaf.dataset_readers import MultiRCDatasetReader
 from multibidaf.models import MultipleBidirectionalAttentionFlow
 
+# PARAM_FILE = "multirc_experiment.json"
+# DATASET_FILE = "multirc.json"
+
+PARAM_FILE = "squad_experiment.json"
+DATASET_FILE = "squad.json"
+
 
 class MultipleBidirectionalAttentionFlowTest(ModelTestCase):
-    # PARAM_FILE = Paths.FIXTURES_ROOT / "multirc_experiment.json"
-    # DATASET_FILE = Paths.FIXTURES_ROOT / "multirc.json"
-
-    PARAM_FILE = Paths.FIXTURES_ROOT / "squad_experiment.json"
-    DATASET_FILE = Paths.FIXTURES_ROOT / "squad.json"
 
     def setUp(self):
         super(MultipleBidirectionalAttentionFlowTest, self).setUp()
-        self.set_up_model(self.PARAM_FILE, self.DATASET_FILE)
+        self.set_up_model(Paths.FIXTURES_ROOT / PARAM_FILE,
+                          Paths.FIXTURES_ROOT / DATASET_FILE)
 
 
     def test_forward_pass_runs_correctly(self):
@@ -75,7 +77,7 @@ class MultipleBidirectionalAttentionFlowTest(ModelTestCase):
         params = Params.from_file(self.param_file)
         reader = DatasetReader.from_params(params['dataset_reader'])
         reader._token_indexers = {'tokens': reader._token_indexers['tokens']}
-        self.instances = reader.read(self.DATASET_FILE)
+        self.instances = reader.read(Paths.FIXTURES_ROOT / DATASET_FILE)
         vocab = Vocabulary.from_instances(self.instances)
         for instance in self.instances:
             instance.index_fields(vocab)

@@ -91,5 +91,9 @@
       "type": "adam",
       "betas": [0.9, 0.9]
     }
+  },
+
+  "vocabulary": {
+    "directory_path": "/tmp/vocabs/unified_vocab/vocabulary"
   }
 }
