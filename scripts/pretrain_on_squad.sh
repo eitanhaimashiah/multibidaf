@@ -1,6 +1,6 @@
 #!/bin/bash
 
 allennlp train \
-    multibidaf/tests/fixtures/squad_experiment.json \
+    training_config/squad_config.json \
     -s /tmp/squad_serialization \
     --include-package multibidaf
