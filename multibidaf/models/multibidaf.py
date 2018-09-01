@@ -271,8 +271,8 @@ class MultipleBidirectionalAttentionFlow(Model):
         # exact_match, f1_score = self._squad_metrics.get_metric(reset)
         return {
                 'start_acc': self._span_start_accuracy.get_metric(reset),
-                # 'em': exact_match,
-                # 'f1': f1_score,
+                'em': -1,  #exact_match,
+                'f1': -1  #f1_score,
                 }
 
     # TODO: Update the implementation
