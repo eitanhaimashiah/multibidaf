@@ -1,0 +1,627 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nyt/global//global/global}
+  \entry{Bahdanau2014}{article}{}
+    \name{author}{3}{}{%
+      {{hash=BD}{%
+         family={Bahdanau},
+         familyi={B\bibinitperiod},
+         given={Dzmitry},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CK}{%
+         family={Cho},
+         familyi={C\bibinitperiod},
+         given={Kyunghyun},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=BY}{%
+         family={Bengio},
+         familyi={B\bibinitperiod},
+         given={Yoshua},
+         giveni={Y\bibinitperiod},
+      }}%
+    }
+    \keyw{cs.CL, cs.LG, cs.NE, stat.ML}
+    \strng{namehash}{BDCKBY1}
+    \strng{fullhash}{BDCKBY1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2014}
+    \field{labeldatesource}{year}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{abstract}{%
+    Neural machine translation is a recently proposed approach to machine
+  translation. Unlike the traditional statistical machine translation, the
+  neural machine translation aims at building a single neural network that can
+  be jointly tuned to maximize the translation performance. The models proposed
+  recently for neural machine translation often belong to a family of
+  encoder-decoders and consists of an encoder that encodes a source sentence
+  into a fixed-length vector from which a decoder generates a translation. In
+  this paper, we conjecture that the use of a fixed-length vector is a
+  bottleneck in improving the performance of this basic encoder-decoder
+  architecture, and propose to extend this by allowing a model to automatically
+  (soft-)search for parts of a source sentence that are relevant to predicting
+  a target word, without having to form these parts as a hard segment
+  explicitly. With this new approach, we achieve a translation performance
+  comparable to the existing state-of-the-art phrase-based system on the task
+  of English-to-French translation. Furthermore, qualitative analysis reveals
+  that the (soft-)alignments found by the model agree well with our intuition.%
+    }
+    \verb{eprint}
+    \verb http://arxiv.org/abs/1409.0473v7
+    \endverb
+    \field{title}{Neural Machine Translation by Jointly Learning to Align and
+  Translate}
+    \verb{file}
+    \verb :http\://arxiv.org/pdf/1409.0473v7:PDF
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{day}{01}
+    \field{month}{09}
+    \field{year}{2014}
+  \endentry
+
+  \entry{Clark2016}{article}{}
+    \name{author}{2}{}{%
+      {{hash=CP}{%
+         family={Clark},
+         familyi={C\bibinitperiod},
+         given={Peter},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=EO}{%
+         family={Etzioni},
+         familyi={E\bibinitperiod},
+         given={Oren},
+         giveni={O\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for the Advancement of Artificial Intelligence ({AAAI})}%
+    }
+    \strng{namehash}{CPEO1}
+    \strng{fullhash}{CPEO1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{year}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \verb{doi}
+    \verb 10.1609/aimag.v37i1.2636
+    \endverb
+    \field{number}{1}
+    \field{pages}{5}
+    \field{title}{My Computer Is an Honor Student {\textemdash} but How
+  Intelligent Is It? Standardized Tests as a Measure of {AI}}
+    \field{volume}{37}
+    \field{journaltitle}{{AI} Magazine}
+    \field{year}{2016}
+    \warn{\item Invalid format of field 'month'}
+  \endentry
+
+  \entry{Gardner2017ADS}{inproceedings}{}
+    \name{author}{9}{}{%
+      {{hash=GM}{%
+         family={Gardner},
+         familyi={G\bibinitperiod},
+         given={Matt},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=GJ}{%
+         family={Grus},
+         familyi={G\bibinitperiod},
+         given={Joel},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=NM}{%
+         family={Neumann},
+         familyi={N\bibinitperiod},
+         given={Mark},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=TO}{%
+         family={Tafjord},
+         familyi={T\bibinitperiod},
+         given={Oyvind},
+         giveni={O\bibinitperiod},
+      }}%
+      {{hash=DP}{%
+         family={Dasigi},
+         familyi={D\bibinitperiod},
+         given={Pradeep},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=LNHS}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Nelson H\bibnamedelima S},
+         giveni={N\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim
+  S\bibinitperiod},
+      }}%
+      {{hash=PM}{%
+         family={Peters},
+         familyi={P\bibinitperiod},
+         given={Matthew},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Schmitz},
+         familyi={S\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=ZLS}{%
+         family={Zettlemoyer},
+         familyi={Z\bibinitperiod},
+         given={Luke\bibnamedelima S.},
+         giveni={L\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{GM+1}
+    \strng{fullhash}{GMGJNMTODPLNHSPMSMZLS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2017}
+    \field{labeldatesource}{year}
+    \field{sortinit}{G}
+    \field{sortinithash}{G}
+    \field{title}{A Deep Semantic Natural Language Processing Platform}
+    \field{year}{2017}
+  \endentry
+
+  \entry{Hermann2015}{article}{}
+    \name{author}{7}{}{%
+      {{hash=HKM}{%
+         family={Hermann},
+         familyi={H\bibinitperiod},
+         given={Karl\bibnamedelima Moritz},
+         giveni={K\bibinitperiod\bibinitdelim M\bibinitperiod},
+      }}%
+      {{hash=KT}{%
+         family={Kočiský},
+         familyi={K\bibinitperiod},
+         given={Tomáš},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=GE}{%
+         family={Grefenstette},
+         familyi={G\bibinitperiod},
+         given={Edward},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=EL}{%
+         family={Espeholt},
+         familyi={E\bibinitperiod},
+         given={Lasse},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=KW}{%
+         family={Kay},
+         familyi={K\bibinitperiod},
+         given={Will},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=SM}{%
+         family={Suleyman},
+         familyi={S\bibinitperiod},
+         given={Mustafa},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=BP}{%
+         family={Blunsom},
+         familyi={B\bibinitperiod},
+         given={Phil},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \keyw{cs.CL, cs.AI, cs.NE}
+    \strng{namehash}{HKM+1}
+    \strng{fullhash}{HKMKTGEELKWSMBP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2015}
+    \field{labeldatesource}{year}
+    \field{sortinit}{H}
+    \field{sortinithash}{H}
+    \field{abstract}{%
+    Teaching machines to read natural language documents remains an elusive
+  challenge. Machine reading systems can be tested on their ability to answer
+  questions posed on the contents of documents that they have seen, but until
+  now large scale training and test datasets have been missing for this type of
+  evaluation. In this work we define a new methodology that resolves this
+  bottleneck and provides large scale supervised reading comprehension data.
+  This allows us to develop a class of attention based deep neural networks
+  that learn to read real documents and answer complex questions with minimal
+  prior knowledge of language structure.%
+    }
+    \verb{eprint}
+    \verb http://arxiv.org/abs/1506.03340v3
+    \endverb
+    \field{title}{Teaching Machines to Read and Comprehend}
+    \verb{file}
+    \verb :http\://arxiv.org/pdf/1506.03340v3:PDF
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{day}{10}
+    \field{month}{06}
+    \field{year}{2015}
+  \endentry
+
+  \entry{N18-1023}{inproceedings}{}
+    \name{author}{5}{}{%
+      {{hash=KD}{%
+         family={Khashabi},
+         familyi={K\bibinitperiod},
+         given={Daniel},
+         giveni={D\bibinitperiod},
+      }}%
+      {{hash=CS}{%
+         family={Chaturvedi},
+         familyi={C\bibinitperiod},
+         given={Snigdha},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=RM}{%
+         family={Roth},
+         familyi={R\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=US}{%
+         family={Upadhyay},
+         familyi={U\bibinitperiod},
+         given={Shyam},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=RD}{%
+         family={Roth},
+         familyi={R\bibinitperiod},
+         given={Dan},
+         giveni={D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Association for Computational Linguistics}%
+    }
+    \strng{namehash}{KD+1}
+    \strng{fullhash}{KDCSRMUSRD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{year}
+    \field{sortinit}{K}
+    \field{sortinithash}{K}
+    \field{booktitle}{Proceedings of the 2018 Conference of the North American
+  Chapter of the Association for Computational Linguistics: Human Language
+  Technologies, Volume 1 (Long Papers)}
+    \field{pages}{252\bibrangedash 262}
+    \field{title}{Looking Beyond the Surface: A Challenge Set for Reading
+  Comprehension over Multiple Sentences}
+    \verb{url}
+    \verb http://aclweb.org/anthology/N18-1023
+    \endverb
+    \list{location}{1}{%
+      {New Orleans, Louisiana}%
+    }
+    \field{year}{2018}
+  \endentry
+
+  \entry{Mccarthy1976}{article}{}
+    \name{author}{1}{}{%
+      {{hash=MJ}{%
+         family={Mccarthy},
+         familyi={M\bibinitperiod},
+         given={John},
+         giveni={J\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{MJ1}
+    \strng{fullhash}{MJ1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{1976}
+    \field{labeldatesource}{year}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{title}{An example for natural language understanding and the AI
+  problems it raises}
+    \verb{file}
+    \verb :refs/mccarthy1976.pdf:PDF
+    \endverb
+    \field{month}{09}
+    \field{year}{1976}
+  \endentry
+
+  \entry{Rajpurkar2018}{article}{}
+    \name{author}{3}{}{%
+      {{hash=RP}{%
+         family={Rajpurkar},
+         familyi={R\bibinitperiod},
+         given={Pranav},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=JR}{%
+         family={Jia},
+         familyi={J\bibinitperiod},
+         given={Robin},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=LP}{%
+         family={Liang},
+         familyi={L\bibinitperiod},
+         given={Percy},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \keyw{cs.CL}
+    \strng{namehash}{RPJRLP1}
+    \strng{fullhash}{RPJRLP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2018}
+    \field{labeldatesource}{year}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    Extractive reading comprehension systems can often locate the correct
+  answer to a question in a context document, but they also tend to make
+  unreliable guesses on questions for which the correct answer is not stated in
+  the context. Existing datasets either focus exclusively on answerable
+  questions, or use automatically generated unanswerable questions that are
+  easy to identify. To address these weaknesses, we present SQuAD 2.0, the
+  latest version of the Stanford Question Answering Dataset (SQuAD). SQuAD 2.0
+  combines existing SQuAD data with over 50,000 unanswerable questions written
+  adversarially by crowdworkers to look similar to answerable ones. To do well
+  on SQuAD 2.0, systems must not only answer questions when possible, but also
+  determine when no answer is supported by the paragraph and abstain from
+  answering. SQuAD 2.0 is a challenging natural language understanding task for
+  existing models: a strong neural system that gets 86% F1 on SQuAD 1.1
+  achieves only 66% F1 on SQuAD 2.0.%
+    }
+    \verb{eprint}
+    \verb http://arxiv.org/abs/1806.03822v1
+    \endverb
+    \field{title}{Know What You Don't Know: Unanswerable Questions for SQuAD}
+    \verb{file}
+    \verb :http\://arxiv.org/pdf/1806.03822v1:PDF
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{day}{11}
+    \field{month}{06}
+    \field{year}{2018}
+  \endentry
+
+  \entry{Rajpurkar2016}{article}{}
+    \name{author}{4}{}{%
+      {{hash=RP}{%
+         family={Rajpurkar},
+         familyi={R\bibinitperiod},
+         given={Pranav},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=ZJ}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Jian},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=LK}{%
+         family={Lopyrev},
+         familyi={L\bibinitperiod},
+         given={Konstantin},
+         giveni={K\bibinitperiod},
+      }}%
+      {{hash=LP}{%
+         family={Liang},
+         familyi={L\bibinitperiod},
+         given={Percy},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \keyw{cs.CL}
+    \strng{namehash}{RP+1}
+    \strng{fullhash}{RPZJLKLP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{year}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{abstract}{%
+    We present the Stanford Question Answering Dataset (SQuAD), a new reading
+  comprehension dataset consisting of 100,000+ questions posed by crowdworkers
+  on a set of Wikipedia articles, where the answer to each question is a
+  segment of text from the corresponding reading passage. We analyze the
+  dataset to understand the types of reasoning required to answer the
+  questions, leaning heavily on dependency and constituency trees. We build a
+  strong logistic regression model, which achieves an F1 score of 51.0%, a
+  significant improvement over a simple baseline (20%). However, human
+  performance (86.8%) is much higher, indicating that the dataset presents a
+  good challenge problem for future research. The dataset is freely available
+  at https://stanford-qa.com%
+    }
+    \verb{eprint}
+    \verb http://arxiv.org/abs/1606.05250v3
+    \endverb
+    \field{title}{SQuAD: 100,000+ Questions for Machine Comprehension of Text}
+    \verb{file}
+    \verb :Rajpurkar2016 - SQuAD_ 100,000+ Questions for Machine Comprehension
+    \verb of Text.pdf:PDF
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{day}{16}
+    \field{month}{06}
+    \field{year}{2016}
+  \endentry
+
+  \entry{Seo2016}{article}{}
+    \name{author}{4}{}{%
+      {{hash=SM}{%
+         family={Seo},
+         familyi={S\bibinitperiod},
+         given={Minjoon},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=KA}{%
+         family={Kembhavi},
+         familyi={K\bibinitperiod},
+         given={Aniruddha},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=FA}{%
+         family={Farhadi},
+         familyi={F\bibinitperiod},
+         given={Ali},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=HH}{%
+         family={Hajishirzi},
+         familyi={H\bibinitperiod},
+         given={Hannaneh},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \keyw{cs.CL}
+    \strng{namehash}{SM+1}
+    \strng{fullhash}{SMKAFAHH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{year}
+    \field{sortinit}{S}
+    \field{sortinithash}{S}
+    \field{abstract}{%
+    Machine comprehension (MC), answering a query about a given context
+  paragraph, requires modeling complex interactions between the context and the
+  query. Recently, attention mechanisms have been successfully extended to MC.
+  Typically these methods use attention to focus on a small portion of the
+  context and summarize it with a fixed-size vector, couple attentions
+  temporally, and/or often form a uni-directional attention. In this paper we
+  introduce the Bi-Directional Attention Flow (BIDAF) network, a multi-stage
+  hierarchical process that represents the context at different levels of
+  granularity and uses bi-directional attention flow mechanism to obtain a
+  query-aware context representation without early summarization. Our
+  experimental evaluations show that our model achieves the state-of-the-art
+  results in Stanford Question Answering Dataset (SQuAD) and CNN/DailyMail
+  cloze test.%
+    }
+    \verb{eprint}
+    \verb http://arxiv.org/abs/1611.01603v6
+    \endverb
+    \field{title}{Bidirectional Attention Flow for Machine Comprehension}
+    \verb{file}
+    \verb :http\://arxiv.org/pdf/1611.01603v6:PDF
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{day}{05}
+    \field{month}{11}
+    \field{year}{2016}
+  \endentry
+
+  \entry{Trischler2016}{article}{}
+    \name{author}{7}{}{%
+      {{hash=TA}{%
+         family={Trischler},
+         familyi={T\bibinitperiod},
+         given={Adam},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=WT}{%
+         family={Wang},
+         familyi={W\bibinitperiod},
+         given={Tong},
+         giveni={T\bibinitperiod},
+      }}%
+      {{hash=YX}{%
+         family={Yuan},
+         familyi={Y\bibinitperiod},
+         given={Xingdi},
+         giveni={X\bibinitperiod},
+      }}%
+      {{hash=HJ}{%
+         family={Harris},
+         familyi={H\bibinitperiod},
+         given={Justin},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=SA}{%
+         family={Sordoni},
+         familyi={S\bibinitperiod},
+         given={Alessandro},
+         giveni={A\bibinitperiod},
+      }}%
+      {{hash=BP}{%
+         family={Bachman},
+         familyi={B\bibinitperiod},
+         given={Philip},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=SK}{%
+         family={Suleman},
+         familyi={S\bibinitperiod},
+         given={Kaheer},
+         giveni={K\bibinitperiod},
+      }}%
+    }
+    \keyw{cs.CL, cs.AI}
+    \strng{namehash}{TA+1}
+    \strng{fullhash}{TAWTYXHJSABPSK1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{labelyear}{2016}
+    \field{labeldatesource}{year}
+    \field{sortinit}{T}
+    \field{sortinithash}{T}
+    \field{abstract}{%
+    We present NewsQA, a challenging machine comprehension dataset of over
+  100,000 human-generated question-answer pairs. Crowdworkers supply questions
+  and answers based on a set of over 10,000 news articles from CNN, with
+  answers consisting of spans of text from the corresponding articles. We
+  collect this dataset through a four-stage process designed to solicit
+  exploratory questions that require reasoning. A thorough analysis confirms
+  that NewsQA demands abilities beyond simple word matching and recognizing
+  textual entailment. We measure human performance on the dataset and compare
+  it to several strong neural models. The performance gap between humans and
+  machines (0.198 in F1) indicates that significant progress can be made on
+  NewsQA through future research. The dataset is freely available at
+  https://datasets.maluuba.com/NewsQA.%
+    }
+    \verb{eprint}
+    \verb http://arxiv.org/abs/1611.09830v3
+    \endverb
+    \field{title}{NewsQA: A Machine Comprehension Dataset}
+    \verb{file}
+    \verb :http\://arxiv.org/pdf/1611.09830v3:PDF
+    \endverb
+    \field{eprinttype}{arXiv}
+    \field{eprintclass}{cs.CL}
+    \field{day}{29}
+    \field{month}{11}
+    \field{year}{2016}
+  \endentry
+\enddatalist
+\endinput
