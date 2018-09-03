@@ -119,7 +119,9 @@ citestyle=authoryear
 
 			Performance will of course be evaluated on the multiRC dataset, success on which is our main concern in this project.
 			
-			Actual training will be done a Nvidia Tesla K80 GPU on google cloud.
+			Additionally, identifying the pertinent sentences is not sufficient to decide which answers are right. Those answers must be chosen based on their agreement with the sentences. To do so we opted for a similarity test between the relevant sentences and the answers. More specifically, we used cosine similarity between TF-IDF weighted word counts in the sentences and the answers. The weighting was of course trained on the training data.
+			
+			Actual training will be done a Nvidia Tesla P100 GPU on google cloud.
 			
 		\section{Results}
 		
