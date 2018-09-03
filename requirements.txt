@@ -6,13 +6,6 @@
 # NLP research library that provides an environment for training and evaluating models
 allennlp==0.6.0
 
-# Used by the deep siamese LSTM network module
-numpy==1.11.0
-tensorflow==1.2.1
-gensim==1.0.1
-nltk==3.2.2
-botocore<1.12.0,>=1.11.6
-
 #### TESTING-RELATED PACKAGES ####
 
 # Checks style, syntax, and other useful errors.

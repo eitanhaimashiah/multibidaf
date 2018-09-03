@@ -11,7 +11,7 @@ from allennlp.data import DatasetReader, Vocabulary
 from allennlp.data.dataset import Batch
 from allennlp.models import Model
 
-from paths import Paths
+from multibidaf.paths import Paths
 
 # PARAM_FILE = "squad_experiment.json"
 # DATASET_FILE = "squad.json"

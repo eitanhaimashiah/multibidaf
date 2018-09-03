@@ -6,7 +6,7 @@ from allennlp.common.testing import AllenNlpTestCase
 from allennlp.common.util import ensure_list
 
 from multibidaf.dataset_readers import MultiRCDatasetReader
-from paths import Paths
+from multibidaf.paths import Paths
 
 
 class TestMultiRCDatasetReader(AllenNlpTestCase):
