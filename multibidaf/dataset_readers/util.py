@@ -13,7 +13,7 @@ from allennlp.data.tokenizers import Token
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
-def compute_sentence_start_list(tokenized_sentences: List[List[Token]]) -> List[int]:
+def compute_sentence_starts(tokenized_sentences: List[List[Token]]) -> List[int]:
     """
     Computes the start token index for each sentence in the paragraph.
 
@@ -34,8 +34,8 @@ def make_reading_comprehension_instance_multirc(question_tokens: List[Token],
                                                 passage_tokens: List[Token],
                                                 token_indexers: Dict[str, TokenIndexer],
                                                 passage_text: str,
-                                                span_start_list: List[int],
-                                                sentence_start_list: List[int],
+                                                span_starts: List[int],
+                                                sentence_starts: List[int],
                                                 answer_texts: List[str],
                                                 answer_labels: List[int],
                                                 additional_metadata: Dict[str, Any] = None) -> Instance:
@@ -56,11 +56,11 @@ def make_reading_comprehension_instance_multirc(question_tokens: List[Token],
         The original passage text.  We need this so that we can recover the actual spans from the
         original passage that the model predicts as the sentences required to answer the question.
         This is used in official evaluation scripts.
-    span_start_list : ``List[int]``
+    span_starts : ``List[int]``
         The start token indices into ``passage_tokens`` to use as the sentences required to answer the
         question.  This is a list because (most of) the questions in the MultiRC dataset require
         reasoning over multiple sentences to be answered.
-    sentence_start_list : ``List[int]``
+    sentence_starts : ``List[int]``
         The start token indices of each sentence in the paragraph.
     answer_texts : ``List[str]``
         All answer option strings for the given question.  In MultiRC the number of correct
@@ -85,13 +85,13 @@ def make_reading_comprehension_instance_multirc(question_tokens: List[Token],
     passage_field = TextField(passage_tokens, token_indexers)
     fields['passage'] = passage_field
     fields['question'] = TextField(question_tokens, token_indexers)
-    fields['span_start'] = ListField([IndexField(span_start, passage_field) for span_start in span_start_list])
+    fields['span_start'] = ListField([IndexField(span_start, passage_field) for span_start in span_starts])
 
     # TODO: Consider convert `answer_texts` and `answer_labels` to `Field` type.
     metadata = {
             'original_passage': passage_text,
             'token_offsets': passage_offsets,
-            'sentence_start_list': sentence_start_list,
+            'sentence_start_list': sentence_starts,
             'question_tokens': [token.text for token in question_tokens],
             'passage_tokens': [token.text for token in passage_tokens],
             'answer_texts': answer_texts,

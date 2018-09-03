@@ -22,15 +22,15 @@ class MultiRCDatasetReader(DatasetReader):
     """
     Reads a JSON-formatted MultiRC file and returns a ``Dataset`` where the ``Instances`` have four
     fields: ``question``, a ``TextField``, ``passage``, another ``TextField``, and ``spans``, a
-    ``ListField`` of ``SpanField`` representing spans in ``passage`` required to answer the
-    ``question``. We also add a ``MetadataField`` that stores the instance's ID, the question ID, the
-    passage ID, the original passage text, the question tokens, the passage tokens, the gold answer
-    strings, the gold answer labels, the token offsets into the original passage, and the start token
-    indices of each sentence in the paragraph, accessible as ``metadata['qid']``, ``metadata['pid']``,
-    ``metadata['original_passage']``, ``metadata['question_tokens']``, ``metadata['passage_tokens']``,
-    ``metadata['answer_texts']``, ``metadata['answer_labels']``, ``metadata['token_offsets']``, and
-    ``metadata['sentence_start_list']`` respectively. This is so that we can more easily use the
-    official MultiRC evaluation script to get metrics.
+    ``ListField`` of ``IndexField`` representing start token indices of spans in ``passage`` required to
+    answer the ``question``. We also add a ``MetadataField`` that stores the instance's ID, the question
+    ID, the passage ID, the original passage text, the question tokens, the passage tokens, the gold
+    answer strings, the gold answer labels, the token offsets into the original passage, and the start
+    token indices of each sentence in the paragraph, accessible as ``metadata['qid']``,
+    ``metadata['pid']``, ``metadata['original_passage']``, ``metadata['question_tokens']``,
+    ``metadata['passage_tokens']``, ``metadata['answer_texts']``, ``metadata['answer_labels']``,
+    ``metadata['token_offsets']``, and ``metadata['sentence_start_list']`` respectively. This is so that
+    we can more easily use the official MultiRC evaluation script to get metrics.
 
     Parameters
     ----------
@@ -48,6 +48,9 @@ class MultiRCDatasetReader(DatasetReader):
         super().__init__(lazy)
         self._tokenizer = tokenizer or WordTokenizer()
         self._token_indexers = token_indexers or {'tokens': SingleIdTokenIndexer()}
+
+        # Used by the ``write_to_tsv`` method.
+        self._extracted_dataset = []
 
     @overrides
     def _read(self, file_path: str):
@@ -75,33 +78,42 @@ class MultiRCDatasetReader(DatasetReader):
             sentences = re.split(r"<b>Sent \d+: </b>",
                                  original_paragraph.replace("<br>", ""))[1:]
             tokenized_sentences = self._tokenizer.batch_tokenize(sentences)
-            sentence_start_list = util.compute_sentence_start_list(tokenized_sentences)
+            sentence_starts = util.compute_sentence_starts(tokenized_sentences)
 
             for question_answer in paragraph_json["questions"]:
                 question_text = question_answer["question"].strip().replace("\n", "")
                 answer_texts = [answer["text"] for answer in question_answer["answers"]]
                 answer_labels = [int(answer["isAnswer"]) for answer in question_answer["answers"]]
-                span_start_list = [sentence_start_list[sentence_num-1]
-                                   for sentence_num in question_answer["sentences_used"]]
+                used_sentences_nums = question_answer["sentences_used"]
+                span_starts = [sentence_starts[sentence_num-1]
+                               for sentence_num in used_sentences_nums]
                 qid = question_answer["idx"]
 
                 instance = self.text_to_instance(question_text,
                                                  paragraph,
-                                                 span_start_list,
-                                                 sentence_start_list,
+                                                 span_starts,
+                                                 sentence_starts,
                                                  answer_texts,
                                                  answer_labels,
                                                  pid,
                                                  qid,
                                                  tokenized_paragraph)
+
+                used_sentences = [sentences[sentence_num-1]
+                                  for sentence_num in used_sentences_nums]
+                correct_answers = [answer for answer, is_correct
+                                   in zip(answer_texts, answer_labels) if is_correct]
+
+                self._extracted_dataset.append((used_sentences, correct_answers))
+
                 yield instance
 
     @overrides
     def text_to_instance(self,  # type: ignore
                          question_text: str,
                          passage_text: str,
-                         span_start_list: List[int] = None,
-                         sentence_start_list: List[int] = None,
+                         span_starts: List[int] = None,
+                         sentence_starts: List[int] = None,
                          answer_texts: List[str] = None,
                          answer_labels: List[int] = None,
                          pid: str = None,
@@ -115,8 +127,26 @@ class MultiRCDatasetReader(DatasetReader):
                                                                 passage_tokens,
                                                                 self._token_indexers,
                                                                 passage_text,
-                                                                span_start_list,
-                                                                sentence_start_list,
+                                                                span_starts,
+                                                                sentence_starts,
                                                                 answer_texts,
                                                                 answer_labels,
                                                                 {'pid': pid, 'qid': qid})
+
+    def write_to_tsv(self, output_file_path: str):
+        """
+        Writes a TSV-formatted file in which each line contains a pair of a sentence that is part
+        of the sentences required to answer a question from the dataset, along with a correct
+        answer-option of that question.
+        """
+        if not self._extracted_dataset:
+            raise RuntimeError("The database has not yet been read. Call the ``read`` function first.")
+
+        with open(output_file_path, 'w') as f:
+            for used_sentences, correct_answers in self._extracted_dataset:
+                for used_sentence in used_sentences:
+                    for correct_answer in correct_answers:
+                        # TODO: Make sure that the last element in each line should be 'y'.
+                        f.write('\t'.join([used_sentence, correct_answer, 'y']) + '\n')
+
+

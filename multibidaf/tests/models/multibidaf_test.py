@@ -3,7 +3,6 @@ from flaky import flaky
 import pytest
 import numpy
 from numpy.testing import assert_almost_equal
-import torch
 
 from allennlp.common import Params
 from allennlp.common.checks import ConfigurationError
@@ -12,9 +11,7 @@ from allennlp.data import DatasetReader, Vocabulary
 from allennlp.data.dataset import Batch
 from allennlp.models import Model
 
-from multibidaf.tests.paths import Paths
-from multibidaf.dataset_readers import MultiRCDatasetReader
-from multibidaf.models import MultipleBidirectionalAttentionFlow
+from paths import Paths
 
 # PARAM_FILE = "squad_experiment.json"
 # DATASET_FILE = "squad.json"

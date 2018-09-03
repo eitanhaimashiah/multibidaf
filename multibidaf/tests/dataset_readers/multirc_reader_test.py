@@ -6,7 +6,7 @@ from allennlp.common.testing import AllenNlpTestCase
 from allennlp.common.util import ensure_list
 
 from multibidaf.dataset_readers import MultiRCDatasetReader
-from multibidaf.tests.paths import Paths
+from paths import Paths
 
 
 class TestMultiRCDatasetReader(AllenNlpTestCase):
@@ -102,3 +102,26 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
         # pylint: disable=protected-access
         assert reader._tokenizer.__class__.__name__ == 'WordTokenizer'
         assert reader._token_indexers["tokens"].__class__.__name__ == 'SingleIdTokenIndexer'
+
+    def test_write_to_tsv(self):
+        reader = MultiRCDatasetReader(lazy=False)
+        reader.read(Paths.FIXTURES_ROOT / "multirc.json")
+
+        output_file_path = Paths.FIXTURES_ROOT / "extracted_multirc.tsv"
+        reader.write_to_tsv(output_file_path)
+        with open(output_file_path) as f:
+            head = [next(f) for x in range(5)]
+
+        expected_head = ["Animated history of the US.\tYes\ty\n",
+                         "Animated history of the US.\tUphold, and continue\ty\n",
+                         "Of course the cartoon is highly oversimplified, and most "
+                         "critics consider it one of the weakest parts of the film.\tYes\ty\n",
+                         "Of course the cartoon is highly oversimplified, and most "
+                         "critics consider it one of the weakest parts of the film.\tUphold, and continue\ty\n",
+                         "But it makes a valid claim which you ignore entirely: That the strategy to promote "
+                         "\"gun rights\" for white people and to outlaw gun possession by black people was a "
+                         "way to uphold racism without letting an openly terrorist organization like the KKK "
+                         "flourish.\tYes\ty\n"]
+
+        assert head == expected_head
+
