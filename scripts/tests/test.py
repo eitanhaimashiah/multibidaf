@@ -24,7 +24,7 @@ if __name__ == "__main__":
     # test_tfidf_matrix = tfidf_vectorizer.transform(["The sun is bright", "The sun is not bright"])
     # print((test_tfidf_matrix * test_tfidf_matrix.T).toarray())
 
-    tfidf_vec = joblib.load(Paths.TRAINED_MODELS_ROOT / 'mini_tfidf_vec.pkl')
-    tfidf_matrix = tfidf_vec.transform(["Yes", "Yes"])
+    tfidf_vec = joblib.load(Paths.TRAINED_MODELS_ROOT / 'tfidf_vec.pkl')
+    tfidf_matrix = tfidf_vec.transform(["I don't know", "I may know"])
     print((tfidf_matrix * tfidf_matrix.T).toarray())
 

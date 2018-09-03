@@ -6,6 +6,9 @@
 # NLP research library that provides an environment for training and evaluating models
 allennlp==0.6.0
 
+# Used in training the TfidfVectorizer model for document similarity
+scikit-learn==0.19.2
+
 #### TESTING-RELATED PACKAGES ####
 
 # Checks style, syntax, and other useful errors.
