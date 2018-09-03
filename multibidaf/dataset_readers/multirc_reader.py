@@ -50,7 +50,8 @@ class MultiRCDatasetReader(DatasetReader):
         self._token_indexers = token_indexers or {'tokens': SingleIdTokenIndexer()}
 
         # Used by the ``write_to_tsv`` method.
-        self._extracted_dataset = []
+        self._all_sentences = []
+        self._all_answers = []
 
     @overrides
     def _read(self, file_path: str):
@@ -80,6 +81,8 @@ class MultiRCDatasetReader(DatasetReader):
             tokenized_sentences = self._tokenizer.batch_tokenize(sentences)
             sentence_starts = util.compute_sentence_starts(tokenized_sentences)
 
+            self._all_sentences.extend(sentences)
+
             for question_answer in paragraph_json["questions"]:
                 question_text = question_answer["question"].strip().replace("\n", "")
                 answer_texts = [answer["text"] for answer in question_answer["answers"]]
@@ -99,12 +102,7 @@ class MultiRCDatasetReader(DatasetReader):
                                                  qid,
                                                  tokenized_paragraph)
 
-                used_sentences = [sentences[sentence_num-1]
-                                  for sentence_num in used_sentences_nums]
-                correct_answers = [answer for answer, is_correct
-                                   in zip(answer_texts, answer_labels) if is_correct]
-
-                self._extracted_dataset.append((used_sentences, correct_answers))
+                self._all_answers.extend(answer_texts)
 
                 yield instance
 
@@ -133,20 +131,10 @@ class MultiRCDatasetReader(DatasetReader):
                                                                 answer_labels,
                                                                 {'pid': pid, 'qid': qid})
 
-    def write_to_tsv(self, output_file_path: str):
+    def get_documents(self):
         """
-        Writes a TSV-formatted file in which each line contains a pair of a sentence that is part
-        of the sentences required to answer a question from the dataset, along with a correct
-        answer-option of that question.
+        Returns the paragraph sentences and answers from all the examples
+        in the database.
         """
-        if not self._extracted_dataset:
-            raise RuntimeError("The database has not yet been read. Call the ``read`` function first.")
-
-        with open(output_file_path, 'w') as f:
-            for used_sentences, correct_answers in self._extracted_dataset:
-                for used_sentence in used_sentences:
-                    for correct_answer in correct_answers:
-                        # TODO: Make sure that the last element in each line should be 'y'.
-                        f.write('\t'.join([used_sentence, correct_answer, 'y']) + '\n')
-
+        return list(set().union(self._all_sentences, self._all_answers))
 
