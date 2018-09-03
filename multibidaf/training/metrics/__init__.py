@@ -1,1 +1,1 @@
-from multibidaf.training.metrics.multi_categorical_accuracy import MultiCategoricalAccuracy
+from multibidaf.training.metrics.span_start_metrics import SpanStartMetrics

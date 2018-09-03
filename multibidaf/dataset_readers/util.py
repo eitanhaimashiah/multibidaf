@@ -58,8 +58,8 @@ def make_reading_comprehension_instance_multirc(question_tokens: List[Token],
         This is used in official evaluation scripts.
     span_start_list : ``List[int]``
         The start token indices into ``passage_tokens`` to use as the sentences required to answer the
-        question for training.  This is a list because (most of) the questions in the MultiRC dataset
-        require reasoning over multiple sentences to be answered.
+        question.  This is a list because (most of) the questions in the MultiRC dataset require
+        reasoning over multiple sentences to be answered.
     sentence_start_list : ``List[int]``
         The start token indices of each sentence in the paragraph.
     answer_texts : ``List[str]``

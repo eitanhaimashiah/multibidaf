@@ -28,14 +28,14 @@
         "token_characters": {
             "type": "character_encoding",
             "embedding": {
-            "num_embeddings": 260,
-            "embedding_dim": 8
+              "num_embeddings": 260,
+              "embedding_dim": 8
             },
             "encoder": {
-            "type": "cnn",
-            "embedding_dim": 8,
-            "num_filters": 8,
-            "ngram_filter_sizes": [5]
+              "type": "cnn",
+              "embedding_dim": 8,
+              "num_filters": 8,
+              "ngram_filter_sizes": [5]
             }
         }
       }
@@ -67,7 +67,7 @@
     "batch_size": 40
   },
   "trainer": {
-    "num_epochs": 1,
+    "num_epochs": 2,
     "grad_norm": 10.0,
     "patience" : 12,
     "cuda_device" : -1,

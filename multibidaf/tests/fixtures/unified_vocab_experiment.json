@@ -1,0 +1,26 @@
+{
+  "dataset_reader": {
+    "type": "multirc",
+    "token_indexers": {
+      "tokens": {
+        "type": "single_id",
+        "lowercase_tokens": true
+      },
+      "token_characters": {
+        "type": "characters",
+        "character_tokenizer": {
+          "byte_encoding": "utf-8",
+          "start_tokens": [259],
+          "end_tokens": [260]
+        }
+      }
+    }
+  },
+  "train_data_path": "multibidaf/tests/fixtures/multirc.json",
+  "validation_data_path": "multibidaf/tests/fixtures/multirc.json",
+
+  "vocabulary": {
+    "extend": true,
+    "directory_path": "/tmp/test/vocabs/squad_vocab/vocabulary"
+  }
+}

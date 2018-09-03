@@ -13,10 +13,3 @@ def sentence_start_mask(metadata, passage_length):
         for j in sentence_start_list:
             res[i, j] = 1
     return res
-
-def is_multirc_instance(metadata):
-    """
-    Checks whether the instance with the given metadata is is received from
-    the MultiRC dataset.
-    """
-    return "sentence_start_list" in metadata[0]

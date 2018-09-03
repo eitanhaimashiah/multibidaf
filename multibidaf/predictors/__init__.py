@@ -1,0 +1,1 @@
+from multibidaf.predictors.multibidaf import MultiBidafPredictor

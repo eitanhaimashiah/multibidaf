@@ -25,11 +25,12 @@ class MultiRCDatasetReader(DatasetReader):
     ``ListField`` of ``SpanField`` representing spans in ``passage`` required to answer the
     ``question``. We also add a ``MetadataField`` that stores the instance's ID, the question ID, the
     passage ID, the original passage text, the question tokens, the passage tokens, the gold answer
-    strings, the gold answer labels and token offsets into the original passage, accessible as
-    ``metadata['qid']``, ``metadata['pid']``, ``metadata['original_passage']``,
-    ``metadata['question_tokens']``, ``metadata['passage_tokens']``, ``metadata['answer_texts']``,
-    ``metadata['answer_labels']`` and ``metadata['token_offsets']``, respectively. This is so that we
-    can more easily use the official MultiRC evaluation script to get metrics.
+    strings, the gold answer labels, the token offsets into the original passage, and the start token
+    indices of each sentence in the paragraph, accessible as ``metadata['qid']``, ``metadata['pid']``,
+    ``metadata['original_passage']``, ``metadata['question_tokens']``, ``metadata['passage_tokens']``,
+    ``metadata['answer_texts']``, ``metadata['answer_labels']``, ``metadata['token_offsets']``, and
+    ``metadata['sentence_start_list']`` respectively. This is so that we can more easily use the
+    official MultiRC evaluation script to get metrics.
 
     Parameters
     ----------
