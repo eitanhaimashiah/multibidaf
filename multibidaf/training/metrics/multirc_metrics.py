@@ -56,7 +56,7 @@ class MultiRCMetrics(Metric):
         self._total_em += exact_match
 
         # Compute accuracy, F1_m and F_1_a scores.
-        scores[scores == -1] = -2  # For comparing predicted and gold arrays
+        # scores[scores == -1] = -2  # For comparing predicted and gold arrays; TODO: Make sure it's fine to comment out
         n_correct_predicted_per_example = (scores * answer_labels).sum()
         n_predicted_per_example = scores.sum()
         n_gold_per_example = answer_labels.sum()

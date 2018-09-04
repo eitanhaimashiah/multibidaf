@@ -278,10 +278,12 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
 
                 predicted_span_strings = []
                 for j in range(4):
+                    # TODO: Make sure that's the logic
                     predicted_span_start = predicted_span_starts[j]
+                    if predicted_span_start == -1:
+                        continue
 
-                    if predicted_span_start != -1:
-                        start_offset = offsets[predicted_span_start][0]
+                    start_offset = offsets[predicted_span_start][0]
                     predicted_next_span_start = sentence_starts.index(predicted_span_start) + 1
                     if predicted_next_span_start < len(sentence_starts) - 1:
                         predicted_span_end = sentence_starts[predicted_next_span_start] - 1
