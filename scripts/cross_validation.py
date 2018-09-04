@@ -32,11 +32,13 @@ def grid_search(model_archive_path: str,
                     shutil.rmtree(serialization_dir, ignore_errors=True)
 
                 # Train the MultiBiDAF model with the current settings.
-                archive = load_archive(model_archive_path)
-                params = Params.from_file(config_file, overrides)
-                params.params.update({"span_threshold": span_threshold,
-                                      "true_threshold": true_threshold,
-                                      "false_threshold": false_threshold})
+                threshold_params = {"span_threshold": span_threshold,
+                                    "true_threshold": true_threshold,
+                                    "false_threshold": false_threshold}
+                archive = load_archive(model_archive_path,
+                                       overrides=str(threshold_params))
+                params = Params.from_file(config_file)
+                params.params.update()
                 fine_tune_model(archive.model,
                                 params,
                                 serialization_dir,
