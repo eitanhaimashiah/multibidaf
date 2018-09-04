@@ -28,6 +28,7 @@ class SpanStartMetrics(Metric):
         self._total_predicted_span_starts = 0.0
         self._total_gold_span_starts = 0.0
 
+        self._batch_size = 0
         self._count = 0
 
     @overrides
@@ -56,6 +57,8 @@ class SpanStartMetrics(Metric):
             # padded_gold_span_starts = torch.full(predicted_span_starts.shape, -1)
             padded_gold_span_starts[:, :gold_span_starts.size(1)] = gold_span_starts
             gold_span_starts = padded_gold_span_starts
+
+        self._batch_size = predicted_span_starts.size(0)
 
         # Sort both arrays for the three metrics.
         predicted_span_starts = np.sort(predicted_span_starts.detach().cpu().numpy())
@@ -91,12 +94,12 @@ class SpanStartMetrics(Metric):
         Exact match, accuracy, F1_m and F1_a scores (in that order).
         """
         if self._count == 0:
-            exact_match, accuracy, f1_m_score, f1_a_score = 0, 0, 0, 0
+            exact_match, accuracy, f1_m_score, f1_a_score = 0.0, 0.0, 0.0, 0.0
         else:
             exact_match = self._total_em / self._count
-            accuracy = self._total_precision / self._count
-            f1_m_score = self._harmonic_mean(self._total_precision / self._count,
-                                             self._total_recall / self._count)
+            accuracy = self._total_precision / (self._count * self._batch_size)
+            f1_m_score = self._harmonic_mean(self._total_precision / (self._count * self._batch_size),
+                                             self._total_recall / (self._count * self._batch_size))
             f1_a_score = self._harmonic_mean(
                 self._total_correct_predicted_span_starts / self._total_gold_span_starts,
                 self._total_correct_predicted_span_starts / self._total_predicted_span_starts)
@@ -113,6 +116,7 @@ class SpanStartMetrics(Metric):
         self._total_predicted_span_starts = 0.0
         self._total_gold_span_starts = 0.0
         self._count = 0
+        self._batch_size = 0
 
     @staticmethod
     def _harmonic_mean(p, r):
