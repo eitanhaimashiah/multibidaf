@@ -29,8 +29,8 @@ class MultiRCDatasetReader(DatasetReader):
     token indices of each sentence in the paragraph, accessible as ``metadata['qid']``,
     ``metadata['pid']``, ``metadata['original_passage']``, ``metadata['question_tokens']``,
     ``metadata['passage_tokens']``, ``metadata['answer_texts']``, ``metadata['answer_labels']``,
-    ``metadata['token_offsets']``, and ``metadata['sentence_start_list']`` respectively. This is so that
-    we can more easily use the official MultiRC evaluation script to get metrics.
+    ``metadata['token_offsets']``, and ``metadata['sentence_starts']`` respectively. This is so that we
+    can more easily use the official MultiRC evaluation script to get metrics.
 
     Parameters
     ----------
@@ -88,6 +88,12 @@ class MultiRCDatasetReader(DatasetReader):
                 answer_texts = [answer["text"] for answer in question_answer["answers"]]
                 answer_labels = [int(answer["isAnswer"]) for answer in question_answer["answers"]]
                 used_sentences_nums = question_answer["sentences_used"]
+
+                # If the example is not valid, ignore it.
+                if len(used_sentences_nums) < 1 or len(used_sentences_nums) > 4 or \
+                        len(answer_texts) == 0 or sum(answer_labels) == 0:
+                    continue
+
                 span_starts = [sentence_starts[sentence_num-1]
                                for sentence_num in used_sentences_nums]
                 qid = question_answer["idx"]

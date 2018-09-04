@@ -1,1 +1,2 @@
 from multibidaf.training.metrics.span_start_metrics import SpanStartMetrics
+from multibidaf.training.metrics.multirc_metrics import MultiRCMetrics

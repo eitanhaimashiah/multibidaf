@@ -28,7 +28,7 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "question": ["Does", "the", "author"],
                 "span_start": [sentence_start_lists[0][0], sentence_start_lists[0][1],
                                sentence_start_lists[0][2], sentence_start_lists[0][4]],
-                "sentence_start_list": sentence_start_lists[0],
+                "sentence_starts": sentence_start_lists[0],
                 "first_answer_text": "Yes",
                 "last_answer_text": "No",
                 "answer_labels": [1, 1, 0]
@@ -38,7 +38,7 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "passage_end": ["numbers", ")", "."],
                 "question": ["Which", "key", "message(s"],
                 "span_start": [sentence_start_lists[0][1], sentence_start_lists[0][5]],
-                "sentence_start_list": sentence_start_lists[0],
+                "sentence_starts": sentence_start_lists[0],
                 "first_answer_text": "The strategy to promote \"gun rights\" for white "
                                      "people while outlawing it for black people allowed "
                                      "racisim to continue without allowing to KKK to flourish",
@@ -51,7 +51,7 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "question": ["What", "are", "two"],
                 "span_start": [sentence_start_lists[1][1], sentence_start_lists[1][2],
                                sentence_start_lists[1][3]],
-                "sentence_start_list": sentence_start_lists[1][:6],
+                "sentence_starts": sentence_start_lists[1][:6],
                 "first_answer_text": "Tornadoes",
                 "last_answer_text": "Tsunamis",
                 "answer_labels": [0, 0, 1, 1, 0, 1]
@@ -62,7 +62,7 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "question": ["Why", "are", "Chinese"],
                 "span_start": [sentence_start_lists[1][8], sentence_start_lists[1][9],
                                sentence_start_lists[1][10], sentence_start_lists[1][12]],
-                "sentence_start_list": sentence_start_lists[1][:6],
+                "sentence_starts": sentence_start_lists[1][:6],
                 "first_answer_text": "Because Malaysia stated that the plane may have been flown into the Indian Ocean",
                 "last_answer_text": "Because many passengers aboard the aircraft were from Chine and Vietnam",
                 "answer_labels": [1, 1, 1, 1, 0, 0, 0, 0, 1]
@@ -72,7 +72,7 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
                 "passage_end": ["wasted", ".", "\""],
                 "question": ["What", "has", "the"],
                 "span_start": [sentence_start_lists[1][11], sentence_start_lists[1][12]],
-                "sentence_start_list": sentence_start_lists[1][:6],
+                "sentence_starts": sentence_start_lists[1][:6],
                 "first_answer_text": "The time for finding the terrorists involved has been wasted",
                 "last_answer_text": "Locating survivors",
                 "answer_labels": [0, 1, 0, 0, 0, 1, 0, 1, 1]
@@ -92,7 +92,7 @@ class TestMultiRCDatasetReader(AllenNlpTestCase):
         assert [t.text for t in fields["passage"].tokens[-3:]] == expected_instance["passage_end"]
         assert [t.text for t in fields["question"].tokens[:3]] == expected_instance["question"]
         assert [s.sequence_index for s in fields["span_start"].field_list] == expected_instance["span_start"]
-        assert metadata["sentence_start_list"][:6] == expected_instance["sentence_start_list"]
+        assert metadata["sentence_starts"][:6] == expected_instance["sentence_starts"]
         assert metadata["answer_texts"][0] == expected_instance["first_answer_text"]
         assert metadata["answer_texts"][-1] == expected_instance["last_answer_text"]
         assert metadata["answer_labels"] == expected_instance["answer_labels"]

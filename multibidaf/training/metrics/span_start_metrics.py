@@ -28,6 +28,7 @@ class SpanStartMetrics(Metric):
         self._total_predicted_span_starts = 0.0
         self._total_gold_span_starts = 0.0
 
+        self._batch_size = 0
         self._count = 0
 
     @overrides
@@ -38,15 +39,26 @@ class SpanStartMetrics(Metric):
         Parameters
         ----------
         predicted_span_starts : ``torch.Tensor``
-            A numpy array of predicted span starts of shape (batch_size, 4).
+            A tensor of predicted span starts of shape (batch_size, 4).
         gold_span_starts : ``torch.Tensor``
-            A numpy array of gold span starts of shape (batch_size, 4).
+            A tensor of gold span starts of shape (batch_size, d) where d <=4.
         """
-        # Sanity check
-        if predicted_span_starts.shape != gold_span_starts.shape:
-            raise ConfigurationError("predicted_span_starts must have the same shape as gold_span_starts but "
+        # Some sanity checks.
+        if predicted_span_starts.dim() != gold_span_starts.dim():
+            raise ConfigurationError("predicted_span_starts must have the same dimensions as gold_span_starts but "
+                                     "found predicted_span_starts of dimension {} and gold_span_starts of dimension: {}"
+                                     .format(predicted_span_starts.dim(), gold_span_starts.dim()))
+        if predicted_span_starts.size(0) != gold_span_starts.size(0):
+            raise ConfigurationError("predicted_span_starts and gold_span_starts must agree on the first dimension but "
                                      "found predicted_span_starts of shape {} and gold_span_starts of shape: {}"
                                      .format(predicted_span_starts.shape, gold_span_starts.shape))
+        if predicted_span_starts.size(1) != gold_span_starts.size(1):
+            padded_gold_span_starts = torch.full(predicted_span_starts.shape, -1).cuda()
+            # padded_gold_span_starts = torch.full(predicted_span_starts.shape, -1)
+            padded_gold_span_starts[:, :gold_span_starts.size(1)] = gold_span_starts
+            gold_span_starts = padded_gold_span_starts
+
+        self._batch_size = predicted_span_starts.size(0)
 
         # Sort both arrays for the three metrics.
         predicted_span_starts = np.sort(predicted_span_starts.detach().cpu().numpy())
@@ -57,7 +69,6 @@ class SpanStartMetrics(Metric):
         self._total_em += exact_match
 
         # Compute accuracy, F1_m and F_1_a scores.
-        batch_size = predicted_span_starts.shape[0]
         predicted_span_starts[predicted_span_starts == -1] = -2  # For comparing predicted and gold arrays
         for predicted_example, gold_example in zip(predicted_span_starts, gold_span_starts):
             n_correct_predicted_per_example = np.intersect1d(predicted_example, gold_example).size
@@ -66,7 +77,7 @@ class SpanStartMetrics(Metric):
 
             # Update values for F1_m score.
             self._total_precision += float(n_correct_predicted_per_example) / n_gold_per_example
-            self._total_recall += float(n_predicted_per_example) / n_predicted_per_example
+            self._total_recall += float(n_correct_predicted_per_example) / n_predicted_per_example
 
             # Update values for F1_a score.
             self._total_correct_predicted_span_starts += n_correct_predicted_per_example
@@ -76,20 +87,20 @@ class SpanStartMetrics(Metric):
         self._count += 1
 
     @overrides
-    def get_metric(self, reset: bool = False) -> Tuple[float, float]:
+    def get_metric(self, reset: bool = False) -> Tuple[float, float, float, float]:
         """
         Returns
         -------
         Exact match, accuracy, F1_m and F1_a scores (in that order).
         """
         if self._count == 0:
-            exact_match, accuracy, f1_m_score, f1_a_score = 0, 0, 0, 0
+            exact_match, accuracy, f1_m_score, f1_a_score = 0.0, 0.0, 0.0, 0.0
         else:
             exact_match = self._total_em / self._count
-            accuracy = self._total_precision / self._count
-            f1_m_score = SpanStartMetrics._harmonic_mean(self._total_precision / self._count,
-                                                         self._total_recall / self._count)
-            f1_a_score = SpanStartMetrics._harmonic_mean(
+            accuracy = self._total_precision / (self._count * self._batch_size)
+            f1_m_score = self._harmonic_mean(self._total_precision / (self._count * self._batch_size),
+                                             self._total_recall / (self._count * self._batch_size))
+            f1_a_score = self._harmonic_mean(
                 self._total_correct_predicted_span_starts / self._total_gold_span_starts,
                 self._total_correct_predicted_span_starts / self._total_predicted_span_starts)
         if reset:
@@ -105,6 +116,7 @@ class SpanStartMetrics(Metric):
         self._total_predicted_span_starts = 0.0
         self._total_gold_span_starts = 0.0
         self._count = 0
+        self._batch_size = 0
 
     @staticmethod
     def _harmonic_mean(p, r):

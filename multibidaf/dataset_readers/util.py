@@ -22,12 +22,12 @@ def compute_sentence_starts(tokenized_sentences: List[List[Token]]) -> List[int]
     tokenized_sentences : ``List[List[Token]]``
         An already-tokenized sentences which together constitute a paragraph.
     """
-    sentence_start_list = [0]
+    sentence_starts = [0]
     sentence_start = 0
     for i in range(1, len(tokenized_sentences)):
         sentence_start += len(tokenized_sentences[i - 1])
-        sentence_start_list.append(sentence_start)
-    return sentence_start_list
+        sentence_starts.append(sentence_start)
+    return sentence_starts
 
 
 def make_reading_comprehension_instance_multirc(question_tokens: List[Token],
@@ -91,7 +91,7 @@ def make_reading_comprehension_instance_multirc(question_tokens: List[Token],
     metadata = {
             'original_passage': passage_text,
             'token_offsets': passage_offsets,
-            'sentence_start_list': sentence_starts,
+            'sentence_starts': sentence_starts,
             'question_tokens': [token.text for token in question_tokens],
             'passage_tokens': [token.text for token in passage_tokens],
             'answer_texts': answer_texts,
