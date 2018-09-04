@@ -62,12 +62,6 @@ class MultiRCMetrics(Metric):
         n_gold_per_example = answer_labels.sum()
 
         # Update values for F1_m score.
-        if n_gold_per_example == 0:
-            print("####################")
-            print(scores)
-            print(answer_labels)
-            print("####################")
-
         self._total_precision += float(n_correct_predicted_per_example) / n_gold_per_example
         self._total_recall += float(n_correct_predicted_per_example) / n_predicted_per_example
 
