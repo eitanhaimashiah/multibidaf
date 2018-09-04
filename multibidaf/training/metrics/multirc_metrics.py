@@ -23,6 +23,7 @@ class MultiRCMetrics(Metric):
         self._total_precision = 0.0
         self._total_recall = 0.0
 
+        # TODO: Update to meaningful names
         # Used for computing F1 score per dataset (F1_a).
         self._total_correct_predicted_span_starts = 0.0
         self._total_predicted_span_starts = 0.0
@@ -56,14 +57,19 @@ class MultiRCMetrics(Metric):
         self._total_em += exact_match
 
         # Compute accuracy, F1_m and F_1_a scores.
-        # scores[scores == -1] = -2  # For comparing predicted and gold arrays; TODO: Make sure it's fine to comment out
         n_correct_predicted_per_example = (scores * answer_labels).sum()
         n_predicted_per_example = scores.sum()
         n_gold_per_example = answer_labels.sum()
 
         # Update values for F1_m score.
+        if n_gold_per_example == 0:
+            print("####################")
+            print(scores)
+            print(answer_labels)
+            print("####################")
+
         self._total_precision += float(n_correct_predicted_per_example) / n_gold_per_example
-        self._total_recall += float(n_predicted_per_example) / n_predicted_per_example
+        self._total_recall += float(n_correct_predicted_per_example) / n_predicted_per_example
 
         # Update values for F1_a score.
         self._total_correct_predicted_span_starts += n_correct_predicted_per_example
@@ -80,12 +86,12 @@ class MultiRCMetrics(Metric):
         Exact match, accuracy, F1_m and F1_a scores (in that order).
         """
         if self._count == 0:
-            exact_match, accuracy, f1_m_score, f1_a_score = 0, 0, 0, 0
+            exact_match, accuracy, f1_m_score, f1_a_score = 0.0, 0.0, 0.0, 0.0
         else:
             exact_match = self._total_em / self._count
             accuracy = self._total_precision / self._count
             f1_m_score = self._harmonic_mean(self._total_precision / self._count,
-                                                         self._total_recall / self._count)
+                                             self._total_recall / self._count)
             f1_a_score = self._harmonic_mean(
                 self._total_correct_predicted_span_starts / self._total_gold_span_starts,
                 self._total_correct_predicted_span_starts / self._total_predicted_span_starts)

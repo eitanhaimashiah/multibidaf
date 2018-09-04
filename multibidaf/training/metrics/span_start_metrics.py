@@ -74,7 +74,7 @@ class SpanStartMetrics(Metric):
 
             # Update values for F1_m score.
             self._total_precision += float(n_correct_predicted_per_example) / n_gold_per_example
-            self._total_recall += float(n_predicted_per_example) / n_predicted_per_example
+            self._total_recall += float(n_correct_predicted_per_example) / n_predicted_per_example
 
             # Update values for F1_a score.
             self._total_correct_predicted_span_starts += n_correct_predicted_per_example
@@ -96,7 +96,7 @@ class SpanStartMetrics(Metric):
             exact_match = self._total_em / self._count
             accuracy = self._total_precision / self._count
             f1_m_score = self._harmonic_mean(self._total_precision / self._count,
-                                                         self._total_recall / self._count)
+                                             self._total_recall / self._count)
             f1_a_score = self._harmonic_mean(
                 self._total_correct_predicted_span_starts / self._total_gold_span_starts,
                 self._total_correct_predicted_span_starts / self._total_predicted_span_starts)

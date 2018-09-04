@@ -91,7 +91,7 @@ class MultiRCDatasetReader(DatasetReader):
 
                 # If the example is not valid, ignore it.
                 if len(used_sentences_nums) < 1 or len(used_sentences_nums) > 4 or \
-                        len(answer_texts) == 0 or len(answer_labels) != len(answer_texts):
+                        len(answer_texts) == 0 or sum(answer_labels) == 0:
                     continue
 
                 span_starts = [sentence_starts[sentence_num-1]

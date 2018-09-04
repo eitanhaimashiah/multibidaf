@@ -346,7 +346,7 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
             j = 1
             span_prob_sum = top_start_span_probs[b, 0]
             while span_prob_sum < MultipleBidirectionalAttentionFlow.THRESHOLD and j < 4:
-                span_prob_sum = top_start_span_probs[b, j]
+                span_prob_sum += top_start_span_probs[b, j]
                 j += 1
             best_span_starts[b, j:] = -1
 
