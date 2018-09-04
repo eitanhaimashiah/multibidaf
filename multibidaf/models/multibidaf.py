@@ -75,6 +75,14 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         If provided, will be used to calculate the regularization penalty during training.
     tfidf_path: ``str``, optional (default=``str``)
         A path to the trained TfidfVectorizer model, used for document similarity.
+    span_threshold: ``float``, optional (default=0.5)
+        A threshold to determine how many spans (up to 4) will be outputted.
+    true_threshold: ``float``, optional (default=0.7)
+        If ``true_threshold`` <= the maximum similarity of an answer-option and predicted span,
+        then that answer-option will be predicted as a correct answer.
+    false_threshold: ``float``, optional (default=0.3)
+        If ``false_threshold`` >= the maximum similarity of an answer-option and predicted span,
+        then that answer-option will be predicted as an incorrect answer.
     """
     def __init__(self, vocab: Vocabulary,
                  text_field_embedder: TextFieldEmbedder,
@@ -267,12 +275,16 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         # Compute the EM, F1_m, F1_a and accuracy on MultiRC and add the tokenized input to the output.
         if metadata is not None:
             # TODO: Check exactly what's needed for the prediction phase
+            pids = []
+            qids = []
             question_tokens = []
             passage_tokens = []
             answer_texts = []
             answer_labels = []
             scores = []
             for i in range(batch_size):
+                pids.append(metadata[i]['pid'])
+                qids.append(metadata[i]['qid'])
                 question_tokens.append(metadata[i]['question_tokens'])
                 passage_tokens.append(metadata[i]['passage_tokens'])
                 _answer_texts = metadata[i]['answer_texts']
@@ -307,7 +319,8 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                     answer_labels.append(_answer_labels)
                     self._multirc_metrics(_scores, _answer_labels)
 
-
+            output_dict['pid'] = pids
+            output_dict['qid'] = qids
             output_dict['question_tokens'] = question_tokens
             output_dict['passage_tokens'] = passage_tokens
             output_dict['answer_texts'] = answer_texts
@@ -389,4 +402,13 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         tfidf_matrix = self._tfidf_vec.transform([y] + xs)
         cosine_matrix = (tfidf_matrix * tfidf_matrix.T).toarray()
         return cosine_matrix[0, 1:].max()
+
+    @overrides
+    def decode(self, output_dict: Dict[str, object]) -> Dict[str, object]:
+        keys = ["pid", "qid", "scores"]
+        unwanted_keys = set(output_dict.keys()) - set(keys)
+        for unwanted_key in unwanted_keys:
+            del output_dict[unwanted_key]
+        return output_dict
+
 

@@ -5,7 +5,6 @@ from allennlp.data import Instance
 from allennlp.predictors.predictor import Predictor
 
 
-# TODO: Think on the name
 @Predictor.register('multiple-sentences-reading-comprehension')
 class MultiBidafPredictor(Predictor):
     """
@@ -31,13 +30,11 @@ class MultiBidafPredictor(Predictor):
         A dictionary that represents the prediction made by the system.  The answer string will be under the
         "best_span_str" key.
         """
-        return self.predict_json({"passage": passage, "question": question})
+        raise NotImplementedError
 
     @overrides
     def _json_to_instance(self, json_dict: JsonDict) -> Instance:
         """
         Expects JSON that looks like ``{"question": "...", "passage": "..."}``.
         """
-        question_text = json_dict["question"]
-        passage_text = json_dict["passage"]
-        return self._dataset_reader.text_to_instance(question_text, passage_text)
+        raise NotImplementedError

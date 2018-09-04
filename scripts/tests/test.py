@@ -1,6 +1,7 @@
 import os
 import sys
 from sklearn.externals import joblib
+from typing import List
 
 # from sklearn.metrics.pairwise import cosine_similarity
 # from sklearn.feature_extraction.text import TfidfVectorizer
@@ -10,14 +11,10 @@ from multibidaf.common.lem_normalize import lem_normalize
 from multibidaf.paths import Paths
 
 
-def _max_cosine_similarity(self, xs: List[str],
-                           y: str) -> float:
-    """
-    Returns the maximum cosine similarity score of y and each element in xs.
-    """
-    tfidf_matrix = self._tfidf_vec.transform([y, *xs])
+def max_cosine_similarity(tfidf_vec, xs, y):
+    tfidf_matrix = tfidf_vec.transform([y] + xs)
     cosine_matrix = (tfidf_matrix * tfidf_matrix.T).toarray()
-    return cosine_matrix[0, 1:].max()
+    return cosine_matrix, cosine_matrix[0, 1:].max()
 
 
 if __name__ == "__main__":
@@ -35,10 +32,8 @@ if __name__ == "__main__":
     # print((test_tfidf_matrix * test_tfidf_matrix.T).toarray())
 
     tfidf_vec = joblib.load(Paths.TRAINED_MODELS_ROOT / 'tfidf_vec.pkl')
-    tfidf_matrix = tfidf_vec.transform(["The cat is black", "He's flying tomorrow", "He is flying tomorrow"])
-    cosine_matrix = (tfidf_matrix * tfidf_matrix.T).toarray()
+    xs = ["I was tired", "There is a cat"]
+    y = "I am tired"
+    cosine_matrix, max_cosine = max_cosine_similarity(tfidf_vec, xs, y)
     print(cosine_matrix)
-    print(cosine_matrix[0, 1:])
-    print(cosine_matrix[0, 1:].max())
-
-
+    print(max_cosine)
