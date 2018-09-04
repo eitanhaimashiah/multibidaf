@@ -8,7 +8,7 @@ def sentence_start_mask(metadata, passage_length):
     """
     batch_size = len(metadata)
     sentence_start_lists = [met_sen['sentence_starts'] for met_sen in metadata]
-    res = torch.zeros(batch_size, passage_length)
+    res = torch.zeros(batch_size, passage_length).cuda()
     for i, sentence_start_list in enumerate(sentence_start_lists):
         for j in sentence_start_list:
             res[i, j] = 1

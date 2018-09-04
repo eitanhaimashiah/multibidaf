@@ -6,7 +6,7 @@ from allennlp.predictors.predictor import Predictor
 
 
 # TODO: Think on the name
-@Predictor.register('multiple-choice-machine-comprehension')
+@Predictor.register('multiple-sentences-reading-comprehension')
 class MultiBidafPredictor(Predictor):
     """
     Predictor for the :class:`~multibidaf.models.multibidaf.MultiBidirectionalAttentionFlow` model.
@@ -15,8 +15,8 @@ class MultiBidafPredictor(Predictor):
     def predict(self, question: str, passage: str) -> JsonDict:
         """
         Make a reading comprehension prediction on the supplied input.
-        See http://cogcomp.org/multirc/ for more information about the reading comprehension over
-        multiple sentences task.
+        See http://cogcomp.org/multirc/ for more information about the task of reading comprehension over
+        multiple sentences.
 
         Parameters
         ----------

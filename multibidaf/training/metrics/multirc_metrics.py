@@ -38,9 +38,9 @@ class MultiRCMetrics(Metric):
         Parameters
         ----------
         scores : ``List[int]``
-            An array of predicted scores of shape A.
+            An array of predicted scores of shape d.
         answer_labels : ``List[int]``
-            An array of gold answer labels of shape A.
+            An array of gold answer labels of shape d.
         """
         scores = np.array(scores)
         answer_labels = np.array(answer_labels)

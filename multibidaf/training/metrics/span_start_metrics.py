@@ -40,13 +40,21 @@ class SpanStartMetrics(Metric):
         predicted_span_starts : ``torch.Tensor``
             A tensor of predicted span starts of shape (batch_size, 4).
         gold_span_starts : ``torch.Tensor``
-            A tensor of gold span starts of shape (batch_size, 4).
+            A tensor of gold span starts of shape (batch_size, d) where d <=4.
         """
-        # Sanity check
-        if predicted_span_starts.shape != gold_span_starts.shape:
-            raise ConfigurationError("predicted_span_starts must have the same shape as gold_span_starts but "
+        # Some sanity checks.
+        if predicted_span_starts.dim() != gold_span_starts.dim():
+            raise ConfigurationError("predicted_span_starts must have the same dimensions as gold_span_starts but "
+                                     "found predicted_span_starts of dimension {} and gold_span_starts of dimension: {}"
+                                     .format(predicted_span_starts.dim(), gold_span_starts.dim()))
+        if predicted_span_starts.size(0) != gold_span_starts.size(0):
+            raise ConfigurationError("predicted_span_starts and gold_span_starts must agree on the first dimension but "
                                      "found predicted_span_starts of shape {} and gold_span_starts of shape: {}"
                                      .format(predicted_span_starts.shape, gold_span_starts.shape))
+        if predicted_span_starts.size(1) != gold_span_starts.size(1):
+            padded_gold_span_starts = torch.full(predicted_span_starts.shape, -1).cuda
+            padded_gold_span_starts[:, :gold_span_starts.size(1)] = gold_span_starts
+            gold_span_starts = padded_gold_span_starts
 
         # Sort both arrays for the three metrics.
         predicted_span_starts = np.sort(predicted_span_starts.detach().cpu().numpy())
