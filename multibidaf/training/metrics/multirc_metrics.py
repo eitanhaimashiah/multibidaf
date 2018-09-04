@@ -73,7 +73,7 @@ class MultiRCMetrics(Metric):
         self._count += 1
 
     @overrides
-    def get_metric(self, reset: bool = False) -> Tuple[float, float]:
+    def get_metric(self, reset: bool = False) -> Tuple[float, float, float, float]:
         """
         Returns
         -------

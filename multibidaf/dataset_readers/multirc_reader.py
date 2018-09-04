@@ -88,6 +88,12 @@ class MultiRCDatasetReader(DatasetReader):
                 answer_texts = [answer["text"] for answer in question_answer["answers"]]
                 answer_labels = [int(answer["isAnswer"]) for answer in question_answer["answers"]]
                 used_sentences_nums = question_answer["sentences_used"]
+
+                # If the example is not valid, ignore it.
+                if len(used_sentences_nums) < 1 or len(used_sentences_nums) > 4 or \
+                        len(answer_texts) == 0 or len(answer_labels) != len(answer_texts):
+                    continue
+
                 span_starts = [sentence_starts[sentence_num-1]
                                for sentence_num in used_sentences_nums]
                 qid = question_answer["idx"]
