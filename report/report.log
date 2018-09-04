@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2018.8.28)  3 SEP 2018 16:26
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2018.8.28)  4 SEP 2018 18:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -532,18 +532,14 @@ Package biblatex Info: Reference section=0 on input line 23.
 Package biblatex Info: Reference segment=0 on input line 23.
  [1
 
-] [2] [3]
-Underfull \hbox (badness 10000) in paragraph at lines 136--137
-\TU/lmr/m/n/12 Our validation results of @@@ are
- []
-
+] [2] [3] [4]
 File: images/bidaf.png Graphic file (type bmp)
 <images/bidaf.png>
 File: images/bidaf.png Graphic file (type bmp)
 <images/bidaf.png>
 File: images/bidaf.png Graphic file (type bmp)
 <images/bidaf.png>
-[4] [5] [6] (./report.aux)
+ [5] [6] [7] (./report.aux)
 
 Package biblatex Warning: Please rerun LaTeX.
 (biblatex)                Page breaks have changed.
@@ -553,12 +549,12 @@ Package logreq Info: Writing requests to 'report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 9045 strings out of 492970
- 155448 string characters out of 6139408
- 455406 words of memory out of 5000000
- 12965 multiletter control sequences out of 15000+600000
- 8478 words of font info for 39 fonts, out of 8000000 for 9000
+ 9048 strings out of 492970
+ 155509 string characters out of 6139408
+ 452406 words of memory out of 5000000
+ 12967 multiletter control sequences out of 15000+600000
+ 8486 words of font info for 40 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 42i,6n,47p,825b,4427s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,6n,47p,825b,4382s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on report.pdf (6 pages).
+Output written on report.pdf (7 pages).

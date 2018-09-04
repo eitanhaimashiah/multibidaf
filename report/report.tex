@@ -102,28 +102,54 @@ citestyle=authoryear
 		
 		\section{Our Model and Training Process}
 		
-			While the above-described output layer is a good fit for a dataset such as SQuAD, in which the answer is always a single span from the context paragraph, it is not fitting for multiRC, in which 2-4 sentences participate in the answer.
-			
-			To handle this setting, we replaced the original output layer by a new output layer with the following changes:
-			\begin{itemize}
-				\item Instead of predicting one start token and one end token, it predicts up to 4 start token. Predicting the end tokens is unnecessary, as they are by definition the end of the sentences.
-				\item We changed the loss function to be the negative log probabilities of the correct start tokens.
-				\item We changed the accuracy metric used for validation during training to be the proportion of correct sentences predicted. This was averaged across the entire dataset.
-			\end{itemize}
-		
-			As the number of questions in the multiRC is clearly not sufficient to properly train a complete neural network, even with pretrained word embeddings, we opted for a two-stage process.
+			The two changes we need to make to better match BiDAF to multiRC are:
 			\begin{enumerate}
-				\item In the first stage, the model will be pre-trained on the SQuAD dataset.
-				\item In the second stage, the model will be fine-tuned on the multiRC dataset.
+				\item Change the output layer to predict up to 4 sentences as matches for the query.
+				\item Add a mechanism to decide which answers "fit" the chosen sentences sufficiently to be voted as positive.
 			\end{enumerate}
-
-			Performance will of course be evaluated on the multiRC dataset, success on which is our main concern in this project.
+			We'll elaborate on each in turn.
 			
-			Additionally, identifying the pertinent sentences is not sufficient to decide which answers are right. Those answers must be chosen based on their agreement with the sentences. To do so we opted for a similarity test between the relevant sentences and the answers. More specifically, we used cosine similarity between TF-IDF weighted word counts in the sentences and the answers. The weighting was of course trained on the training data.
+			\subsection{Multiple Sentences}
+		
+				While the above-described output layer is a good fit for a dataset such as SQuAD, in which the answer is always a single span from the context paragraph, it is not fitting for multiRC, in which 2-4 sentences participate in the answer.
+				
+				To handle this setting, we'll replace the original output layer by a new output layer with the following changes:
+				\begin{itemize}
+					\item Instead of predicting one start token and one end token, it will generate a probability distribution over all tokens in the dataset. 
+					\item 2-4 start tokens will then be chosen from the top 4 most probable words, while the cumulative probability of the chosen words does not exceed a learnable threshold parameter, $ T_s $.
+					\item We'll change the loss function to be the negative log probabilities of the correct start tokens, $ \sum_i P_i $.
+					\item Predicting the end tokens is now unnecessary, as they are by definition the end of the sentences whose start are the chosen words.
+				\end{itemize}
 			
-			Actual training will be done a Nvidia Tesla P100 GPU on google cloud.
+			\subsection{Multiple Answers}
+				
+				Identifying the pertinent sentences is not sufficient to decide which answers are right. Those answers must be chosen based on their agreement with the sentences. To do so, we'll make the following changes:
+				\begin{itemize}
+					\item We'll calculate a similarity metric between each answer and each chosen sentence. We'll use cosine similarity between TF-IDF weighted word counts in the sentences and the answers.
+					\item We'll take the maximum such metric for each answer among all sentences.
+					\item All answers whose maximum similarity exceeds a learnable threshold $ T_a $ will be flagged as true.
+				\end{itemize}
+		
+			\subsection{Training}
+				As the number of questions in the multiRC is clearly not sufficient to properly train a complete neural network, even with pretrained word embeddings, we'll opt for a multi-stage training process.
+				
+				\begin{enumerate}
+					\item In the first stage, the model will be pre-trained on the SQuAD dataset.
+					\item In the second stage, the model will be fine-tuned on the multiRC dataset.
+					\item The thresholds for the sentences ($ T_s $) and the answers ($ T_a $) will be decided using exhaustive grid search using cross-validation.
+				\end{enumerate}
+				
+				Actual training will be done a Nvidia Tesla P100 GPU on google cloud.
 			
 		\section{Results}
+		
+			We report final results and learning curves both for the sentences found and for the correct answers found.
+			
+			Following \cite{Rajpurkar2018} , we define $ A(q) $ as the set of correct items and $ \hat{A}(q) $ as the set of selected items. Precision (positive predictive value) is $ \frac{A(q) \cap \hat{A}(q)}{\hat{A}(q)} $ and recall (sensitivity) is $ \frac{A(q) \cap \hat{A}(q)}{A(q)} $.
+			
+			Then, (macro-average) $ F1_m $ is the harmonic mean of average precision and average recall of all questions, and $ F1_a $ the harmonic mean of sensitivity and recall measured by first "OR"ing all the correct and chosen answers.
+			
+			The chosen thresholds following cross-validation were $ T_s =  $ and $ T_a = $
 		
 			Pre-training on the squad dataset was carried for 20 epochs, with best-epoch performance of @@@. See figure 2 for a complete learning curve.
 			
@@ -133,11 +159,11 @@ citestyle=authoryear
 			
 		\section{Conclusion}
 		
-			Our validation results of @@@ are close/superior (@@@) to the state-of-the-art result of @@@.
+			Our validation results of @@@ fall short of the state-of-the-art results of $ F1 = 66.1 $, but not by much. As there is a significant decline in performance between finding the correct sentences and finding the current answers, it is possible that a better similarity calculation could achieve better results.
 		
-			In this project we illustrated that a neural network model, utilizing a bi-directional attention flow mechanism, can achieve state-of-the-art performance on the multiRC dataset. To achieve this, the model has to undergo a modification of the output layer and subsequent fine-tuning.
+			In this project we illustrated that a neural network model, utilizing a bi-directional attention flow mechanism, can achieve good performance on the multiRC dataset. To achieve this, the model has to undergo a modification of the output layer and subsequent fine-tuning.
 			
-			Future directions of research could involve either similar changes to the output layer (e.g. perhaps a NER type layer, tagging spans as belonging to the answer), or changes to the actual network.
+			Future directions of research could involve either similar changes to the output layer (e.g. perhaps a NER type layer, tagging spans as belonging to the answer), changes to the similarity calculation between answers and sentences or changes to the actual network.
 		
 	\end{multicols}
 
@@ -157,11 +183,5 @@ citestyle=authoryear
 	\end{figure*}
 
 	\printbibliography
-
-%	\begin{figure}[h]
-	%	\centering
-	%	\includegraphics[width=\textwidth]{images/bidaf.png}
-	%	\caption{BIDAF Model Structure}
-%	\end{figure}
 	
 \end{document}
