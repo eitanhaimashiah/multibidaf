@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import shutil
 import numpy as np
 
 from allennlp.common import Params
@@ -28,7 +29,7 @@ def grid_search(model_archive_path: str,
 
                 # Delete the serialization directory, if exists.
                 if os.path.exists(serialization_dir) and os.listdir(serialization_dir):
-                    os.rmdir(serialization_dir)
+                    shutil.rmtree(serialization_dir, ignore_errors=True)
 
                 # Train the MultiBiDAF model with the current settings.
                 archive = load_archive(model_archive_path)
