@@ -240,9 +240,10 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         span_start_logits = self._span_start_predictor(span_start_input).squeeze(-1)
 
         # Reset the logits corresponding to non-start indices.
-        sent_start_mask = sentence_start_mask(metadata, passage_length)
-        span_start_logits = util.replace_masked_values(span_start_logits, passage_mask * sent_start_mask, -1e7)
-        span_start_probs = util.masked_softmax(span_start_logits, passage_mask * sent_start_mask)
+        sent_start_mask = sentence_start_mask(metadata, passage_length).cuda()
+        mask = passage_mask * sent_start_mask
+        span_start_logits = util.replace_masked_values(span_start_logits, mask, -1e7)
+        span_start_probs = util.masked_softmax(span_start_logits, mask)
         best_span_starts = self.get_best_span_starts(span_start_probs)
 
         output_dict = {
