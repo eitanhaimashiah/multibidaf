@@ -87,7 +87,10 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                  mask_lstms: bool = True,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None,
-                 tfidf_path: str = None) -> None:
+                 tfidf_path: str = None,
+                 span_threshold: float = 0.5,
+                 true_threshold: float = 0.7,
+                 false_threshold: float = 0.3) -> None:
 
         self._is_squad = False
         span_end_encoder = span_end_encoder or Seq2SeqEncoder.from_params(Params({"type": "lstm",
@@ -97,6 +100,9 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         self._span_start_metrics = SpanStartMetrics()
         self._multirc_metrics = MultiRCMetrics()
         self._tfidf_vec = joblib.load(tfidf_path)
+        self._span_threshold = span_threshold
+        self._true_threshold = true_threshold
+        self._false_threshold = false_threshold
         super(MultipleBidirectionalAttentionFlow, self).__init__(vocab,
                                                                  text_field_embedder,
                                                                  num_highway_layers,
@@ -333,10 +339,7 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                 'f1_m': f1_m_score
                 }
 
-    THRESHOLD = 0.5  # TODO: Put it in the right place later
-
-    @staticmethod
-    def get_best_span_starts(span_start_probs: torch.Tensor) -> torch.Tensor:
+    def get_best_span_starts(self, span_start_probs: torch.Tensor) -> torch.Tensor:
         if span_start_probs.dim() != 2:
             raise ValueError("Input shapes must be (batch_size, passage_length)")
 
@@ -345,15 +348,12 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         for b in range(batch_size):  # pylint: disable=invalid-name
             j = 1
             span_prob_sum = top_start_span_probs[b, 0]
-            while span_prob_sum < MultipleBidirectionalAttentionFlow.THRESHOLD and j < 4:
+            while span_prob_sum < self._span_threshold and j < 4:
                 span_prob_sum += top_start_span_probs[b, j]
                 j += 1
             best_span_starts[b, j:] = -1
 
         return best_span_starts
-
-    TRUE_THRESHOLD = 0.7
-    FALSE_THRESHOLD = 0.3
 
     def get_scores(self, predicted_span_strings: List[str],
                    answers: List[str]) -> List[int]:
@@ -367,9 +367,9 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         for answer in answers:
             max_similarity = self._max_cosine_similarity(predicted_span_strings, answer)
             max_similarities.append(max_similarity)
-            if max_similarity >= self.TRUE_THRESHOLD:
+            if max_similarity >= self._true_threshold:
                 score = 1
-            elif max_similarity <= self.FALSE_THRESHOLD:
+            elif max_similarity <= self._false_threshold:
                 score = 0
             else:
                 score = random.choice([0, 1])
