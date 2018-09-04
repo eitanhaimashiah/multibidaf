@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import numpy as np
 
@@ -6,6 +7,7 @@ from allennlp.common import Params
 from allennlp.models import load_archive
 from allennlp.commands.fine_tune import fine_tune_model
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
 from multibidaf.dataset_readers import MultiRCDatasetReader
 from multibidaf.models import MultipleBidirectionalAttentionFlow
 
