@@ -52,7 +52,7 @@ class SpanStartMetrics(Metric):
                                      "found predicted_span_starts of shape {} and gold_span_starts of shape: {}"
                                      .format(predicted_span_starts.shape, gold_span_starts.shape))
         if predicted_span_starts.size(1) != gold_span_starts.size(1):
-            padded_gold_span_starts = torch.full(predicted_span_starts.shape, -1).cuda
+            padded_gold_span_starts = torch.full(predicted_span_starts.shape, -1).cuda()
             padded_gold_span_starts[:, :gold_span_starts.size(1)] = gold_span_starts
             gold_span_starts = padded_gold_span_starts
 
