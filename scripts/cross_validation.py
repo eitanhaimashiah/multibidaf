@@ -42,12 +42,13 @@ def grid_search(model_archive_path: str,
                 f1_m_scores.append(metrics["best_validation_f1_m"])
 
     # Find the best setting
+    max_f1_m = max(f1_m_scores)
     argmax = f1_m_scores.index(max(f1_m_scores))
     best_setting = thresholds[argmax]
 
     print("#" * 50)
-    print("The best setting is (span_threshold={}, true_threshold={}, false_threshold={})"
-          .format(best_setting[0], best_setting[1], best_setting[2]))
+    print("The best setting is (span_threshold={}, true_threshold={}, false_threshold={}) with F1_m={}"
+          .format(best_setting[0], best_setting[1], best_setting[2], max_f1_m))
     print("#" * 50)
 
 
