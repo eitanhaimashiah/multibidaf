@@ -75,7 +75,8 @@
       "num_layers": 1,
       "dropout": 0.2
     },
-    "dropout": 0.2
+    "dropout": 0.2,
+    "tfidf_path": "trained_models/tfidf_vec.pkl"
   },
   "iterator": {
     "type": "bucket",

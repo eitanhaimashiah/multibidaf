@@ -2,8 +2,10 @@ import logging
 from typing import Any, Dict, List, Optional
 
 import torch
+import random
 from overrides import overrides
-#
+from sklearn.externals import joblib
+
 from allennlp.common import Params
 from allennlp.data import Vocabulary
 from allennlp.modules import Seq2SeqEncoder, SimilarityFunction, TextFieldEmbedder
@@ -13,6 +15,7 @@ from allennlp.models import BidirectionalAttentionFlow, Model
 from multibidaf.models.util import sentence_start_mask
 from multibidaf.training.functional import multi_nll_loss
 from multibidaf.training.metrics import SpanStartMetrics
+from multibidaf.training.metrics import MultiRCMetrics
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -70,6 +73,8 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         Used to initialize the model parameters.
     regularizer : ``RegularizerApplicator``, optional (default=``None``)
         If provided, will be used to calculate the regularization penalty during training.
+    tfidf_path: ``str``, optional (default=``str``)
+        A path to the trained TfidfVectorizer model, used for document similarity.
     """
     def __init__(self, vocab: Vocabulary,
                  text_field_embedder: TextFieldEmbedder,
@@ -81,7 +86,8 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                  dropout: float = 0.2,
                  mask_lstms: bool = True,
                  initializer: InitializerApplicator = InitializerApplicator(),
-                 regularizer: Optional[RegularizerApplicator] = None) -> None:
+                 regularizer: Optional[RegularizerApplicator] = None,
+                 tfidf_path: str = None) -> None:
 
         self._is_squad = False
         span_end_encoder = span_end_encoder or Seq2SeqEncoder.from_params(Params({"type": "lstm",
@@ -89,6 +95,8 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                                                                                   "hidden_size": 10,
                                                                                   "num_layers": 1}))
         self._span_start_metrics = SpanStartMetrics()
+        self._multirc_metrics = MultiRCMetrics()
+        self._tfidf_vec = joblib.load(tfidf_path)
         super(MultipleBidirectionalAttentionFlow, self).__init__(vocab,
                                                                  text_field_embedder,
                                                                  num_highway_layers,
@@ -141,7 +149,7 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
             contains the same fields but in addition it also contains the passage ID, the labels for
             each answer option, and the start token indices of each sentence in the paragraph, for
             each instance in the batch, accessible as ``pid``, ``answer_labels`` and
-            ``sentence_start_list``.
+            ``sentence_starts``.
 
         Returns
         -------
@@ -171,7 +179,7 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
             question. Only relevant when working on SQuAD.
         """
         # If this is a SQuAD instance, call the parent's class method.
-        self._is_squad = 'sentence_start_list' not in metadata[0]
+        self._is_squad = 'sentence_starts' not in metadata[0]
         if self._is_squad:
             return super(MultipleBidirectionalAttentionFlow, self).forward(question,
                                                                            passage,
@@ -256,17 +264,45 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
             passage_tokens = []
             answer_texts = []
             answer_labels = []
+            scores = []
             for i in range(batch_size):
                 question_tokens.append(metadata[i]['question_tokens'])
                 passage_tokens.append(metadata[i]['passage_tokens'])
-                answer_texts.append(metadata[i]['answer_texts'])
+                _answer_texts = metadata[i]['answer_texts']
+                answer_texts.append(_answer_texts)
+
+                passage_str = metadata[i]['original_passage']
+                offsets = metadata[i]['token_offsets']
+                sentence_starts = metadata[i]['sentence_starts']
+                predicted_span_starts = best_span_starts[i].detach().cpu().numpy()
+
+                predicted_span_strings = []
+                for j in range(4):
+                    predicted_span_start = predicted_span_starts[j]
+
+                    if predicted_span_start != -1:
+                        start_offset = offsets[predicted_span_start][0]
+                    predicted_next_span_start = sentence_starts.index(predicted_span_start) + 1
+                    if predicted_next_span_start < len(sentence_starts) - 1:
+                        predicted_span_end = sentence_starts[predicted_next_span_start] - 1
+                        end_offset = offsets[predicted_span_end][1]
+                        predicted_span_string = passage_str[start_offset:end_offset]
+                    else:
+                        predicted_span_string = passage_str[start_offset:]
+                    predicted_span_strings.append(predicted_span_string.lower())
+
+                _scores = self.get_scores(predicted_span_strings, _answer_texts)
+                scores.append(_scores)
                 _answer_labels = metadata[i].get('answer_labels', [])
                 if _answer_labels:
                     answer_labels.append(_answer_labels)
+                    self._multirc_metrics(_scores, _answer_labels)
+
 
             output_dict['question_tokens'] = question_tokens
             output_dict['passage_tokens'] = passage_tokens
             output_dict['answer_texts'] = answer_texts
+            output_dict['scores'] = scores
             if answer_labels:
                 output_dict['answer_labels'] = answer_labels
                 self._span_start_metrics(best_span_starts, span_start.squeeze(-1))
@@ -280,8 +316,14 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
             return super(MultipleBidirectionalAttentionFlow, self).get_metrics(reset)
 
         # Otherwise, handle a MultiRC instance.
-        exact_match, accuracy, f1_m_score, f1_a_score = self._span_start_metrics.get_metric(reset)
+        ss_exact_match, ss_accuracy, ss_f1_m_score, ss_f1_a_score = self._span_start_metrics.get_metric(reset)
+        exact_match, accuracy, f1_m_score, f1_a_score = self._multirc_metrics.get_metric(reset)
+
         return {
+                'ss_accuracy': ss_accuracy,
+                'ss_em': ss_exact_match,
+                'ss_f1_a': ss_f1_a_score,
+                'ss_f1_m': ss_f1_m_score,
                 'accuracy': accuracy,
                 'em': exact_match,
                 'f1_a': f1_a_score,
@@ -306,3 +348,42 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
             best_span_starts[b, j:] = -1
 
         return best_span_starts
+
+    TRUE_THRESHOLD = 0.7
+    FALSE_THRESHOLD = 0.3
+
+    def get_scores(self, predicted_span_strings: List[str],
+                   answers: List[str]) -> List[int]:
+        """
+        Returns the score of each answer-option, 1 for a predicted correct answer and 0 otherwise.
+        The score is computed by the maximum similarity between an answer and each predicted span
+        string.
+        """
+        scores = []
+        max_similarities = []
+        for answer in answers:
+            max_similarity = self._max_cosine_similarity(predicted_span_strings, answer)
+            max_similarities.append(max_similarity)
+            if max_similarity >= self.TRUE_THRESHOLD:
+                score = 1
+            elif max_similarity <= self.FALSE_THRESHOLD:
+                score = 0
+            else:
+                score = random.choice([0, 1])
+
+            scores.append(score)
+
+        if sum(scores) == 0:
+            argmax = max_similarities.index(max(max_similarities))
+            scores[argmax] = 1
+        return scores
+
+    def _max_cosine_similarity(self, xs: List[str],
+                               y: str) -> float:
+        """
+        Returns the maximum cosine similarity score of y and each element in xs.
+        """
+        tfidf_matrix = self._tfidf_vec.transform([y] + xs)
+        cosine_matrix = (tfidf_matrix * tfidf_matrix.T).toarray()
+        return cosine_matrix[0, 1:].max()
+

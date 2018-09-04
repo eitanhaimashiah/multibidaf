@@ -1,5 +1,5 @@
 import torch
-from typing import Tuple, Optional
+from typing import List, Tuple, Optional
 
 import numpy as np
 from overrides import overrides
@@ -8,8 +8,8 @@ from allennlp.training.metrics.metric import Metric
 from allennlp.common.checks import ConfigurationError
 
 
-@Metric.register("span_start")
-class SpanStartMetrics(Metric):
+@Metric.register("multirc")
+class MultiRCMetrics(Metric):
     """
     This :class:`Metric` takes the predicted span starts computed by a model, along with the gold
     span starts from the data, and computes exact match, accuracy, F1_m and F1_a scores.
@@ -31,51 +31,49 @@ class SpanStartMetrics(Metric):
         self._count = 0
 
     @overrides
-    def __call__(self, predicted_span_starts: torch.Tensor,
-                 gold_span_starts: torch.Tensor,
+    def __call__(self, scores: List[int],
+                 answer_labels: List[int],
                  mask: Optional[torch.Tensor] = None):
         """
         Parameters
         ----------
-        predicted_span_starts : ``torch.Tensor``
-            A tensor of predicted span starts of shape (batch_size, 4).
-        gold_span_starts : ``torch.Tensor``
-            A tensor of gold span starts of shape (batch_size, 4).
+        scores : ``List[int]``
+            An array of predicted scores of shape A.
+        answer_labels : ``List[int]``
+            An array of gold answer labels of shape A.
         """
-        # Sanity check
-        if predicted_span_starts.shape != gold_span_starts.shape:
-            raise ConfigurationError("predicted_span_starts must have the same shape as gold_span_starts but "
-                                     "found predicted_span_starts of shape {} and gold_span_starts of shape: {}"
-                                     .format(predicted_span_starts.shape, gold_span_starts.shape))
+        scores = np.array(scores)
+        answer_labels = np.array(answer_labels)
 
-        # Sort both arrays for the three metrics.
-        predicted_span_starts = np.sort(predicted_span_starts.detach().cpu().numpy())
-        gold_span_starts = np.sort(gold_span_starts.detach().cpu().numpy())
+        # Sanity check
+        if scores.shape != answer_labels.shape:
+            raise ConfigurationError("scores must have the same shape as answer_labels but "
+                                     "found scores of shape {} and answer_labels of shape: {}"
+                                     .format(scores.shape, answer_labels.shape))
 
         # Compute EM score.
-        exact_match = np.mean((predicted_span_starts == gold_span_starts).all(axis=1))
+        exact_match = (scores == answer_labels).all()
         self._total_em += exact_match
 
         # Compute accuracy, F1_m and F_1_a scores.
-        predicted_span_starts[predicted_span_starts == -1] = -2  # For comparing predicted and gold arrays
-        for predicted_example, gold_example in zip(predicted_span_starts, gold_span_starts):
-            n_correct_predicted_per_example = np.intersect1d(predicted_example, gold_example).size
-            n_predicted_per_example = predicted_example[predicted_example != -2].size
-            n_gold_per_example = gold_example[gold_example != -1].size
+        scores[scores == -1] = -2  # For comparing predicted and gold arrays
+        n_correct_predicted_per_example = (scores * answer_labels).sum()
+        n_predicted_per_example = scores.sum()
+        n_gold_per_example = answer_labels.sum()
 
-            # Update values for F1_m score.
-            self._total_precision += float(n_correct_predicted_per_example) / n_gold_per_example
-            self._total_recall += float(n_predicted_per_example) / n_predicted_per_example
+        # Update values for F1_m score.
+        self._total_precision += float(n_correct_predicted_per_example) / n_gold_per_example
+        self._total_recall += float(n_predicted_per_example) / n_predicted_per_example
 
-            # Update values for F1_a score.
-            self._total_correct_predicted_span_starts += n_correct_predicted_per_example
-            self._total_predicted_span_starts += n_predicted_per_example
-            self._total_gold_span_starts += n_gold_per_example
+        # Update values for F1_a score.
+        self._total_correct_predicted_span_starts += n_correct_predicted_per_example
+        self._total_predicted_span_starts += n_predicted_per_example
+        self._total_gold_span_starts += n_gold_per_example
 
         self._count += 1
 
     @overrides
-    def get_metric(self, reset: bool = False) -> Tuple[float, float, float, float]:
+    def get_metric(self, reset: bool = False) -> Tuple[float, float]:
         """
         Returns
         -------

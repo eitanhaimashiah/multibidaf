@@ -29,8 +29,8 @@ class MultiRCDatasetReader(DatasetReader):
     token indices of each sentence in the paragraph, accessible as ``metadata['qid']``,
     ``metadata['pid']``, ``metadata['original_passage']``, ``metadata['question_tokens']``,
     ``metadata['passage_tokens']``, ``metadata['answer_texts']``, ``metadata['answer_labels']``,
-    ``metadata['token_offsets']``, and ``metadata['sentence_start_list']`` respectively. This is so that
-    we can more easily use the official MultiRC evaluation script to get metrics.
+    ``metadata['token_offsets']``, and ``metadata['sentence_starts']`` respectively. This is so that we
+    can more easily use the official MultiRC evaluation script to get metrics.
 
     Parameters
     ----------

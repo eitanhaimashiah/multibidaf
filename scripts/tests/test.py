@@ -10,6 +10,16 @@ from multibidaf.common.lem_normalize import lem_normalize
 from multibidaf.paths import Paths
 
 
+def _max_cosine_similarity(self, xs: List[str],
+                           y: str) -> float:
+    """
+    Returns the maximum cosine similarity score of y and each element in xs.
+    """
+    tfidf_matrix = self._tfidf_vec.transform([y, *xs])
+    cosine_matrix = (tfidf_matrix * tfidf_matrix.T).toarray()
+    return cosine_matrix[0, 1:].max()
+
+
 if __name__ == "__main__":
     # documents = (
     #     "The sky is blue",
@@ -25,6 +35,10 @@ if __name__ == "__main__":
     # print((test_tfidf_matrix * test_tfidf_matrix.T).toarray())
 
     tfidf_vec = joblib.load(Paths.TRAINED_MODELS_ROOT / 'tfidf_vec.pkl')
-    tfidf_matrix = tfidf_vec.transform(["I don't know", "I may know"])
-    print((tfidf_matrix * tfidf_matrix.T).toarray())
+    tfidf_matrix = tfidf_vec.transform(["The cat is black", "He's flying tomorrow", "He is flying tomorrow"])
+    cosine_matrix = (tfidf_matrix * tfidf_matrix.T).toarray()
+    print(cosine_matrix)
+    print(cosine_matrix[0, 1:])
+    print(cosine_matrix[0, 1:].max())
+
 

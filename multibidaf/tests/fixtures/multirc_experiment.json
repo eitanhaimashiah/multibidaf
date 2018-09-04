@@ -58,7 +58,8 @@
       "input_size": 40,
       "hidden_size": 10,
       "num_layers": 1
-    }
+    },
+    "tfidf_path": "trained_models/tfidf_vec.pkl"
   },
   "iterator": {
     "type": "bucket",
