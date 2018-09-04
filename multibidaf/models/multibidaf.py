@@ -404,7 +404,7 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         return cosine_matrix[0, 1:].max()
 
     @overrides
-    def decode(self, output_dict: Dict[str, object]) -> Dict[str, object]:
+    def decode(self, output_dict: Dict[str, Any]) -> Dict[str, Any]:
         keys = ["pid", "qid", "scores"]
         unwanted_keys = set(output_dict.keys()) - set(keys)
         for unwanted_key in unwanted_keys:
