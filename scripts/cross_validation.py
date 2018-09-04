@@ -33,9 +33,9 @@ def grid_search(model_archive_path: str,
                 step: float = 0.2):
     thresholds = []
     f1_m_scores = []
-    for span_threshold in np.arange(0, 1, step):
-        for true_threshold in np.arange(0, 1, step):
-            for false_threshold in np.arange(0, true_threshold + step, step):
+    for span_threshold in [0.25, 0.5, 0.75]:
+        for true_threshold in [0.3, 0.5, 0.7]:
+            for false_threshold in np.arange(0.3, true_threshold + step, step):
                 thresholds.append((span_threshold, true_threshold, false_threshold))
                 logger.info("#" * 100)
                 logger.info("-" * 100)
