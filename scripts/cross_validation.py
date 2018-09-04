@@ -6,6 +6,9 @@ from allennlp.common import Params
 from allennlp.models import load_archive
 from allennlp.commands.fine_tune import fine_tune_model
 
+from multibidaf.dataset_readers import MultiRCDatasetReader
+from multibidaf.models import MultipleBidirectionalAttentionFlow
+
 
 def grid_search(model_archive_path: str,
                 config_file: str,
