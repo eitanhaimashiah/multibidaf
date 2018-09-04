@@ -65,7 +65,10 @@
       "hidden_size": 10,
       "num_layers": 1
     },
-    "tfidf_path": "trained_models/tfidf_vec.pkl"
+    "tfidf_path": "trained_models/tfidf_vec.pkl",
+    "span_threshold": 0.5,
+    "true_threshold": 0.7,
+    "false_threshold": 0.3
   },
   "iterator": {
     "type": "bucket",
