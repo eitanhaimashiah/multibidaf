@@ -69,10 +69,11 @@ class SpanStartMetrics(Metric):
         self._total_em += exact_match
 
         # Compute accuracy, F1_m and F_1_a scores.
-        predicted_span_starts[predicted_span_starts == -1] = -2  # For comparing predicted and gold arrays
+        # predicted_span_starts[predicted_span_starts == -1] = -2  # For comparing predicted and gold arrays
         for predicted_example, gold_example in zip(predicted_span_starts, gold_span_starts):
-            n_correct_predicted_per_example = np.intersect1d(predicted_example, gold_example).size
-            n_predicted_per_example = predicted_example[predicted_example != -2].size
+            intersection = np.intersect1d(predicted_example, gold_example)
+            n_correct_predicted_per_example = intersection[intersection != -1].size
+            n_predicted_per_example = predicted_example[predicted_example != -1].size
             n_gold_per_example = gold_example[gold_example != -1].size
 
             # Update values for F1_m score.
