@@ -96,7 +96,7 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None,
                  tfidf_path: str = None,
-                 span_threshold: float = 0.57,
+                 span_threshold: float = 0.5,
                  true_threshold: float = 0.1,
                  false_threshold: float = 0.1) -> None:
 
