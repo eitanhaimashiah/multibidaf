@@ -1,0 +1,592 @@
+2018-09-04 05:54:28,645 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.dataset_readers.dataset_reader.DatasetReader'> from params {'token_indexers': {'token_characters': {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}, 'type': 'characters'}, 'tokens': {'lowercase_tokens': True, 'type': 'single_id'}}, 'type': 'squad'} and extras {}
+2018-09-04 05:54:28,645 - INFO - allennlp.common.params - dataset_reader.type = squad
+2018-09-04 05:54:28,645 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.dataset_readers.reading_comprehension.squad.SquadReader'> from params {'token_indexers': {'token_characters': {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}, 'type': 'characters'}, 'tokens': {'lowercase_tokens': True, 'type': 'single_id'}}} and extras {}
+2018-09-04 05:54:28,646 - INFO - allennlp.common.from_params - instantiating class allennlp.data.token_indexers.token_indexer.TokenIndexer from params {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}, 'type': 'characters'} and extras {}
+2018-09-04 05:54:28,646 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.type = characters
+2018-09-04 05:54:28,646 - INFO - allennlp.common.from_params - instantiating class allennlp.data.token_indexers.token_characters_indexer.TokenCharactersIndexer from params {'character_tokenizer': {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]}} and extras {}
+2018-09-04 05:54:28,646 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.namespace = token_characters
+2018-09-04 05:54:28,646 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.tokenizers.character_tokenizer.CharacterTokenizer'> from params {'byte_encoding': 'utf-8', 'end_tokens': [260], 'start_tokens': [259]} and extras {}
+2018-09-04 05:54:28,646 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.byte_encoding = utf-8
+2018-09-04 05:54:28,646 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.lowercase_characters = False
+2018-09-04 05:54:28,646 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.start_tokens = [259]
+2018-09-04 05:54:28,646 - INFO - allennlp.common.params - dataset_reader.token_indexers.token_characters.character_tokenizer.end_tokens = [260]
+2018-09-04 05:54:28,646 - INFO - allennlp.common.from_params - instantiating class allennlp.data.token_indexers.token_indexer.TokenIndexer from params {'lowercase_tokens': True, 'type': 'single_id'} and extras {}
+2018-09-04 05:54:28,646 - INFO - allennlp.common.params - dataset_reader.token_indexers.tokens.type = single_id
+2018-09-04 05:54:28,647 - INFO - allennlp.common.from_params - instantiating class allennlp.data.token_indexers.single_id_token_indexer.SingleIdTokenIndexer from params {'lowercase_tokens': True} and extras {}
+2018-09-04 05:54:28,647 - INFO - allennlp.common.params - dataset_reader.token_indexers.tokens.namespace = tokens
+2018-09-04 05:54:28,647 - INFO - allennlp.common.params - dataset_reader.token_indexers.tokens.lowercase_tokens = True
+2018-09-04 05:54:28,647 - INFO - allennlp.common.params - dataset_reader.lazy = False
+2018-09-04 05:54:28,944 - INFO - allennlp.common.params - validation_dataset_reader = None
+2018-09-04 05:54:28,944 - INFO - allennlp.common.params - train_data_path = https://s3-us-west-2.amazonaws.com/allennlp/datasets/squad/squad-train-v1.1.json
+2018-09-04 05:54:28,944 - INFO - allennlp.commands.train - Reading training data from https://s3-us-west-2.amazonaws.com/allennlp/datasets/squad/squad-train-v1.1.json
+2018-09-04 05:54:29,282 - INFO - allennlp.data.dataset_readers.reading_comprehension.squad - Reading file at /home/eitanhaimashiah/.allennlp/datasets/9d71029aaa0756c2c61776d338b30948212e767f2753f159df0f8fe1dd4267ff.ecb722fee55bf415b85baaa96fa6da0785e392b5d122301c710b06bf51f7bdc3
+2018-09-04 05:54:29,937 - INFO - allennlp.data.dataset_readers.reading_comprehension.squad - Reading the dataset
+2018-09-04 05:55:45,293 - INFO - allennlp.common.params - validation_data_path = https://s3-us-west-2.amazonaws.com/allennlp/datasets/squad/squad-dev-v1.1.json
+2018-09-04 05:55:45,293 - INFO - allennlp.commands.train - Reading validation data from https://s3-us-west-2.amazonaws.com/allennlp/datasets/squad/squad-dev-v1.1.json
+2018-09-04 05:55:45,681 - INFO - allennlp.data.dataset_readers.reading_comprehension.squad - Reading file at /home/eitanhaimashiah/.allennlp/datasets/c95de59a40dcddbf0ec0cf935b5a98b51a027920ec34ad20e930a8a7a710fcb2.59d8c2ca3fa946cc02db572aec4395c09c9477e1fbcd8fd7b86d9a3e1d580e0a
+2018-09-04 05:55:45,729 - INFO - allennlp.data.dataset_readers.reading_comprehension.squad - Reading the dataset
+2018-09-04 05:55:56,317 - INFO - allennlp.common.params - test_data_path = None
+2018-09-04 05:55:56,317 - INFO - allennlp.commands.train - From dataset instances, train, validation will be considered for vocabulary creation.
+2018-09-04 05:55:56,317 - INFO - allennlp.common.params - vocabulary.type = None
+2018-09-04 05:55:56,318 - INFO - allennlp.common.params - vocabulary.extend = False
+2018-09-04 05:55:56,318 - INFO - allennlp.common.params - vocabulary.directory_path = /tmp/vocabs/unified_vocab/vocabulary
+2018-09-04 05:55:56,318 - INFO - allennlp.data.vocabulary - Loading Vocab from files instead of dataset.
+2018-09-04 05:55:56,318 - INFO - allennlp.data.vocabulary - Loading token dictionary from /tmp/vocabs/unified_vocab/vocabulary.
+2018-09-04 05:55:56,661 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.models.model.Model'> from params {'dropout': 0.2, 'modeling_layer': {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 800, 'num_layers': 2, 'type': 'lstm'}, 'num_highway_layers': 2, 'phrase_layer': {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 200, 'num_layers': 1, 'type': 'lstm'}, 'similarity_function': {'combination': 'x,y,x*y', 'tensor_1_dim': 200, 'tensor_2_dim': 200, 'type': 'linear'}, 'span_end_encoder': {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 1400, 'num_layers': 1, 'type': 'lstm'}, 'text_field_embedder': {'token_embedders': {'token_characters': {'dropout': 0.2, 'embedding': {'embedding_dim': 16, 'num_embeddings': 262}, 'encoder': {'embedding_dim': 16, 'ngram_filter_sizes': [5], 'num_filters': 100, 'type': 'cnn'}, 'type': 'character_encoding'}, 'tokens': {'embedding_dim': 100, 'pretrained_file': 'https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz', 'trainable': False, 'type': 'embedding'}}}, 'tfidf_path': 'trained_models/tfidf_vec.pkl', 'type': 'multibidaf'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:55:56,661 - INFO - allennlp.common.params - model.type = multibidaf
+2018-09-04 05:55:56,661 - INFO - allennlp.common.from_params - instantiating class <class 'multibidaf.models.multibidaf.MultipleBidirectionalAttentionFlow'> from params {'dropout': 0.2, 'modeling_layer': {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 800, 'num_layers': 2, 'type': 'lstm'}, 'num_highway_layers': 2, 'phrase_layer': {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 200, 'num_layers': 1, 'type': 'lstm'}, 'similarity_function': {'combination': 'x,y,x*y', 'tensor_1_dim': 200, 'tensor_2_dim': 200, 'type': 'linear'}, 'span_end_encoder': {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 1400, 'num_layers': 1, 'type': 'lstm'}, 'text_field_embedder': {'token_embedders': {'token_characters': {'dropout': 0.2, 'embedding': {'embedding_dim': 16, 'num_embeddings': 262}, 'encoder': {'embedding_dim': 16, 'ngram_filter_sizes': [5], 'num_filters': 100, 'type': 'cnn'}, 'type': 'character_encoding'}, 'tokens': {'embedding_dim': 100, 'pretrained_file': 'https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz', 'trainable': False, 'type': 'embedding'}}}, 'tfidf_path': 'trained_models/tfidf_vec.pkl'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:55:56,662 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.text_field_embedders.text_field_embedder.TextFieldEmbedder'> from params {'token_embedders': {'token_characters': {'dropout': 0.2, 'embedding': {'embedding_dim': 16, 'num_embeddings': 262}, 'encoder': {'embedding_dim': 16, 'ngram_filter_sizes': [5], 'num_filters': 100, 'type': 'cnn'}, 'type': 'character_encoding'}, 'tokens': {'embedding_dim': 100, 'pretrained_file': 'https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz', 'trainable': False, 'type': 'embedding'}}} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:55:56,662 - INFO - allennlp.common.params - model.text_field_embedder.type = basic
+2018-09-04 05:55:56,662 - INFO - allennlp.common.params - model.text_field_embedder.embedder_to_indexer_map = None
+2018-09-04 05:55:56,662 - INFO - allennlp.common.params - model.text_field_embedder.allow_unmatched_keys = False
+2018-09-04 05:55:56,662 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.token_embedders.token_embedder.TokenEmbedder'> from params {'dropout': 0.2, 'embedding': {'embedding_dim': 16, 'num_embeddings': 262}, 'encoder': {'embedding_dim': 16, 'ngram_filter_sizes': [5], 'num_filters': 100, 'type': 'cnn'}, 'type': 'character_encoding'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:55:56,662 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.type = character_encoding
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.num_embeddings = 262
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.vocab_namespace = token_characters
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.embedding_dim = 16
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.pretrained_file = None
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.projection_dim = None
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.trainable = True
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.padding_index = None
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.max_norm = None
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.norm_type = 2.0
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.scale_grad_by_freq = False
+2018-09-04 05:55:56,663 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.embedding.sparse = False
+2018-09-04 05:55:56,664 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.seq2vec_encoders.seq2vec_encoder.Seq2VecEncoder'> from params {'embedding_dim': 16, 'ngram_filter_sizes': [5], 'num_filters': 100, 'type': 'cnn'} and extras {}
+2018-09-04 05:55:56,664 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.encoder.type = cnn
+2018-09-04 05:55:56,664 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.seq2vec_encoders.cnn_encoder.CnnEncoder'> from params {'embedding_dim': 16, 'ngram_filter_sizes': [5], 'num_filters': 100} and extras {}
+2018-09-04 05:55:56,664 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.encoder.embedding_dim = 16
+2018-09-04 05:55:56,665 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.encoder.num_filters = 100
+2018-09-04 05:55:56,665 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.encoder.ngram_filter_sizes = [5]
+2018-09-04 05:55:56,665 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.encoder.output_dim = None
+2018-09-04 05:55:56,665 - INFO - allennlp.common.registrable - instantiating registered subclass relu of <class 'allennlp.nn.activations.Activation'>
+2018-09-04 05:55:56,667 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.token_characters.dropout = 0.2
+2018-09-04 05:55:56,667 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.token_embedders.token_embedder.TokenEmbedder'> from params {'embedding_dim': 100, 'pretrained_file': 'https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz', 'trainable': False, 'type': 'embedding'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.type = embedding
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.num_embeddings = None
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.vocab_namespace = tokens
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.embedding_dim = 100
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.pretrained_file = https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.projection_dim = None
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.trainable = False
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.padding_index = None
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.max_norm = None
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.norm_type = 2.0
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.scale_grad_by_freq = False
+2018-09-04 05:55:56,668 - INFO - allennlp.common.params - model.text_field_embedder.token_embedders.tokens.sparse = False
+2018-09-04 05:55:56,676 - INFO - allennlp.modules.token_embedders.embedding - Reading pretrained embeddings from file
+2018-09-04 05:56:02,717 - INFO - allennlp.modules.token_embedders.embedding - Initializing pre-trained embedding layer
+2018-09-04 05:56:03,432 - INFO - allennlp.modules.token_embedders.embedding - Pretrained embeddings were found for 75110 out of 99916 tokens
+2018-09-04 05:56:03,469 - INFO - allennlp.common.params - model.num_highway_layers = 2
+2018-09-04 05:56:03,469 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.seq2seq_encoders.seq2seq_encoder.Seq2SeqEncoder'> from params {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 200, 'num_layers': 1, 'type': 'lstm'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:56:03,469 - INFO - allennlp.common.params - model.phrase_layer.type = lstm
+2018-09-04 05:56:03,469 - INFO - allennlp.common.params - model.phrase_layer.batch_first = True
+2018-09-04 05:56:03,469 - INFO - allennlp.common.params - Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+2018-09-04 05:56:03,470 - INFO - allennlp.common.params - CURRENTLY DEFINED PARAMETERS: 
+2018-09-04 05:56:03,470 - INFO - allennlp.common.params - model.phrase_layer.bidirectional = True
+2018-09-04 05:56:03,470 - INFO - allennlp.common.params - model.phrase_layer.dropout = 0.2
+2018-09-04 05:56:03,470 - INFO - allennlp.common.params - model.phrase_layer.hidden_size = 100
+2018-09-04 05:56:03,470 - INFO - allennlp.common.params - model.phrase_layer.input_size = 200
+2018-09-04 05:56:03,470 - INFO - allennlp.common.params - model.phrase_layer.num_layers = 1
+2018-09-04 05:56:03,470 - INFO - allennlp.common.params - model.phrase_layer.batch_first = True
+2018-09-04 05:56:03,473 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.similarity_functions.similarity_function.SimilarityFunction'> from params {'combination': 'x,y,x*y', 'tensor_1_dim': 200, 'tensor_2_dim': 200, 'type': 'linear'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:56:03,473 - INFO - allennlp.common.params - model.similarity_function.type = linear
+2018-09-04 05:56:03,473 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.similarity_functions.linear.LinearSimilarity'> from params {'combination': 'x,y,x*y', 'tensor_1_dim': 200, 'tensor_2_dim': 200} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:56:03,473 - INFO - allennlp.common.params - model.similarity_function.tensor_1_dim = 200
+2018-09-04 05:56:03,474 - INFO - allennlp.common.params - model.similarity_function.tensor_2_dim = 200
+2018-09-04 05:56:03,474 - INFO - allennlp.common.params - model.similarity_function.combination = x,y,x*y
+2018-09-04 05:56:03,474 - INFO - allennlp.common.registrable - instantiating registered subclass linear of <class 'allennlp.nn.activations.Activation'>
+2018-09-04 05:56:03,474 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.seq2seq_encoders.seq2seq_encoder.Seq2SeqEncoder'> from params {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 800, 'num_layers': 2, 'type': 'lstm'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:56:03,474 - INFO - allennlp.common.params - model.modeling_layer.type = lstm
+2018-09-04 05:56:03,474 - INFO - allennlp.common.params - model.modeling_layer.batch_first = True
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - CURRENTLY DEFINED PARAMETERS: 
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - model.modeling_layer.bidirectional = True
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - model.modeling_layer.dropout = 0.2
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - model.modeling_layer.hidden_size = 100
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - model.modeling_layer.input_size = 800
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - model.modeling_layer.num_layers = 2
+2018-09-04 05:56:03,475 - INFO - allennlp.common.params - model.modeling_layer.batch_first = True
+2018-09-04 05:56:03,483 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.modules.seq2seq_encoders.seq2seq_encoder.Seq2SeqEncoder'> from params {'bidirectional': True, 'dropout': 0.2, 'hidden_size': 100, 'input_size': 1400, 'num_layers': 1, 'type': 'lstm'} and extras {'vocab': <allennlp.data.vocabulary.Vocabulary object at 0x7fd6f0c936a0>}
+2018-09-04 05:56:03,483 - INFO - allennlp.common.params - model.span_end_encoder.type = lstm
+2018-09-04 05:56:03,483 - INFO - allennlp.common.params - model.span_end_encoder.batch_first = True
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - CURRENTLY DEFINED PARAMETERS: 
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - model.span_end_encoder.bidirectional = True
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - model.span_end_encoder.dropout = 0.2
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - model.span_end_encoder.hidden_size = 100
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - model.span_end_encoder.input_size = 1400
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - model.span_end_encoder.num_layers = 1
+2018-09-04 05:56:03,484 - INFO - allennlp.common.params - model.span_end_encoder.batch_first = True
+2018-09-04 05:56:03,494 - INFO - allennlp.common.params - model.dropout = 0.2
+2018-09-04 05:56:03,494 - INFO - allennlp.common.params - model.mask_lstms = True
+2018-09-04 05:56:03,494 - INFO - allennlp.common.params - model.tfidf_path = trained_models/tfidf_vec.pkl
+2018-09-04 05:56:03,679 - INFO - allennlp.nn.initializers - Initializing parameters
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers - Done initializing parameters; the following parameters are using their default initialization from their code
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _highway_layer._module._layers.0.bias
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _highway_layer._module._layers.0.weight
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _highway_layer._module._layers.1.bias
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _highway_layer._module._layers.1.weight
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _matrix_attention._similarity_function._bias
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _matrix_attention._similarity_function._weight_vector
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_hh_l0
+2018-09-04 05:56:03,680 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_hh_l0_reverse
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_hh_l1
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_hh_l1_reverse
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_ih_l0
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_ih_l0_reverse
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_ih_l1
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.bias_ih_l1_reverse
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_hh_l0
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_hh_l0_reverse
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_hh_l1
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_hh_l1_reverse
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_ih_l0
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_ih_l0_reverse
+2018-09-04 05:56:03,681 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_ih_l1
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _modeling_layer._module.weight_ih_l1_reverse
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.bias_hh_l0
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.bias_hh_l0_reverse
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.bias_ih_l0
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.bias_ih_l0_reverse
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.weight_hh_l0
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.weight_hh_l0_reverse
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.weight_ih_l0
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _phrase_layer._module.weight_ih_l0_reverse
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.bias_hh_l0
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.bias_hh_l0_reverse
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.bias_ih_l0
+2018-09-04 05:56:03,682 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.bias_ih_l0_reverse
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.weight_hh_l0
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.weight_hh_l0_reverse
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.weight_ih_l0
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_end_encoder._module.weight_ih_l0_reverse
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_end_predictor._module.bias
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_end_predictor._module.weight
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_start_predictor._module.bias
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _span_start_predictor._module.weight
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _text_field_embedder.token_embedder_token_characters._embedding._module.weight
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _text_field_embedder.token_embedder_token_characters._encoder._module.conv_layer_0.bias
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _text_field_embedder.token_embedder_token_characters._encoder._module.conv_layer_0.weight
+2018-09-04 05:56:03,683 - INFO - allennlp.nn.initializers -    _text_field_embedder.token_embedder_tokens.weight
+2018-09-04 05:56:03,683 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.iterators.data_iterator.DataIterator'> from params {'batch_size': 40, 'sorting_keys': [['passage', 'num_tokens'], ['question', 'num_tokens']], 'type': 'bucket'} and extras {}
+2018-09-04 05:56:03,684 - INFO - allennlp.common.params - iterator.type = bucket
+2018-09-04 05:56:03,684 - INFO - allennlp.common.from_params - instantiating class <class 'allennlp.data.iterators.bucket_iterator.BucketIterator'> from params {'batch_size': 40, 'sorting_keys': [['passage', 'num_tokens'], ['question', 'num_tokens']]} and extras {}
+2018-09-04 05:56:03,684 - INFO - allennlp.common.params - iterator.sorting_keys = [['passage', 'num_tokens'], ['question', 'num_tokens']]
+2018-09-04 05:56:03,684 - INFO - allennlp.common.params - iterator.padding_noise = 0.1
+2018-09-04 05:56:03,684 - INFO - allennlp.common.params - iterator.biggest_batch_first = False
+2018-09-04 05:56:03,684 - INFO - allennlp.common.params - iterator.batch_size = 40
+2018-09-04 05:56:03,684 - INFO - allennlp.common.params - iterator.instances_per_epoch = None
+2018-09-04 05:56:03,684 - INFO - allennlp.common.params - iterator.max_instances_in_memory = None
+2018-09-04 05:56:03,685 - INFO - allennlp.common.params - iterator.cache_instances = False
+2018-09-04 05:56:03,685 - INFO - allennlp.common.params - iterator.track_epoch = False
+2018-09-04 05:56:03,685 - INFO - allennlp.common.params - iterator.maximum_samples_per_batch = None
+2018-09-04 05:56:03,685 - INFO - allennlp.common.params - validation_iterator = None
+2018-09-04 05:56:03,685 - INFO - allennlp.common.params - trainer.no_grad = ()
+2018-09-04 05:56:03,685 - INFO - allennlp.commands.train - Following parameters are Frozen  (without gradient):
+2018-09-04 05:56:03,685 - INFO - allennlp.commands.train - _text_field_embedder.token_embedder_tokens.weight
+2018-09-04 05:56:03,685 - INFO - allennlp.commands.train - Following parameters are Tunable (with gradient):
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _text_field_embedder.token_embedder_token_characters._embedding._module.weight
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _text_field_embedder.token_embedder_token_characters._encoder._module.conv_layer_0.weight
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _text_field_embedder.token_embedder_token_characters._encoder._module.conv_layer_0.bias
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _highway_layer._module._layers.0.weight
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _highway_layer._module._layers.0.bias
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _highway_layer._module._layers.1.weight
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _highway_layer._module._layers.1.bias
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _phrase_layer._module.weight_ih_l0
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _phrase_layer._module.weight_hh_l0
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _phrase_layer._module.bias_ih_l0
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _phrase_layer._module.bias_hh_l0
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _phrase_layer._module.weight_ih_l0_reverse
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _phrase_layer._module.weight_hh_l0_reverse
+2018-09-04 05:56:03,686 - INFO - allennlp.commands.train - _phrase_layer._module.bias_ih_l0_reverse
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _phrase_layer._module.bias_hh_l0_reverse
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _matrix_attention._similarity_function._weight_vector
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _matrix_attention._similarity_function._bias
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.weight_ih_l0
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.weight_hh_l0
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.bias_ih_l0
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.bias_hh_l0
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.weight_ih_l0_reverse
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.weight_hh_l0_reverse
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.bias_ih_l0_reverse
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.bias_hh_l0_reverse
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.weight_ih_l1
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.weight_hh_l1
+2018-09-04 05:56:03,687 - INFO - allennlp.commands.train - _modeling_layer._module.bias_ih_l1
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _modeling_layer._module.bias_hh_l1
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _modeling_layer._module.weight_ih_l1_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _modeling_layer._module.weight_hh_l1_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _modeling_layer._module.bias_ih_l1_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _modeling_layer._module.bias_hh_l1_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.weight_ih_l0
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.weight_hh_l0
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.bias_ih_l0
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.bias_hh_l0
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.weight_ih_l0_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.weight_hh_l0_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.bias_ih_l0_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_end_encoder._module.bias_hh_l0_reverse
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_start_predictor._module.weight
+2018-09-04 05:56:03,688 - INFO - allennlp.commands.train - _span_start_predictor._module.bias
+2018-09-04 05:56:03,689 - INFO - allennlp.commands.train - _span_end_predictor._module.weight
+2018-09-04 05:56:03,689 - INFO - allennlp.commands.train - _span_end_predictor._module.bias
+2018-09-04 05:56:03,689 - INFO - allennlp.common.params - trainer.patience = 10
+2018-09-04 05:56:03,689 - INFO - allennlp.common.params - trainer.validation_metric = +em
+2018-09-04 05:56:03,689 - INFO - allennlp.common.params - trainer.shuffle = True
+2018-09-04 05:56:03,689 - INFO - allennlp.common.params - trainer.num_epochs = 20
+2018-09-04 05:56:03,689 - INFO - allennlp.common.params - trainer.cuda_device = 0
+2018-09-04 05:56:03,689 - INFO - allennlp.common.params - trainer.grad_norm = 5
+2018-09-04 05:56:03,689 - INFO - allennlp.common.params - trainer.grad_clipping = None
+2018-09-04 05:56:06,296 - INFO - allennlp.common.params - trainer.optimizer.type = adam
+2018-09-04 05:56:06,296 - INFO - allennlp.common.params - trainer.optimizer.parameter_groups = None
+2018-09-04 05:56:06,296 - INFO - allennlp.training.optimizers - Number of trainable parameters: 2582095
+2018-09-04 05:56:06,296 - INFO - allennlp.common.registrable - instantiating registered subclass adam of <class 'allennlp.training.optimizers.Optimizer'>
+2018-09-04 05:56:06,296 - INFO - allennlp.common.params - Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+2018-09-04 05:56:06,296 - INFO - allennlp.common.params - CURRENTLY DEFINED PARAMETERS: 
+2018-09-04 05:56:06,296 - INFO - allennlp.common.params - trainer.optimizer.betas = [0.9, 0.9]
+2018-09-04 05:56:06,296 - INFO - allennlp.common.params - trainer.learning_rate_scheduler.type = reduce_on_plateau
+2018-09-04 05:56:06,297 - INFO - allennlp.common.registrable - instantiating registered subclass reduce_on_plateau of <class 'allennlp.training.learning_rate_schedulers.LearningRateScheduler'>
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - Converting Params object to dict; logging of default values will not occur when dictionary parameters are used subsequently.
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - CURRENTLY DEFINED PARAMETERS: 
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.learning_rate_scheduler.factor = 0.5
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.learning_rate_scheduler.mode = max
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.learning_rate_scheduler.patience = 2
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.num_serialized_models_to_keep = 20
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.keep_serialized_model_every_num_seconds = None
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.model_save_interval = None
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.summary_interval = 100
+2018-09-04 05:56:06,297 - INFO - allennlp.common.params - trainer.histogram_interval = None
+2018-09-04 05:56:06,301 - INFO - allennlp.common.params - evaluate_on_test = False
+2018-09-04 05:56:06,301 - INFO - allennlp.training.trainer - Beginning training.
+2018-09-04 05:56:06,301 - INFO - allennlp.training.trainer - Epoch 0/19
+2018-09-04 05:56:06,301 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 6290.1
+2018-09-04 05:56:06,458 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 815
+2018-09-04 05:56:06,458 - INFO - allennlp.training.trainer - Training
+2018-09-04 06:10:13,665 - INFO - allennlp.training.trainer - Validating
+2018-09-04 06:10:35,332 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 06:11:00,658 - INFO - allennlp.training.trainer - Best validation performance so far. Copying weights to '/tmp/squad_serialization/best.th'.
+2018-09-04 06:11:00,709 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 06:11:00,710 - INFO - allennlp.training.trainer - start_acc |     0.320  |     0.539
+2018-09-04 06:11:00,710 - INFO - allennlp.training.trainer - span_acc  |     0.240  |     0.442
+2018-09-04 06:11:00,710 - INFO - allennlp.training.trainer - end_acc   |     0.352  |     0.578
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - loss      |     5.220  |     3.193
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - f1        |     0.389  |     0.674
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - em        |     0.268  |     0.552
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - Epoch duration: 00:14:54
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - Estimated training time remaining: 04:43:13
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - Epoch 1/19
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8790.624
+2018-09-04 06:11:00,935 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 11749
+2018-09-04 06:11:00,936 - INFO - allennlp.training.trainer - Training
+2018-09-04 06:22:00,420 - INFO - allennlp.training.trainer - Validating
+2018-09-04 06:22:01,759 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 06:22:27,112 - INFO - allennlp.training.trainer - Best validation performance so far. Copying weights to '/tmp/squad_serialization/best.th'.
+2018-09-04 06:22:27,443 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 06:22:27,443 - INFO - allennlp.training.trainer - start_acc |     0.532  |     0.592
+2018-09-04 06:22:27,443 - INFO - allennlp.training.trainer - span_acc  |     0.435  |     0.493
+2018-09-04 06:22:27,443 - INFO - allennlp.training.trainer - end_acc   |     0.576  |     0.624
+2018-09-04 06:22:27,444 - INFO - allennlp.training.trainer - loss      |     3.234  |     2.748
+2018-09-04 06:22:27,444 - INFO - allennlp.training.trainer - f1        |     0.633  |     0.725
+2018-09-04 06:22:27,444 - INFO - allennlp.training.trainer - em        |     0.486  |     0.611
+2018-09-04 06:22:27,444 - INFO - allennlp.training.trainer - Epoch duration: 00:11:26
+2018-09-04 06:22:27,445 - INFO - allennlp.training.trainer - Estimated training time remaining: 03:57:10
+2018-09-04 06:22:27,445 - INFO - allennlp.training.trainer - Epoch 2/19
+2018-09-04 06:22:27,445 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8809.356
+2018-09-04 06:22:27,671 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 11749
+2018-09-04 06:22:27,672 - INFO - allennlp.training.trainer - Training
+2018-09-04 06:33:23,141 - INFO - allennlp.training.trainer - Validating
+2018-09-04 06:33:24,511 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 06:33:50,004 - INFO - allennlp.training.trainer - Best validation performance so far. Copying weights to '/tmp/squad_serialization/best.th'.
+2018-09-04 06:33:50,327 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 06:33:50,327 - INFO - allennlp.training.trainer - start_acc |     0.581  |     0.610
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - span_acc  |     0.483  |     0.518
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - end_acc   |     0.625  |     0.646
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - loss      |     2.839  |     2.625
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - f1        |     0.682  |     0.744
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - em        |     0.536  |     0.636
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - Epoch duration: 00:11:22
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - Estimated training time remaining: 03:33:49
+2018-09-04 06:33:50,329 - INFO - allennlp.training.trainer - Epoch 3/19
+2018-09-04 06:33:50,329 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8818.064
+2018-09-04 06:33:50,536 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 06:33:50,536 - INFO - allennlp.training.trainer - Training
+2018-09-04 06:44:48,829 - INFO - allennlp.training.trainer - Validating
+2018-09-04 06:44:50,207 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 06:45:15,953 - INFO - allennlp.training.trainer - Best validation performance so far. Copying weights to '/tmp/squad_serialization/best.th'.
+2018-09-04 06:45:16,273 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - start_acc |     0.609  |     0.622
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - span_acc  |     0.513  |     0.522
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - end_acc   |     0.653  |     0.648
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - loss      |     2.585  |     2.559
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - f1        |     0.712  |     0.755
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - em        |     0.568  |     0.649
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - Epoch duration: 00:11:25
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - Estimated training time remaining: 03:16:39
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - Epoch 4/19
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8827.984
+2018-09-04 06:45:16,499 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 06:45:16,500 - INFO - allennlp.training.trainer - Training
+2018-09-04 06:56:19,142 - INFO - allennlp.training.trainer - Validating
+2018-09-04 06:56:20,421 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 06:56:45,502 - INFO - allennlp.training.trainer - Best validation performance so far. Copying weights to '/tmp/squad_serialization/best.th'.
+2018-09-04 06:56:45,828 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 06:56:45,829 - INFO - allennlp.training.trainer - start_acc |     0.633  |     0.629
+2018-09-04 06:56:45,829 - INFO - allennlp.training.trainer - span_acc  |     0.536  |     0.537
+2018-09-04 06:56:45,829 - INFO - allennlp.training.trainer - end_acc   |     0.677  |     0.663
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - loss      |     2.389  |     2.480
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - f1        |     0.736  |     0.763
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - em        |     0.593  |     0.662
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - Epoch duration: 00:11:29
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - Estimated training time remaining: 03:01:58
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - Epoch 5/19
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8834.276
+2018-09-04 06:56:46,064 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 06:56:46,065 - INFO - allennlp.training.trainer - Training
+2018-09-04 07:07:45,303 - INFO - allennlp.training.trainer - Validating
+2018-09-04 07:07:46,639 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 07:08:12,316 - INFO - allennlp.training.trainer - Best validation performance so far. Copying weights to '/tmp/squad_serialization/best.th'.
+2018-09-04 07:08:12,620 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 07:08:12,621 - INFO - allennlp.training.trainer - start_acc |     0.651  |     0.633
+2018-09-04 07:08:12,621 - INFO - allennlp.training.trainer - span_acc  |     0.554  |     0.544
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - end_acc   |     0.696  |     0.668
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - loss      |     2.222  |     2.537
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - f1        |     0.753  |     0.768
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - em        |     0.611  |     0.670
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - Epoch duration: 00:11:26
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - Estimated training time remaining: 02:48:14
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - Epoch 6/19
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8845.732
+2018-09-04 07:08:12,849 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 07:08:12,850 - INFO - allennlp.training.trainer - Training
+2018-09-04 07:19:11,644 - INFO - allennlp.training.trainer - Validating
+2018-09-04 07:19:12,986 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 07:19:38,097 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 07:19:38,098 - INFO - allennlp.training.trainer - start_acc |     0.669  |     0.626
+2018-09-04 07:19:38,098 - INFO - allennlp.training.trainer - span_acc  |     0.574  |     0.536
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - end_acc   |     0.713  |     0.660
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - loss      |     2.087  |     2.539
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - f1        |     0.771  |     0.762
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - em        |     0.631  |     0.662
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - Epoch duration: 00:11:25
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - Estimated training time remaining: 02:35:07
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - Epoch 7/19
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8852.792
+2018-09-04 07:19:38,324 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 07:19:38,324 - INFO - allennlp.training.trainer - Training
+2018-09-04 07:30:35,947 - INFO - allennlp.training.trainer - Validating
+2018-09-04 07:30:37,313 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 07:31:02,601 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 07:31:02,601 - INFO - allennlp.training.trainer - start_acc |     0.683  |     0.625
+2018-09-04 07:31:02,602 - INFO - allennlp.training.trainer - span_acc  |     0.589  |     0.538
+2018-09-04 07:31:02,602 - INFO - allennlp.training.trainer - end_acc   |     0.730  |     0.664
+2018-09-04 07:31:02,602 - INFO - allennlp.training.trainer - loss      |     1.955  |     2.565
+2018-09-04 07:31:02,602 - INFO - allennlp.training.trainer - f1        |     0.785  |     0.763
+2018-09-04 07:31:02,603 - INFO - allennlp.training.trainer - em        |     0.646  |     0.665
+2018-09-04 07:31:02,603 - INFO - allennlp.training.trainer - Epoch duration: 00:11:24
+2018-09-04 07:31:02,603 - INFO - allennlp.training.trainer - Estimated training time remaining: 02:22:24
+2018-09-04 07:31:02,603 - INFO - allennlp.training.trainer - Epoch 8/19
+2018-09-04 07:31:02,603 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8861.944
+2018-09-04 07:31:02,829 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 07:31:02,830 - INFO - allennlp.training.trainer - Training
+2018-09-04 07:41:59,484 - INFO - allennlp.training.trainer - Validating
+2018-09-04 07:42:00,841 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 07:42:26,565 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 07:42:26,565 - INFO - allennlp.training.trainer - start_acc |     0.696  |     0.627
+2018-09-04 07:42:26,566 - INFO - allennlp.training.trainer - span_acc  |     0.601  |     0.537
+2018-09-04 07:42:26,566 - INFO - allennlp.training.trainer - end_acc   |     0.744  |     0.662
+2018-09-04 07:42:26,566 - INFO - allennlp.training.trainer - loss      |     1.845  |     2.589
+2018-09-04 07:42:26,566 - INFO - allennlp.training.trainer - f1        |     0.797  |     0.763
+2018-09-04 07:42:26,566 - INFO - allennlp.training.trainer - em        |     0.659  |     0.662
+2018-09-04 07:42:26,567 - INFO - allennlp.training.trainer - Epoch duration: 00:11:23
+2018-09-04 07:42:26,567 - INFO - allennlp.training.trainer - Estimated training time remaining: 02:09:58
+2018-09-04 07:42:26,567 - INFO - allennlp.training.trainer - Epoch 9/19
+2018-09-04 07:42:26,567 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8871.792
+2018-09-04 07:42:26,793 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 07:42:26,794 - INFO - allennlp.training.trainer - Training
+2018-09-04 07:53:26,135 - INFO - allennlp.training.trainer - Validating
+2018-09-04 07:53:27,510 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 07:53:52,972 - INFO - allennlp.training.trainer - Best validation performance so far. Copying weights to '/tmp/squad_serialization/best.th'.
+2018-09-04 07:53:53,266 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 07:53:53,266 - INFO - allennlp.training.trainer - start_acc |     0.733  |     0.630
+2018-09-04 07:53:53,266 - INFO - allennlp.training.trainer - span_acc  |     0.642  |     0.543
+2018-09-04 07:53:53,267 - INFO - allennlp.training.trainer - end_acc   |     0.780  |     0.670
+2018-09-04 07:53:53,267 - INFO - allennlp.training.trainer - loss      |     1.568  |     2.669
+2018-09-04 07:53:53,267 - INFO - allennlp.training.trainer - f1        |     0.831  |     0.770
+2018-09-04 07:53:53,267 - INFO - allennlp.training.trainer - em        |     0.700  |     0.673
+2018-09-04 07:53:53,267 - INFO - allennlp.training.trainer - Epoch duration: 00:11:26
+2018-09-04 07:53:53,267 - INFO - allennlp.training.trainer - Estimated training time remaining: 01:57:46
+2018-09-04 07:53:53,268 - INFO - allennlp.training.trainer - Epoch 10/19
+2018-09-04 07:53:53,268 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8880.62
+2018-09-04 07:53:53,497 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 07:53:53,497 - INFO - allennlp.training.trainer - Training
+2018-09-04 08:04:56,451 - INFO - allennlp.training.trainer - Validating
+2018-09-04 08:04:57,807 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 08:05:23,214 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 08:05:23,215 - INFO - allennlp.training.trainer - start_acc |     0.750  |     0.627
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - span_acc  |     0.662  |     0.540
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - end_acc   |     0.797  |     0.663
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - loss      |     1.431  |     2.808
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - f1        |     0.846  |     0.765
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - em        |     0.719  |     0.667
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - Epoch duration: 00:11:29
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - Estimated training time remaining: 01:45:46
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - Epoch 11/19
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8890.356
+2018-09-04 08:05:23,424 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 08:05:23,425 - INFO - allennlp.training.trainer - Training
+2018-09-04 08:16:23,162 - INFO - allennlp.training.trainer - Validating
+2018-09-04 08:16:24,531 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 08:16:49,877 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 08:16:49,877 - INFO - allennlp.training.trainer - start_acc |     0.760  |     0.625
+2018-09-04 08:16:49,878 - INFO - allennlp.training.trainer - span_acc  |     0.673  |     0.539
+2018-09-04 08:16:49,878 - INFO - allennlp.training.trainer - end_acc   |     0.808  |     0.660
+2018-09-04 08:16:49,878 - INFO - allennlp.training.trainer - loss      |     1.354  |     2.864
+2018-09-04 08:16:49,879 - INFO - allennlp.training.trainer - f1        |     0.855  |     0.764
+2018-09-04 08:16:49,879 - INFO - allennlp.training.trainer - em        |     0.730  |     0.668
+2018-09-04 08:16:49,879 - INFO - allennlp.training.trainer - Epoch duration: 00:11:26
+2018-09-04 08:16:49,879 - INFO - allennlp.training.trainer - Estimated training time remaining: 01:33:49
+2018-09-04 08:16:49,879 - INFO - allennlp.training.trainer - Epoch 12/19
+2018-09-04 08:16:49,879 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8896.552
+2018-09-04 08:16:50,085 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 08:16:50,086 - INFO - allennlp.training.trainer - Training
+2018-09-04 08:27:50,970 - INFO - allennlp.training.trainer - Validating
+2018-09-04 08:27:52,299 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 08:28:18,231 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 08:28:18,232 - INFO - allennlp.training.trainer - start_acc |     0.765  |     0.622
+2018-09-04 08:28:18,232 - INFO - allennlp.training.trainer - span_acc  |     0.681  |     0.535
+2018-09-04 08:28:18,233 - INFO - allennlp.training.trainer - end_acc   |     0.816  |     0.659
+2018-09-04 08:28:18,233 - INFO - allennlp.training.trainer - loss      |     1.295  |     2.974
+2018-09-04 08:28:18,233 - INFO - allennlp.training.trainer - f1        |     0.860  |     0.763
+2018-09-04 08:28:18,233 - INFO - allennlp.training.trainer - em        |     0.738  |     0.662
+2018-09-04 08:28:18,233 - INFO - allennlp.training.trainer - Epoch duration: 00:11:28
+2018-09-04 08:28:18,233 - INFO - allennlp.training.trainer - Estimated training time remaining: 01:21:57
+2018-09-04 08:28:18,234 - INFO - allennlp.training.trainer - Epoch 13/19
+2018-09-04 08:28:18,234 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8907.148
+2018-09-04 08:28:18,454 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 08:28:18,455 - INFO - allennlp.training.trainer - Training
+2018-09-04 08:39:19,184 - INFO - allennlp.training.trainer - Validating
+2018-09-04 08:39:20,525 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 08:39:45,633 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - start_acc |     0.790  |     0.623
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - span_acc  |     0.710  |     0.535
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - end_acc   |     0.838  |     0.658
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - loss      |     1.132  |     3.129
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - f1        |     0.880  |     0.762
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - em        |     0.764  |     0.661
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - Epoch duration: 00:11:27
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - Estimated training time remaining: 01:10:08
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - Epoch 14/19
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8914.624
+2018-09-04 08:39:45,857 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 08:39:45,858 - INFO - allennlp.training.trainer - Training
+2018-09-04 08:50:45,925 - INFO - allennlp.training.trainer - Validating
+2018-09-04 08:50:47,257 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 08:51:12,498 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 08:51:12,499 - INFO - allennlp.training.trainer - start_acc |     0.797  |     0.619
+2018-09-04 08:51:12,499 - INFO - allennlp.training.trainer - span_acc  |     0.719  |     0.533
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - end_acc   |     0.847  |     0.657
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - loss      |     1.073  |     3.189
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - f1        |     0.885  |     0.762
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - em        |     0.773  |     0.662
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - Epoch duration: 00:11:26
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - Estimated training time remaining: 00:58:22
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - Epoch 15/19
+2018-09-04 08:51:12,501 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8922.932
+2018-09-04 08:51:12,728 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 08:51:12,729 - INFO - allennlp.training.trainer - Training
+2018-09-04 09:02:12,081 - INFO - allennlp.training.trainer - Validating
+2018-09-04 09:02:13,452 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 09:02:38,914 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 09:02:38,915 - INFO - allennlp.training.trainer - start_acc |     0.803  |     0.619
+2018-09-04 09:02:38,915 - INFO - allennlp.training.trainer - span_acc  |     0.728  |     0.535
+2018-09-04 09:02:38,915 - INFO - allennlp.training.trainer - end_acc   |     0.854  |     0.656
+2018-09-04 09:02:38,915 - INFO - allennlp.training.trainer - loss      |     1.029  |     3.306
+2018-09-04 09:02:38,916 - INFO - allennlp.training.trainer - f1        |     0.891  |     0.761
+2018-09-04 09:02:38,916 - INFO - allennlp.training.trainer - em        |     0.781  |     0.660
+2018-09-04 09:02:38,916 - INFO - allennlp.training.trainer - Epoch duration: 00:11:26
+2018-09-04 09:02:38,916 - INFO - allennlp.training.trainer - Estimated training time remaining: 00:46:38
+2018-09-04 09:02:38,916 - INFO - allennlp.training.trainer - Epoch 16/19
+2018-09-04 09:02:38,916 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8933.332
+2018-09-04 09:02:39,142 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 09:02:39,142 - INFO - allennlp.training.trainer - Training
+2018-09-04 09:13:40,545 - INFO - allennlp.training.trainer - Validating
+2018-09-04 09:13:41,899 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 09:14:07,714 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 09:14:07,715 - INFO - allennlp.training.trainer - start_acc |     0.815  |     0.621
+2018-09-04 09:14:07,715 - INFO - allennlp.training.trainer - span_acc  |     0.742  |     0.536
+2018-09-04 09:14:07,715 - INFO - allennlp.training.trainer - end_acc   |     0.866  |     0.659
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - loss      |     0.951  |     3.367
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - f1        |     0.900  |     0.763
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - em        |     0.795  |     0.663
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - Epoch duration: 00:11:28
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - Estimated training time remaining: 00:34:56
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - Epoch 17/19
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8942.048
+2018-09-04 09:14:07,950 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 09:14:07,950 - INFO - allennlp.training.trainer - Training
+2018-09-04 09:25:10,171 - INFO - allennlp.training.trainer - Validating
+2018-09-04 09:25:11,512 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 09:25:37,027 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 09:25:37,028 - INFO - allennlp.training.trainer - start_acc |     0.820  |     0.620
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - span_acc  |     0.748  |     0.538
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - end_acc   |     0.869  |     0.663
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - loss      |     0.919  |     3.528
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - f1        |     0.904  |     0.764
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - em        |     0.800  |     0.666
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - Epoch duration: 00:11:29
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - Estimated training time remaining: 00:23:16
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - Epoch 18/19
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8950.26
+2018-09-04 09:25:37,258 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 09:25:37,259 - INFO - allennlp.training.trainer - Training
+2018-09-04 09:36:35,573 - INFO - allennlp.training.trainer - Validating
+2018-09-04 09:36:36,909 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 09:37:02,190 - INFO - allennlp.training.trainer -               Training |  Validation
+2018-09-04 09:37:02,191 - INFO - allennlp.training.trainer - start_acc |     0.826  |     0.625
+2018-09-04 09:37:02,191 - INFO - allennlp.training.trainer - span_acc  |     0.754  |     0.536
+2018-09-04 09:37:02,192 - INFO - allennlp.training.trainer - end_acc   |     0.874  |     0.658
+2018-09-04 09:37:02,192 - INFO - allennlp.training.trainer - loss      |     0.890  |     3.529
+2018-09-04 09:37:02,192 - INFO - allennlp.training.trainer - f1        |     0.907  |     0.763
+2018-09-04 09:37:02,192 - INFO - allennlp.training.trainer - em        |     0.806  |     0.663
+2018-09-04 09:37:02,192 - INFO - allennlp.training.trainer - Epoch duration: 00:11:25
+2018-09-04 09:37:02,192 - INFO - allennlp.training.trainer - Estimated training time remaining: 00:11:37
+2018-09-04 09:37:02,193 - INFO - allennlp.training.trainer - Epoch 19/19
+2018-09-04 09:37:02,193 - INFO - allennlp.training.trainer - Peak CPU memory usage MB: 8958.248
+2018-09-04 09:37:02,433 - INFO - allennlp.training.trainer - GPU 0 memory usage MB: 13699
+2018-09-04 09:37:02,434 - INFO - allennlp.training.trainer - Training
+2018-09-04 09:48:03,612 - INFO - allennlp.training.trainer - Validating
+2018-09-04 09:48:04,974 - WARNING - allennlp.data.iterators.bucket_iterator - shuffle parameter is set to False, while bucket iterators by definition change the order of your data.
+2018-09-04 09:48:30,700 - INFO - allennlp.training.trainer - Ran out of patience.  Stopping training.
+2018-09-04 09:48:30,700 - INFO - allennlp.models.archival - archiving weights and vocabulary to /tmp/squad_serialization/model.tar.gz
+2018-09-04 09:48:33,502 - INFO - allennlp.commands.train - Loading the best epoch weights.
+2018-09-04 09:48:33,570 - INFO - allennlp.commands.train - Metrics: {
+  "training_duration": "03:52:24",
+  "training_start_epoch": 0,
+  "training_epochs": 19,
+  "training_start_acc": 0.831265197091291,
+  "training_end_acc": 0.8801470336419366,
+  "training_span_acc": 0.7621890660852293,
+  "training_em": 0.81304581102524,
+  "training_f1": 0.9119728708166394,
+  "training_loss": 0.8512473794151114,
+  "validation_start_acc": 0.6198675496688741,
+  "validation_end_acc": 0.6578997161778619,
+  "validation_span_acc": 0.5349101229895932,
+  "validation_em": 0.663670766319773,
+  "validation_f1": 0.7645129339325812,
+  "validation_loss": 3.6188188597841084,
+  "best_validation_start_acc": 0.630085146641438,
+  "best_validation_end_acc": 0.6702932828760644,
+  "best_validation_span_acc": 0.5433301797540208,
+  "best_validation_em": 0.6727530747398297,
+  "best_validation_f1": 0.7699743638989827,
+  "best_validation_loss": 2.6694209908539395,
+  "best_epoch": 9
+}
+<class 'allennlp.data.tokenizers.character_tokenizer.CharacterTokenizer'>
+<class 'allennlp.modules.text_field_embedders.text_field_embedder.TextFieldEmbedder'>
+<class 'allennlp.modules.seq2seq_encoders.seq2seq_encoder.Seq2SeqEncoder'>
+<class 'allennlp.modules.similarity_functions.similarity_function.SimilarityFunction'>
+<class 'allennlp.modules.seq2seq_encoders.seq2seq_encoder.Seq2SeqEncoder'>
+<class 'allennlp.modules.seq2seq_encoders.seq2seq_encoder.Seq2SeqEncoder'>
