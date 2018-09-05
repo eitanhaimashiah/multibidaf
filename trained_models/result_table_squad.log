@@ -1,0 +1,23 @@
+2018-09-04 05:54:29,282 - INFO - allennlp.data.dataset_readers.reading_comprehension.squad - Reading file at /home/eitanhaimashiah/.allennlp/datasets/9d71029aaa0756c2c61776d338b30948212e767f2753f159df0f8fe1dd4267ff.ecb722fee55bf415b85baaa96fa6da0785e392b5d122301c710b06bf51f7bdc3
+2018-09-04 06:11:00,711 - INFO - allennlp.training.trainer - f1        |     0.389  |     0.674
+2018-09-04 06:22:27,444 - INFO - allennlp.training.trainer - f1        |     0.633  |     0.725
+2018-09-04 06:33:50,328 - INFO - allennlp.training.trainer - f1        |     0.682  |     0.744
+2018-09-04 06:45:16,275 - INFO - allennlp.training.trainer - f1        |     0.712  |     0.755
+2018-09-04 06:56:45,830 - INFO - allennlp.training.trainer - f1        |     0.736  |     0.763
+2018-09-04 07:08:12,622 - INFO - allennlp.training.trainer - f1        |     0.753  |     0.768
+2018-09-04 07:19:38,099 - INFO - allennlp.training.trainer - f1        |     0.771  |     0.762
+2018-09-04 07:31:02,602 - INFO - allennlp.training.trainer - f1        |     0.785  |     0.763
+2018-09-04 07:42:26,566 - INFO - allennlp.training.trainer - f1        |     0.797  |     0.763
+2018-09-04 07:53:53,267 - INFO - allennlp.training.trainer - f1        |     0.831  |     0.770
+2018-09-04 08:05:23,216 - INFO - allennlp.training.trainer - f1        |     0.846  |     0.765
+2018-09-04 08:16:49,879 - INFO - allennlp.training.trainer - f1        |     0.855  |     0.764
+2018-09-04 08:28:18,233 - INFO - allennlp.training.trainer - f1        |     0.860  |     0.763
+2018-09-04 08:39:45,634 - INFO - allennlp.training.trainer - f1        |     0.880  |     0.762
+2018-09-04 08:51:12,500 - INFO - allennlp.training.trainer - f1        |     0.885  |     0.762
+2018-09-04 09:02:38,916 - INFO - allennlp.training.trainer - f1        |     0.891  |     0.761
+2018-09-04 09:14:07,716 - INFO - allennlp.training.trainer - f1        |     0.900  |     0.763
+2018-09-04 09:25:37,029 - INFO - allennlp.training.trainer - f1        |     0.904  |     0.764
+2018-09-04 09:37:02,192 - INFO - allennlp.training.trainer - f1        |     0.907  |     0.763
+  "training_f1": 0.9119728708166394,
+  "validation_f1": 0.7645129339325812,
+  "best_validation_f1": 0.7699743638989827,

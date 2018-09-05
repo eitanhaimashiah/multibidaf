@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2018.8.28)  4 SEP 2018 18:03
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/Arch Linux) (preloaded format=xelatex 2018.8.28)  5 SEP 2018 16:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -532,27 +532,28 @@ Package biblatex Info: Reference section=0 on input line 23.
 Package biblatex Info: Reference segment=0 on input line 23.
  [1
 
-] [2] [3] [4]
-File: images/bidaf.png Graphic file (type bmp)
-<images/bidaf.png>
-File: images/bidaf.png Graphic file (type bmp)
-<images/bidaf.png>
-File: images/bidaf.png Graphic file (type bmp)
-<images/bidaf.png>
+] [2] [3]
+Overfull \hbox (25.46405pt too wide) in paragraph at lines 145--146
+\TU/lmr/m/n/12 https://github.com/eitanhaimashiah/multibidaf 
+ []
+
+[4]
+File: images/BiDAF.png Graphic file (type bmp)
+<images/BiDAF.png>
+File: images/squad.png Graphic file (type bmp)
+<images/squad.png>
+File: images/multirc.png Graphic file (type bmp)
+<images/multirc.png>
  [5] [6] [7] (./report.aux)
-
-Package biblatex Warning: Please rerun LaTeX.
-(biblatex)                Page breaks have changed.
-
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 9048 strings out of 492970
- 155509 string characters out of 6139408
- 452406 words of memory out of 5000000
- 12967 multiletter control sequences out of 15000+600000
+ 9057 strings out of 492970
+ 155662 string characters out of 6139408
+ 453406 words of memory out of 5000000
+ 12973 multiletter control sequences out of 15000+600000
  8486 words of font info for 40 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  42i,6n,47p,825b,4382s stack positions out of 5000i,500n,10000p,200000b,80000s

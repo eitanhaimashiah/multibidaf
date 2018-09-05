@@ -1,0 +1,23 @@
+2018-09-05 16:09:04,441 - INFO - allennlp.training.trainer -                 Training |  Validation
+2018-09-05 16:09:04,441 - INFO - allennlp.training.trainer - ss_f1_m     |     0.482  |     0.738
+2018-09-05 16:09:04,442 - INFO - allennlp.training.trainer - f1_m        |     0.646  |     0.593
+2018-09-05 16:10:57,779 - INFO - allennlp.training.trainer - ss_f1_m     |     0.603  |     0.769
+2018-09-05 16:10:57,780 - INFO - allennlp.training.trainer - f1_m        |     0.630  |     0.590
+2018-09-05 16:12:49,756 - INFO - allennlp.training.trainer - ss_f1_m     |     0.662  |     0.780
+2018-09-05 16:12:49,756 - INFO - allennlp.training.trainer - f1_m        |     0.628  |     0.583
+2018-09-05 16:14:40,992 - INFO - allennlp.training.trainer - ss_f1_m     |     0.696  |     0.790
+2018-09-05 16:14:40,992 - INFO - allennlp.training.trainer - f1_m        |     0.620  |     0.576
+2018-09-05 16:16:31,726 - INFO - allennlp.training.trainer - ss_f1_m     |     0.725  |     0.771
+2018-09-05 16:16:31,726 - INFO - allennlp.training.trainer - f1_m        |     0.610  |     0.567
+2018-09-05 16:18:19,372 - INFO - allennlp.training.trainer - ss_f1_m     |     0.760  |     0.774
+2018-09-05 16:18:19,372 - INFO - allennlp.training.trainer - f1_m        |     0.608  |     0.559
+2018-09-05 16:20:06,730 - INFO - allennlp.training.trainer - ss_f1_m     |     0.772  |     0.769
+2018-09-05 16:20:06,730 - INFO - allennlp.training.trainer - f1_m        |     0.603  |     0.554
+2018-09-05 16:21:56,569 - INFO - allennlp.training.trainer - ss_f1_m     |     0.782  |     0.757
+2018-09-05 16:21:56,570 - INFO - allennlp.training.trainer - f1_m        |     0.598  |     0.549
+2018-09-05 16:23:43,097 - INFO - allennlp.training.trainer - ss_f1_m     |     0.795  |     0.753
+2018-09-05 16:23:43,098 - INFO - allennlp.training.trainer - f1_m        |     0.596  |     0.553
+2018-09-05 16:25:29,493 - INFO - allennlp.training.trainer - ss_f1_m     |     0.802  |     0.741
+2018-09-05 16:25:29,493 - INFO - allennlp.training.trainer - f1_m        |     0.599  |     0.545
+2018-09-05 16:27:16,460 - INFO - allennlp.training.trainer - ss_f1_m     |     0.807  |     0.744
+2018-09-05 16:27:16,460 - INFO - allennlp.training.trainer - f1_m        |     0.594  |     0.542
