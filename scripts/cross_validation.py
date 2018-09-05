@@ -82,13 +82,13 @@ def grid_search(model_archive_path: str,
 
 
 if __name__ == "__main__":
-    # grid_search("/tmp/squad_serialization/model.tar.gz",
-    #             "training_config/multirc_config.json",
-    #             "/tmp/multirc_serialization",
-    #             step=0.2)
-
-    grid_search("/tmp/test/squad_serialization/model.tar.gz",
-                "multibidaf/tests/fixtures/multirc_experiment.json",
-                "/tmp/test/multirc_serialization",
+    grid_search("/tmp/squad_serialization/model.tar.gz",
+                "training_config/multirc_config.json",
+                "/tmp/multirc_serialization",
                 step=0.2)
+
+    # grid_search("/tmp/test/squad_serialization/model.tar.gz",
+    #             "multibidaf/tests/fixtures/multirc_experiment.json",
+    #             "/tmp/test/multirc_serialization",
+    #             step=0.2)
 
