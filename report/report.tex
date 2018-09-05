@@ -148,7 +148,7 @@ citestyle=authoryear
 		
 			We report final results and learning curves both for the relevant sentences found and for the correct answers found.
 			
-			Following \cite{Rajpurkar2018} , we define $ A(q) $ as the set of correct items and $ \hat{A}(q) $ as the set of selected items. Precision (positive predictive value) is $ \frac{|A(q)| \cap |\hat{A}(q)|}{|\hat{A}(q)|} $ and recall (sensitivity) is $ \frac{|A(q)| \cap |\hat{A}(q)|}{|A(q)|} $.
+			Following \cite{Rajpurkar2018} , we define $ A(q) $ as the set of correct items and $ \hat{A}(q) $ as the set of selected items. Precision (positive predictive value) is $ \frac{|A(q) \cap \hat{A}(q)|}{|\hat{A}(q)|} $ and recall (sensitivity) is $ \frac{|A(q) \cap \hat{A}(q)|}{|A(q)|} $.
 			
 			Then, (macro-average) $ F1_m $ is the harmonic mean of average precision and average recall of all questions, and $ F1_a $ the harmonic mean of sensitivity and recall measured by first "OR"ing all the correct and chosen answers.
 			
