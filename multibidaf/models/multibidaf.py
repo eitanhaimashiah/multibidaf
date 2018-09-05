@@ -96,9 +96,9 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None,
                  tfidf_path: str = None,
-                 span_threshold: float = 0.6,
-                 true_threshold: float = 0.3,
-                 false_threshold: float = 0.3) -> None:
+                 span_threshold: float = 0.65,
+                 true_threshold: float = 0.25,
+                 false_threshold: float = 0.25) -> None:
 
         self._is_squad = False
         span_end_encoder = span_end_encoder or Seq2SeqEncoder.from_params(Params({"type": "lstm",
