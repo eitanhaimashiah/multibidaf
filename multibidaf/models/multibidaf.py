@@ -96,9 +96,9 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None,
                  tfidf_path: str = None,
-                 span_threshold: float = 0.5,
-                 true_threshold: float = 0.7,
-                 false_threshold: float = 0.3) -> None:
+                 span_threshold: float = 0.7,
+                 true_threshold: float = 0.4,
+                 false_threshold: float = 0.4) -> None:
 
         self._is_squad = False
         span_end_encoder = span_end_encoder or Seq2SeqEncoder.from_params(Params({"type": "lstm",
@@ -111,6 +111,11 @@ class MultipleBidirectionalAttentionFlow(BidirectionalAttentionFlow):
         self._span_threshold = span_threshold
         self._true_threshold = true_threshold
         self._false_threshold = false_threshold
+        logger.info("-" * 100)
+        logger.info("The current setting is (span_threshold={}, true_threshold={}, false_threshold={})"
+                    .format(self._span_threshold, self._true_threshold, self._false_threshold))
+        logger.info("-" * 100)
+
         super(MultipleBidirectionalAttentionFlow, self).__init__(vocab,
                                                                  text_field_embedder,
                                                                  num_highway_layers,
